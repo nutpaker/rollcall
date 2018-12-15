@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,Events } from 'ionic-angular';
 
 import {AuthenticationProvider} from '../../providers/authentication/authentication'
 
@@ -9,9 +9,16 @@ import {AuthenticationProvider} from '../../providers/authentication/authenticat
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController,private AuthService:AuthenticationProvider) {
+  constructor(
+    public navCtrl: NavController,
+    private AuthService:AuthenticationProvider,
+    public events:Events
+    ) {
   }
-
+  
+  ionViewWillEnter(){
+    this.events.publish('dismissLoading');
+  }
   toLogout(){
     this.AuthService.logout();
   }
