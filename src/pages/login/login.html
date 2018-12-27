@@ -6,43 +6,59 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
+  <div style="color:#ffffff; text-align:center;"><h1>Log In</h1></div>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="Background">
+
+  <img class="logoImg" src= '../../assets/imgs/qr.png'>
+  <br>
 
   <form [formGroup]="authForm" (ngSubmit)="toLogin()">
 
-    <ion-item>
+    <ion-item class="Bg-Transparent">
       <ion-input formControlName="email" clearInput type="text" placeholder="Email"></ion-input>
       <ion-icon item-end name="ios-contact-outline"></ion-icon>
     </ion-item>
     <span *ngIf="authForm.controls.email.errors?.required && (authForm.controls.email.dirty || authForm.controls.email.touched)">
-      <ion-label class="label-error">
+      <ion-label>
         <ion-icon name="md-information-circle"></ion-icon> Username is required
       </ion-label>
     </span>
 
-    <ion-item>
+    <ion-item  class="Bg-Transparent">
       <ion-input formControlName="password" clearInput type="password" placeholder="Password"></ion-input>
-      <ion-icon item-end name="ios-contact-outline"></ion-icon>
+      <ion-icon item-end name="ios-lock-outline"></ion-icon>
     </ion-item>
 
     <span *ngIf="authForm.controls.password.errors?.required && (authForm.controls.password.dirty || authForm.controls.password.touched)">
-      <ion-label class="label-error">
+      <ion-label>
         <ion-icon name="md-information-circle"></ion-icon> Password is required
       </ion-label>
     </span>
 
-    <button ion-button round outline type="submit" [disabled]="authForm.invalid">LOGIN</button>
+    <br>
 
+    <div text-center>
+      <button class="BtnLogin" ion-button round outline type="submit" [disabled]="authForm.invalid">LOGIN</button>
+    </div>
   </form>
 
-  
-  <button ion-button round outline (click)="toRegister()">Register</button>
+
+  <ion-footer>
+      <div text-center>
+        <button class="BtnRegister" ion-button round outline (click)="toRegister()">Register Now</button>
+      </div>
+  </ion-footer>
+
+  <!-- <ion-footer>
+    <ion-toolbar>
+      <div text-center>
+        <button class="Btn300px" ion-button round outline (click)="toRegister()">Register Now</button>
+      </div>
+    </ion-toolbar>
+  </ion-footer> -->
 
 </ion-content>

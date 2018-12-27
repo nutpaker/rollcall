@@ -1,3 +1,35 @@
 page-login {
 
+  .Background {
+    background-image: url('../../assets/imgs/BgLogin.jpg');
+  }
+
+  .Bg-Transparent{
+    background: transparent;
+    color: white;
+  }
+
+  .button.BtnLogin{
+    width:90%;
+    background-color:green;// background-color:#F6AA36;
+    color:white;
+    border-color: white;
+  }
+
+  .button.BtnRegister{
+    width:90%;
+    color:white;
+    border-color: white;
+    margin-bottom: 20px;
+  }
+
+  .logoImg{
+    height: 150px;
+    width: auto;
+    margin: auto;
+    display: block;
+  }
+
 }
+
+
