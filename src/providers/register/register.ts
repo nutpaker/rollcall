@@ -57,6 +57,7 @@ export class RegisterProvider {
 
     var profile = {
       uid: keys,
+      email:regForm.email,
       student_id: regForm.studentid,
       fname: regForm.firstname,
       lname: regForm.lastname,
