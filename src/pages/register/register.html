@@ -14,61 +14,139 @@
 
 
 <ion-content padding>
-    <form [formGroup]="regForm" (ngSubmit)="toLogin()">
+    <form [formGroup]="regForm" (ngSubmit)="toRegister()">
 
         <ion-item>
           <ion-input formControlName="email" clearInput type="text" placeholder="Email"></ion-input>
           <ion-icon item-end name="ios-contact-outline"></ion-icon>
         </ion-item>
 
+        <span *ngIf="regForm.controls.email.errors?.emailchk && (regForm.controls.email.dirty || regForm.controls.email.touched)">
+          <ion-label class="label-error">
+            <ion-icon name="md-information-circle"></ion-icon> Username is required............
+          </ion-label>
+        </span>
+
+        <span *ngIf="regForm.controls.email.errors?.email && (regForm.controls.email.dirty || regForm.controls.email.touched)">
+          <ion-label class="label-error">
+            <ion-icon name="md-information-circle"></ion-icon> email
+          </ion-label>
+        </span>
+
         <ion-item>
           <ion-input formControlName="password" clearInput type="password" placeholder="Password"></ion-input>
           <ion-icon item-end name="ios-contact-outline"></ion-icon>
         </ion-item>
+
+        <span *ngIf="regForm.controls.password.errors?.required && (regForm.controls.password.dirty || regForm.controls.password.touched)">
+          <ion-label class="label-error">
+            <ion-icon name="md-information-circle"></ion-icon> Username is required
+          </ion-label>
+        </span>
 
         <ion-item>
           <ion-input formControlName="confirmPassword" clearInput type="password" placeholder="Confirm Password"></ion-input>
           <ion-icon item-end name="ios-contact-outline"></ion-icon>
         </ion-item>
 
+        <span *ngIf="regForm.controls.confirmPassword.errors?.MatchPassword && (regForm.controls.confirmPassword.dirty || regForm.controls.confirmPassword.touched)">
+          <ion-label class="label-error">
+            <ion-icon name="md-information-circle"></ion-icon> Username is required
+          </ion-label>
+        </span>
+
         <ion-item>
           <ion-input formControlName="firstname" clearInput type="text" placeholder="First name"></ion-input>
           <ion-icon item-end name="ios-contact-outline"></ion-icon>
         </ion-item>
 
+        <span *ngIf="regForm.controls.firstname.errors?.required && (regForm.controls.firstname.dirty || regForm.controls.firstname.touched)">
+          <ion-label class="label-error">
+            <ion-icon name="md-information-circle"></ion-icon> Username is required
+          </ion-label>
+        </span>
+
         <ion-item>
           <ion-input formControlName="lastname" clearInput type="text" placeholder="Last name"></ion-input>
           <ion-icon item-end name="ios-contact-outline"></ion-icon>
         </ion-item>
+
+        <span *ngIf="regForm.controls.lastname.errors?.required && (regForm.controls.lastname.dirty || regForm.controls.lastname.touched)">
+          <ion-label class="label-error">
+            <ion-icon name="md-information-circle"></ion-icon> Username is required
+          </ion-label>
+        </span>
         
         <ion-item>
-          <ion-input formControlName="studentid" clearInput type="text" placeholder="Student ID"></ion-input>
+          <ion-input formControlName="studentid" clearInput type="text" maxlength="10" placeholder="Student ID"></ion-input>
           <ion-icon item-end name="ios-contact-outline"></ion-icon>
         </ion-item>
 
-        <ion-item>
-            <ion-label floating>What Is Your Proficiency In English?<span>*</span></ion-label>
-            <ion-select formControlName="faculty">
-              <ion-option value="fluent">Fluent</ion-option>
-              <ion-option value="read only">Read Only</ion-option>
-              <ion-option value="write only">Write Only</ion-option>
-              <ion-option value="speak only">Speak Only</ion-option>
-              <ion-option value="understand only">Understand Only</ion-option>
-              <ion-option value="Don't Know">Don't Know</ion-option>
-            </ion-select>
-        </ion-item>
+        <span *ngIf="regForm.controls.studentid.errors?.student && (regForm.controls.studentid.dirty || regForm.controls.studentid.touched)">
+          <ion-label class="label-error">
+            <ion-icon name="md-information-circle"></ion-icon> Username is required.....
+          </ion-label>
+        </span>
 
-        <ion-item>
-            <ion-label floating>What Is Your Proficiency In English?<span>*</span></ion-label>
-            <ion-select formControlName="major">
-              <ion-option value="fluent">Fluent</ion-option>
-              <ion-option value="read only">Read Only</ion-option>
-              <ion-option value="write only">Write Only</ion-option>
-              <ion-option value="speak only">Speak Only</ion-option>
-              <ion-option value="understand only">Understand Only</ion-option>
-              <ion-option value="Don't Know">Don't Know</ion-option>
-            </ion-select>
-        </ion-item>
+        <span *ngIf="regForm.controls.studentid.errors?.required && (regForm.controls.studentid.dirty || regForm.controls.studentid.touched)">
+          <ion-label class="label-error">
+            <ion-icon name="md-information-circle"></ion-icon> Username is required
+          </ion-label>
+        </span>
 
+
+        <ion-item no-lines>
+          <ion-select placeholder="Select Faculty"    [selectOptions]="FacultyOption" formControlName="faculty"  class="myCustomSelect">
+              <ion-option value="Eng">คณะวิศวกรรมศาสตร์</ion-option>
+              <ion-option value="IT">คณะเทคโนโลยีสารสนเทศ</ion-option>
+              <ion-option value="BA">คณะเทคบริหารธุรกิจ</ion-option>
+          </ion-select>
+      </ion-item>
+
+
+        <span *ngIf="regForm.controls.faculty.errors?.required && (regForm.controls.faculty.dirty || regForm.controls.faculty.touched)">
+          <ion-label class="label-error">
+            <ion-icon name="md-information-circle"></ion-icon> Username is required
+          </ion-label>
+        </span>
+
+
+
+        <ion-item no-lines item-start>
+          <ion-select *ngIf="regForm.value.faculty == 'Eng'"  [selectOptions]="MajorOption" placeholder="Select Majoy" formControlName="major">
+              <ion-option value="AE">สาขาวิศวกรรมยานยนต์ (AE)</ion-option>
+              <ion-option value="PE">สาขาวิศวกรรมการผลิต (PE)</ion-option>
+              <ion-option value="CE">สาขาวิศวกรรมคอมพิวเตอร์ (CE)</ion-option>
+              <ion-option value="IE">สาขาวิศวกรรมอุตสาหการ (IE)</ion-option>
+              <ion-option value="EE">สาขาวิศวกรรมไฟฟ้า (EE)</ion-option>
+          </ion-select>
+          <ion-select *ngIf="regForm.value.faculty == 'IT'"  [selectOptions]="MajorOption" placeholder="Select Majoy" formControlName="major">
+            <ion-option value="IT">สาขาเทคโนโลยีสารสนเทศ (IT)</ion-option>
+            <ion-option value="MT">สาขาเทคโนโลยีมัลติมีเดีย (MT)</ion-option>
+            <ion-option value="BI">สาขาเทคโนโลยีสารสนเทศทางธุรกิจ (BI)</ion-option>
+            <ion-option value="DC">สาขาเทคโนโลยีดิจิทัลทางสื่อสารมวลชน (DC)</ion-option>
+          </ion-select>
+          <ion-select *ngIf="regForm.value.faculty == 'BA'"  [selectOptions]="MajorOption" placeholder="Select Majoy" formControlName="major">
+            <ion-option value="MI">สาขาการจัดการเทคโนโลยีและนวัตกรรมการผลิต (MI)</ion-option>
+            <ion-option value="BJ">สาขาบริหารธุรกิจญี่ปุ่น (BJ)</ion-option>
+            <ion-option value="IB">สาขาการจัดการธุรกิจระหว่างประเทศ (IB)</ion-option>
+            <ion-option value="AC">สาขาการบัญชี (AC)</ion-option>
+            <ion-option value="HR">สาขาการจัดการทรัพยากรมนุษย์แบบญี่ปุ่น (HR)</ion-option>
+            <ion-option value="LM">สาขาการจัดการโลจิสติกส์และโซ่อุปทาน (LM)</ion-option>
+            <ion-option value="CM">สาขาการตลาดเชิงสร้างสรรค์ (CM)</ion-option>
+            <ion-option value="TH">สาขาการจัดการกรท่องเที่ยวและการบริการเชิงนวัตกรรม(TH)</ion-option>
+          </ion-select>
+          <ion-select *ngIf="regForm.value.faculty == null"  [selectOptions]="MajorOption" placeholder="Select Majoy" formControlName="major">
+          </ion-select>
+      </ion-item>
+
+        <span *ngIf="regForm.controls.major.errors?.required && (regForm.controls.major.dirty || regForm.controls.major.touched)">
+          <ion-label class="label-error">
+            <ion-icon name="md-information-circle"></ion-icon> Username is required
+          </ion-label>
+        </span>
+
+        <button ion-button round outline type="submit" [disabled]="regForm.invalid">Register</button>
       </form>
+
 </ion-content>

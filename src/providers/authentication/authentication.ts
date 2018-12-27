@@ -24,22 +24,22 @@ export class AuthenticationProvider {
     return this.auth.auth.signOut();
   }
 
-  studentidChk(stuid:string):Boolean{
-    this.itemRef = this.af.list("/profiles");
-    this.items = this.itemRef.snapshotChanges()
-      .map(changes => {
-        return changes.map(c => ({
-          key: c.payload.key, ...c.payload.val()
-        }));
-      });
-    this.items.forEach(res => {
-      let profiles = <any>res;
-      for (let i of profiles) {
-        if (i.student_id == stuid) {
-          return true
-        }
-      }
-    });
-    return false
-  }
+  // studentidChk(stuid:string):Boolean{
+  //   this.itemRef = this.af.list("/profiles");
+  //   this.items = this.itemRef.snapshotChanges()
+  //     .map(changes => {
+  //       return changes.map(c => ({
+  //         key: c.payload.key, ...c.payload.val()
+  //       }));
+  //     });
+  //   this.items.forEach(res => {
+  //     let profiles = <any>res;
+  //     for (let i of profiles) {
+  //       if (i.student_id == stuid) {
+  //         return true
+  //       }
+  //     }
+  //   });
+  //   return false
+  // }
 }

@@ -6,23 +6,11 @@ import {
   Events,
   AlertController,
 } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators,AbstractControl } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators,AbstractControl,ValidationErrors } from "@angular/forms";
 
-import { AuthenticationProvider } from '../../providers/authentication/authentication';
+// import { AuthenticationProvider } from '../../providers/authentication/authentication';
+import { RegisterProvider } from '../../providers/register/register'
 
-
-
-export class StudentIDValidation {
-  static MatchStudent(abstractCtrl: AbstractControl,auth:AuthenticationProvider) {
-    let studentid = abstractCtrl.get('studentid').value; // to get value in input tag
-    let status = auth.studentidChk(studentid);
-    if(status){
-      abstractCtrl.get('studentid').setErrors( {MatchStudent: true} )
-    }else{
-      return null
-    } 
-  }
-}
 
 export class PasswordValidation {
   static MatchPassword(abstractCtrl: AbstractControl) {
@@ -47,26 +35,38 @@ export class RegisterPage {
 
   regForm: FormGroup;
 
+  FacultyOption = {
+    title: 'Select Faculty',
+    // subTitle: 'Select your toppings',
+    // mode: 'md'
+  };
+  MajorOption = {
+    title: 'Select Major',
+    // subTitle: 'Select your toppings',
+    // mode: 'md'
+  };
+
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public events: Events,
-    public AuthService: AuthenticationProvider,
+    // public AuthService: AuthenticationProvider,
     public formBuilder: FormBuilder,
     public alertCtrl: AlertController,
+    public registerService: RegisterProvider,
   ) {
     this.regForm = formBuilder.group({
-      'email': ['', [Validators.required, Validators.email]],
+      'email' :['',Validators.compose([Validators.required,Validators.email]),[this.validateEmail.bind(this)]],
       'password': ['', Validators.compose([Validators.minLength(6), Validators.required])],
       'confirmPassword':['',Validators.compose([Validators.required])],
       'firstname':['',Validators.compose([Validators.required])],
       'lastname':['',Validators.compose([Validators.required])],
-      'studentid': ['', Validators.compose([Validators.required,Validators.minLength(10)])],
+      'studentid':['',Validators.compose([Validators.required]),[this.validateStudentID.bind(this)]],
       'faculty':['',Validators.compose([Validators.required])],
       'major':['',Validators.compose([Validators.required])]
     },{
-      // validator: PasswordValidation.MatchPassword,
-      validator: StudentIDValidation.MatchStudent 
+      validator: PasswordValidation.MatchPassword
     });
   }
 
@@ -77,4 +77,38 @@ export class RegisterPage {
     this.events.publish('dismissLoading');
   }
 
+  validateStudentID() : ValidationErrors {
+    return new Promise((resolve,reject)=>{
+      this.registerService.studentidCheck(this.regForm.controls['studentid'].value)
+      .then(data=>{
+        var chk = data;
+        if(chk){
+          resolve({ student: true });
+        }else{
+          resolve(null);
+        }
+      });
+    });
+
+  }
+
+  validateEmail() : ValidationErrors {
+    return new Promise((resolve,reject)=>{
+      this.registerService.emailCheck(this.regForm.controls['email'].value)
+      .then(data=>{
+        var chk = data;
+        if(chk){
+          resolve({ emailchk: true });
+        }else{
+          resolve(null);
+        }
+      });
+    });
+  }
+
+  toRegister(){
+    this.events.publish('showLoading');
+    this.registerService.register(this.regForm.value);
+    // console.log(this.regForm.value);
+  }
 }

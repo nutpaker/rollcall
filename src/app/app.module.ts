@@ -27,6 +27,7 @@ import { RegisterPageModule } from '../pages/register/register.module';
 
 // Provider
 import { AuthenticationProvider } from '../providers/authentication/authentication';
+import { RegisterProvider } from '../providers/register/register';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { AuthenticationProvider } from '../providers/authentication/authenticati
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthenticationProvider,
-    AngularFireDatabase
+    AngularFireDatabase,
+    RegisterProvider
   ]
 })
 export class AppModule {}
