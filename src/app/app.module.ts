@@ -12,7 +12,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth'
 
 // Connect Database Fire Base
-// import { AngularFireDatabase,AngularFireDatabaseModule} from 'angularfire2/database';
+import { AngularFireDatabase,AngularFireDatabaseModule} from 'angularfire2/database';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -27,6 +27,7 @@ import { RegisterPageModule } from '../pages/register/register.module';
 
 // Provider
 import { AuthenticationProvider } from '../providers/authentication/authentication';
+import { RegisterProvider } from '../providers/register/register';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AuthenticationProvider } from '../providers/authentication/authenticati
     AngularFireModule.initializeApp(envelopment.firebase),
     AngularFireAuthModule,
     HttpClientModule,
+    AngularFireDatabaseModule,
     //Page
     LoginPageModule,
     RegisterPageModule
@@ -52,7 +54,9 @@ import { AuthenticationProvider } from '../providers/authentication/authenticati
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthenticationProvider
+    AuthenticationProvider,
+    AngularFireDatabase,
+    RegisterProvider
   ]
 })
 export class AppModule {}
