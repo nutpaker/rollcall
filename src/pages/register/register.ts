@@ -79,6 +79,7 @@ export class RegisterPage {
 
   validateStudentID() : ValidationErrors {
     return new Promise((resolve,reject)=>{
+      setTimeout(() => {
       this.registerService.studentidCheck(this.regForm.controls['studentid'].value)
       .then(data=>{
         var chk = data;
@@ -88,12 +89,15 @@ export class RegisterPage {
           resolve(null);
         }
       });
+    }, 1000);
     });
+    
 
   }
 
   validateEmail() : ValidationErrors {
     return new Promise((resolve,reject)=>{
+      setTimeout(() => {
       this.registerService.emailCheck(this.regForm.controls['email'].value)
       .then(data=>{
         var chk = data;
@@ -103,6 +107,7 @@ export class RegisterPage {
           resolve(null);
         }
       });
+    }, 1000);
     });
   }
 
