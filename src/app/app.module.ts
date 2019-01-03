@@ -23,6 +23,10 @@ import { MyApp } from './app.component';
 import { LoginPageModule } from '../pages/login/login.module';
 import { RegisterPageModule } from '../pages/register/register.module';
 import { HomePageModule } from '../pages/home/home.module';
+import { AddclassroomPageModule } from '../pages/addclassroom/addclassroom.module';
+
+// Page Modal
+import { AddclassroomDateModalPageModule } from '../pages/addclassroom-date-modal/addclassroom-date-modal.module';
 
 // Menu
 import { MenuPageModule } from '../pages/menu/menu.module';
@@ -47,6 +51,8 @@ import { RegisterProvider } from '../providers/register/register';
     LoginPageModule,
     RegisterPageModule,
     HomePageModule,
+    AddclassroomPageModule,
+    AddclassroomDateModalPageModule,
     //Menu
     MenuPageModule,
   ],

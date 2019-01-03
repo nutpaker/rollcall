@@ -16,7 +16,7 @@
         <ion-icon name="add"></ion-icon>
       </button>
 
-      <button ion-button *ngIf="_role == 1"> 
+      <button ion-button *ngIf="_role == 1" (click)="toAddClassroom()"> 
           <ion-icon name="add"></ion-icon>
         </button>
     </ion-buttons>
@@ -27,5 +27,5 @@
 
 <ion-content padding>
     <button ion-button *ngIf="_role == 0">0</button>
-    <button ion-button *ngIf="_role == 1">1</button>
+    <button ion-button *ngIf="_role == 1" (click)="toAddClassroom()">1</button>
 </ion-content>

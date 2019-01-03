@@ -1,3 +1,5 @@
+import { AddclassroomDateModalPage } from '../addclassroom-date-modal/addclassroom-date-modal';
+import { AddclassroomPage } from '../addclassroom/addclassroom';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,Events } from 'ionic-angular';
 
@@ -23,7 +25,8 @@ export class HomePage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     private AuthService: AuthenticationProvider,
-    public events: Events,) {
+    public events: Events,
+    ) {
   }
 
   ionViewDidLoad() {
@@ -53,6 +56,10 @@ export class HomePage {
               this._uid=res['uid']
           })
       });
-
+  }
+  toAddClassroom(){
+    this.events.publish('showLoading');
+    // this.navCtrl.push(AddclassroomPage,{uid:this._uid});
+    this.navCtrl.push(AddclassroomDateModalPage);
   }
 }

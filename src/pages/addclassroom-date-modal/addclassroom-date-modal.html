@@ -1,0 +1,34 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>addclassroom date modal</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="studyForm" (ngSubmit)="onSubmit()">
+    <ion-item no-lines>
+        <ion-label hidden>วันที่สอน</ion-label>
+        <ion-select  placeholder="วันที่สอน"  formControlName="studyDay">
+            <ion-option value="sun">วันอาทิตย์</ion-option>
+            <ion-option value="mon">วันจันทร์</ion-option>
+            <ion-option value="tue">วันอังคาร</ion-option>
+            <ion-option value="wed">วันพุธ</ion-option>
+            <ion-option value="thu">วันพฤหัสบดี</ion-option>
+            <ion-option value="fri">วันศุกร์</ion-option>
+            <ion-option value="sat">วันเสาร์</ion-option>
+          </ion-select>
+    </ion-item>
+    <ion-item no-lines>
+        <ion-datetime formControlName="studyTimestart" displayFormat="HH:mm" placeholder="Pickup Time"></ion-datetime>
+      </ion-item>
+      <ion-item no-lines>
+          <ion-datetime formControlName="studyTimeend" displayFormat="HH:mm" placeholder="Pickup Time"></ion-datetime>
+      </ion-item>
+      <button ion-button type="submit" [disabled]="(studyForm.value.studyTimestart > studyForm.value.studyTimeend) || !(studyForm.value.studyDay && studyForm.value.studyTimestart && studyForm.value.studyTimeend)">Click Me</button>
+  </form>
+
+</ion-content>
