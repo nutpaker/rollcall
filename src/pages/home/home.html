@@ -7,13 +7,25 @@
 <ion-header>
 
   <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
     <ion-title>home</ion-title>
+    <ion-buttons end>
+      <button ion-button  *ngIf="_role == 0"> 
+        <ion-icon name="add"></ion-icon>
+      </button>
+
+      <button ion-button *ngIf="_role == 1"> 
+          <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    {{_uid}}
-    <button ion-button (click)="toLogout()">LogOut</button>
+    <button ion-button *ngIf="_role == 0">0</button>
+    <button ion-button *ngIf="_role == 1">1</button>
 </ion-content>

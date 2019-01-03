@@ -18,6 +18,7 @@ export class HomePage {
   _role: any;
   _student_id: any;
   _uid: any
+  
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -34,10 +35,6 @@ export class HomePage {
     this.events.publish('dismissLoading');
 
     this.getProfile();
-  }
-
-  toLogout() {
-    this.AuthService.logout();
   }
 
   getProfile() {
