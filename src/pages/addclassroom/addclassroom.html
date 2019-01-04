@@ -14,33 +14,57 @@
 
 
 <ion-content>
-  <form [formGroup]="AddClassroomForm" (ngSubmit)="toRegister()">
-      
+  <form [formGroup]="AddClassroomForm" (ngSubmit)="toCreateclassroom()">
+
     <ion-grid>
       <ion-row>
         <ion-col>
-            <ion-item no-lines>
-                <ion-input formControlName="classname" clearInput type="text" placeholder="Class Name"></ion-input>
-            </ion-item>
+          <ion-item no-lines>
+            <ion-input formControlName="classname" clearInput type="text" placeholder="Class Name"></ion-input>
+          </ion-item>
         </ion-col>
-      </ion-row>  
+      </ion-row>
     </ion-grid>
-   
 
 
-      <div *ngIf="AddClassroomForm.value.classname">
-          <ion-item-group>
-            <ion-item-divider>Packing List
-              <ion-icon class="icon-divider" name="add" color="primary" (click)="testC()"></ion-icon>
-            </ion-item-divider>
-          </ion-item-group>
+
+    <div *ngIf="AddClassroomForm.value.classname">
+      <ion-item-group>
+        <ion-item-divider>Teach List
+          <ion-icon *ngIf="classroomdate.length <=1" class="icon-divider" name="add" color="primary" (click)="addDayTime('Add')"></ion-icon>
+        </ion-item-divider>
+      </ion-item-group>
+
+
+      <ion-item *ngIf="classroomdate.length == 0" no-lines>
+        <ion-label>กรุณาเพิ่มวันที่สอน</ion-label>
+      </ion-item>
+
+      <ion-card *ngFor="let item of classroomdate; let i = index">
+        <ion-card-header>
+          <ion-item>
+            {{item.day}}
+            <button ion-button icon-only item-right clear type="button" (click)="removeDayTime(item)">
+              <ion-icon name="trash"></ion-icon>
+              DELETE
+            </button>
+            <button ion-button icon-only type="button" (click)="editDayTime('Edit',item)" item-right clear>
+              <ion-icon name="md-create"></ion-icon>
+              EDIT
+            </button>
+          </ion-item>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-label>Start {{item.start}}</ion-label>
+          <ion-label>End {{item.end}}</ion-label>
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+
+    <div padding>
+        <button ion-button full type="submit" [disabled]="!AddClassroomForm.value.classname">NEXT</button>
       </div>
-
   </form>
 
 </ion-content>
-<ion-footer>
-    <div padding>
-        <button ion-button full [disabled]="!AddClassroomForm.value.classname">NEXT</button>
-      </div>
-  </ion-footer>

@@ -59,7 +59,7 @@ export class HomePage {
   }
   toAddClassroom(){
     this.events.publish('showLoading');
-    // this.navCtrl.push(AddclassroomPage,{uid:this._uid});
-    this.navCtrl.push(AddclassroomDateModalPage);
+    this.navCtrl.push(AddclassroomPage,{uid:this._uid});
+    // this.navCtrl.push(AddclassroomDateModalPage);
   }
 }

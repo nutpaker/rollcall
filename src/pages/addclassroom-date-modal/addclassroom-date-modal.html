@@ -2,6 +2,11 @@
 <ion-header>
 
   <ion-navbar>
+      <ion-buttons left>
+          <button ion-button icon-only (click)="viewCtrl.dismiss()">
+              <ion-icon name="arrow-back"></ion-icon>
+          </button>
+      </ion-buttons>
     <ion-title>addclassroom date modal</ion-title>
   </ion-navbar>
 
@@ -23,12 +28,20 @@
           </ion-select>
     </ion-item>
     <ion-item no-lines>
-        <ion-datetime formControlName="studyTimestart" displayFormat="HH:mm" placeholder="Pickup Time"></ion-datetime>
+        <ion-datetime formControlName="studyTimestart" displayFormat="HH:mm" minuteValues="0,15,30,45" placeholder="Pickup Time"></ion-datetime>
       </ion-item>
       <ion-item no-lines>
-          <ion-datetime formControlName="studyTimeend" displayFormat="HH:mm" placeholder="Pickup Time"></ion-datetime>
+          <ion-datetime formControlName="studyTimeend" displayFormat="HH:mm" minuteValues="0,15,30,45" placeholder="Pickup Time"></ion-datetime>
+      </ion-item> 
+
+      <ion-item *ngIf="studyForm.controls.studyTimestart.errors?.timechk">
+          <ion-label>Start</ion-label>
       </ion-item>
-      <button ion-button type="submit" [disabled]="(studyForm.value.studyTimestart > studyForm.value.studyTimeend) || !(studyForm.value.studyDay && studyForm.value.studyTimestart && studyForm.value.studyTimeend)">Click Me</button>
+      <ion-item *ngIf="studyForm.controls.studyTimeend.errors?.timechk">
+            <ion-label>End</ion-label>
+        </ion-item>
+        <!-- studyForm.controls.studyTimestart.errors?.timechk || studyForm.controls.studyTimeend.errors?.timechk || !(studyForm.value.studyDay && studyForm.value.studyTimestart && studyForm.value.studyTimeend) -->
+      <button ion-button type="submit" [disabled]="!studyForm.valid">{{type}}</button>
   </form>
 
 </ion-content>

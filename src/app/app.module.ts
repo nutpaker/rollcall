@@ -35,6 +35,7 @@ import { MenuPageModule } from '../pages/menu/menu.module';
 // Provider
 import { AuthenticationProvider } from '../providers/authentication/authentication';
 import { RegisterProvider } from '../providers/register/register';
+import { ClassroomProvider } from '../providers/classroom/classroom';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { RegisterProvider } from '../providers/register/register';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthenticationProvider,
     AngularFireDatabase,
-    RegisterProvider
+    RegisterProvider,
+    ClassroomProvider
   ]
 })
 export class AppModule {}
