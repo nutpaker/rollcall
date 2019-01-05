@@ -1,10 +1,9 @@
-import { AddclassroomDateModalPage } from '../addclassroom-date-modal/addclassroom-date-modal';
 import { AddclassroomPage } from '../addclassroom/addclassroom';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Events } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, Events,AlertController } from 'ionic-angular';
 
 import { AuthenticationProvider } from '../../providers/authentication/authentication'
+import { ClassroomProvider } from '../../providers/classroom/classroom';
 
 @IonicPage()
 @Component({
@@ -20,46 +19,91 @@ export class HomePage {
   _role: any;
   _student_id: any;
   _uid: any
-  
+
+  classroom:any;
+
+
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     private AuthService: AuthenticationProvider,
     public events: Events,
-    ) {
+    public alertCtrl: AlertController,
+    public ClassroomService: ClassroomProvider,
+  ) {
+    // this.userdata = this.navCtrl['rootParams'].email;
+    this.getProfile();
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+
+
   }
 
   ionViewWillEnter() {
-
+    // this.ClassroomService.getClassroom(this._role,this._uid)
+    // .then((resp)=>{
+    //     this.classroom = resp;
+    // });
     this.events.publish('dismissLoading');
-
-    this.getProfile();
   }
 
   getProfile() {
-    this.AuthService.getCurrentUser()
-      .then(uid => {
-        console.log(uid);
-        this.AuthService.getProfile(uid)
-          .then(res => {
-              this._email = res['email'],
-              this._faculty = res['faculty'],
-              this._fname =res['fname'],
-              this._lname = res['lname'],
-              this._major=res['major'],
-              this._role=res['role'],
-              this._student_id= res['student_id'],
-              this._uid=res['uid']
-          })
+    this.AuthService.getProfile()
+      .then(res => {
+        this._email = res['email']
+        this._faculty = res['faculty']
+        this._fname = res['fname']
+        this._lname = res['lname']
+        this._major = res['major']
+        this._role = res['role']
+        this._student_id = res['student_id']
+        this._uid = res['uid']
+
+        this.ClassroomService.getClassroom(this._role,this._uid)
+        .then((resp)=>{
+            this.classroom = resp;
+        });
+      
       });
   }
-  toAddClassroom(){
+
+  toAddClassroom() {
     this.events.publish('showLoading');
-    this.navCtrl.push(AddclassroomPage,{uid:this._uid});
+    this.navCtrl.push(AddclassroomPage, { uid: this._uid });
     // this.navCtrl.push(AddclassroomDateModalPage);
   }
+
+  removeClassroom(item?){
+    let alert = this.alertCtrl.create({
+      title: 'Use this lightsaber?',
+      message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            let index = this.classroom.indexOf(item);
+            if(index>-1){
+              this.ClassroomService.removeClassroom(this._role,this.classroom[index]['group_code']);
+                this.classroom.splice(index,1); 
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
+
+
+
+     
+  }
+
+
 }

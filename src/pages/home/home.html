@@ -7,18 +7,18 @@
 <ion-header>
 
   <ion-navbar>
-      <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>home</ion-title>
     <ion-buttons end>
-      <button ion-button  *ngIf="_role == 0"> 
+      <button ion-button *ngIf="_role == 0">
         <ion-icon name="add"></ion-icon>
       </button>
 
-      <button ion-button *ngIf="_role == 1" (click)="toAddClassroom()"> 
-          <ion-icon name="add"></ion-icon>
-        </button>
+      <button ion-button *ngIf="_role == 1" (click)="toAddClassroom()">
+        <ion-icon name="add"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 
@@ -26,6 +26,33 @@
 
 
 <ion-content padding>
-    <button ion-button *ngIf="_role == 0">0</button>
-    <button ion-button *ngIf="_role == 1" (click)="toAddClassroom()">1</button>
+
+  <ion-card *ngFor="let item of classroom">
+    <ion-card-header>
+      <ion-item>
+        {{item.group_name}}
+        <button ion-button icon-only item-right clear type="button" (click)="removeClassroom(item)">
+          <ion-icon name="trash"></ion-icon>
+          DELETE
+        </button>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label>Invite Code : {{item.invite_code}}</ion-label>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab right bottom *ngIf="_role == 0">
+      <button ion-fab><ion-icon name="arrow-dropleft"></ion-icon></button>
+      <ion-fab-list side="left">
+        <button ion-fab><ion-icon name="camera"></ion-icon></button>
+        <button ion-fab><ion-icon name="add"></ion-icon></button>
+      </ion-fab-list>
+    </ion-fab>
+
+  <ion-fab right bottom  *ngIf="_role == 1">
+    <button ion-fab (click)="toAddClassroom()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

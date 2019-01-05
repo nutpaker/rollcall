@@ -12,7 +12,7 @@ import { AuthenticationProvider } from '../../providers/authentication/authentic
 export class MenuPage {
 
     rootPage:any = HomePage;
-    userdata:any;
+    // userdata:any
     _email: any;
     _faculty: any;
     _fname: any;
@@ -25,33 +25,40 @@ export class MenuPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,   private AuthService: AuthenticationProvider,) {
+    this.getProfile();
   }
 
   ionViewDidLoad() {
-    this.getProfile();
-    console.log('ionViewDidLoad MenuPage');
+
   }
 
   toLogout() {
     this.AuthService.logout();
   }
 
-  getProfile() {
-    this.AuthService.getCurrentUser()
-      .then(uid => {
-        console.log(uid);
-        this.AuthService.getProfile(uid)
-          .then(res => {
-              this._email = res['email'],
-              this._faculty = res['faculty'],
-              this._fname =res['fname'],
-              this._lname = res['lname'],
-              this._major=res['major'],
-              this._role=res['role'],
-              this._student_id= res['student_id'],
-              this._uid=res['uid']
-          })
-      });
+  getProfile(){
+    this.AuthService.getProfile()
+    .then(res=>{
+      this._email = res['email'];
+      this._faculty = res['faculty'];
+      this._fname =res['fname'];
+      this._lname = res['lname'];
+      this._major=res['major'];
+      this._role=res['role'];
+      this._student_id= res['student_id'];
+      this._uid=res['uid'];
 
+      // let userdata = {
+      //   email:res['email'],
+      //   faculty:res['faculty'],
+      //   fname:res['fname'],
+      //   lname:res['lname'],
+      //   major:res['major'],
+      //   role:res['role'],
+      //   student_id:res['student_id'],
+      //   uid:res['uid']
+      // };
+      // this.navCtrl.setRoot(HomePage,this.userdata);
+    });
   }
 }
