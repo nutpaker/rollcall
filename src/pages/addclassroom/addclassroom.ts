@@ -2,6 +2,7 @@ import { AddclassroomDateModalPage } from '../addclassroom-date-modal/addclassro
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,Events,AlertController,  ModalController, } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators,AbstractControl,ValidationErrors } from "@angular/forms";
+import { ClassroomProvider } from '../../providers/classroom/classroom'
 
 
 @IonicPage()
@@ -22,22 +23,24 @@ export class AddclassroomPage {
     public formBuilder: FormBuilder,
     public mdCtrl: ModalController,
     public alertCtrl: AlertController,
+    public classroomService: ClassroomProvider,
     ) {
     this.uid = this.navParams.data
     this.AddClassroomForm = this.formBuilder.group({
-      'classname':[],
+      'classname': ['', Validators.compose([Validators.required])]
     });
 
-    this.classroomdate = [{
-      day:"mon",
-      start:"10:00",
-      end:"11:00"
-    },
-    {
-      day:"tue",
-      start:"10:00",
-      end:"11:00"
-    }]
+    // Dev Test data
+    // this.classroomdate = [{
+    //   day:"mon",
+    //   start:"10:00",
+    //   end:"11:00"
+    // },
+    // {
+    //   day:"tue",
+    //   start:"10:00",
+    //   end:"11:00"
+    // }]
 
   }
 
@@ -163,7 +166,9 @@ export class AddclassroomPage {
 
   }
   toCreateclassroom(){
-    console.log("ddddddddd");
+    this.events.publish('showLoading');
+    this.classroomService.addGroup(this.AddClassroomForm.controls['classname'].value,this.classroomdate,this.uid);
+    this.navCtrl.pop();
   }
   }
 

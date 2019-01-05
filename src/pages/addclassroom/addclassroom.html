@@ -43,7 +43,13 @@
       <ion-card *ngFor="let item of classroomdate; let i = index">
         <ion-card-header>
           <ion-item>
-            {{item.day}}
+            <ion-label *ngIf="item.day =='sun'">วันอาทิตย์</ion-label>
+            <ion-label *ngIf="item.day =='mon'">วันจันทร์</ion-label>
+            <ion-label *ngIf="item.day =='tue'">วันอังคาร</ion-label>
+            <ion-label *ngIf="item.day =='wed'">วันพุธ</ion-label>
+            <ion-label *ngIf="item.day =='thu'">วันพฤหัสบดี</ion-label>
+            <ion-label *ngIf="item.day =='fri'">วันศุกร์</ion-label>
+            <ion-label *ngIf="item.day =='sat'">วันเสาร์</ion-label>
             <button ion-button icon-only item-right clear type="button" (click)="removeDayTime(item)">
               <ion-icon name="trash"></ion-icon>
               DELETE
@@ -63,8 +69,8 @@
     </div>
 
     <div padding>
-        <button ion-button full type="submit" [disabled]="!AddClassroomForm.value.classname">NEXT</button>
-      </div>
+      <button ion-button full type="submit" [disabled]="!(AddClassroomForm.valid) || !(classroomdate.length > 0)">NEXT</button>
+    </div>
   </form>
 
 </ion-content>
