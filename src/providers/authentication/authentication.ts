@@ -25,22 +25,17 @@ export class AuthenticationProvider {
     return this.auth.auth.signOut();
   }
 
-  getCurrentUser() {
+  getProfile() {
     return new Promise(resolve => {
       this.auth.auth.onAuthStateChanged(user => {
         if (user) {
-          resolve(user.uid);
+          this.af.database.ref(`profiles/${user.uid}`).once('value')
+          .then(res => {
+            let datauser = res.val() ? res.val() : {};
+            resolve(datauser);
+          });
         }
       })
-    });
-  }
-  getProfile(uid: any) {
-    return new Promise(resolve => {
-      this.af.database.ref(`profiles/${uid}`).once('value')
-        .then(res => {
-          let datauser = res.val() ? res.val() : {};
-          resolve(datauser);
-        });
     });
   }
 }
