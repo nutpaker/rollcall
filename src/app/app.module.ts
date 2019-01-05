@@ -1,4 +1,3 @@
-import { LoginPage } from './../pages/login/login';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -21,18 +20,26 @@ import { envelopment } from '../envelopments/envelopment';
 
 // Page
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { LoginPageModule } from '../pages/login/login.module';
 import { RegisterPageModule } from '../pages/register/register.module';
+import { HomePageModule } from '../pages/home/home.module';
+import { AddclassroomPageModule } from '../pages/addclassroom/addclassroom.module';
+
+// Page Modal
+import { AddclassroomDateModalPageModule } from '../pages/addclassroom-date-modal/addclassroom-date-modal.module';
+
+// Menu
+import { MenuPageModule } from '../pages/menu/menu.module';
+
 
 // Provider
 import { AuthenticationProvider } from '../providers/authentication/authentication';
 import { RegisterProvider } from '../providers/register/register';
+import { ClassroomProvider } from '../providers/classroom/classroom';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
   ],
   imports: [
     BrowserModule,
@@ -43,12 +50,16 @@ import { RegisterProvider } from '../providers/register/register';
     AngularFireDatabaseModule,
     //Page
     LoginPageModule,
-    RegisterPageModule
+    RegisterPageModule,
+    HomePageModule,
+    AddclassroomPageModule,
+    AddclassroomDateModalPageModule,
+    //Menu
+    MenuPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
   ],
   providers: [
     StatusBar,
@@ -56,7 +67,8 @@ import { RegisterProvider } from '../providers/register/register';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthenticationProvider,
     AngularFireDatabase,
-    RegisterProvider
+    RegisterProvider,
+    ClassroomProvider
   ]
 })
 export class AppModule {}
