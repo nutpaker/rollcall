@@ -43,10 +43,10 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-    // this.ClassroomService.getClassroom(this._role,this._uid)
-    // .then((resp)=>{
-    //     this.classroom = resp;
-    // });
+    this.ClassroomService.getClassroom(this._role,this._uid)
+    .then((resp)=>{
+        this.classroom = resp;
+    });
     this.events.publish('dismissLoading');
   }
 

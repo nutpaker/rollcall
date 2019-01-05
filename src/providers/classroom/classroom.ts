@@ -65,7 +65,7 @@ export class ClassroomProvider {
     return new Promise(resolve => {
     // "Student"
     if (role == 0) {
-      resolve(this.classroom);
+      resolve();
     }
     // "Teacher"
     else if (role == 1) {
@@ -83,7 +83,7 @@ export class ClassroomProvider {
     }
     // "Admin"
     else {
-      resolve(this.classroom);
+      resolve();
     }
   });
   }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Events } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
 import { AuthenticationProvider } from '../../providers/authentication/authentication'
@@ -24,7 +24,12 @@ export class MenuPage {
 
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,   private AuthService: AuthenticationProvider,) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,   
+    private AuthService: AuthenticationProvider,
+    public events: Events,
+    ) {
     this.getProfile();
   }
 
@@ -33,6 +38,7 @@ export class MenuPage {
   }
 
   toLogout() {
+    this.events.publish('showLoading');
     this.AuthService.logout();
   }
 
