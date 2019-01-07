@@ -54,17 +54,19 @@ export class MenuPage {
       this._student_id= res['student_id'];
       this._uid=res['uid'];
 
-      // let userdata = {
-      //   email:res['email'],
-      //   faculty:res['faculty'],
-      //   fname:res['fname'],
-      //   lname:res['lname'],
-      //   major:res['major'],
-      //   role:res['role'],
-      //   student_id:res['student_id'],
-      //   uid:res['uid']
-      // };
+      let userdata = {
+        email:res['email'],
+        faculty:res['faculty'],
+        fname:res['fname'],
+        lname:res['lname'],
+        major:res['major'],
+        role:res['role'],
+        student_id:res['student_id'],
+        uid:res['uid']
+      };
+       console.log(userdata);
       // this.navCtrl.setRoot(HomePage,this.userdata);
+      this.events.publish('profile',userdata);
     });
   }
 }

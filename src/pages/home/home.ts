@@ -2,7 +2,7 @@ import { AddclassroomPage } from '../addclassroom/addclassroom';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events,AlertController } from 'ionic-angular';
 
-import { AuthenticationProvider } from '../../providers/authentication/authentication'
+// import { AuthenticationProvider } from '../../providers/authentication/authentication'
 import { ClassroomProvider } from '../../providers/classroom/classroom';
 
 @IonicPage()
@@ -26,13 +26,26 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private AuthService: AuthenticationProvider,
+    // private AuthService: AuthenticationProvider,
     public events: Events,
     public alertCtrl: AlertController,
     public ClassroomService: ClassroomProvider,
   ) {
-    // this.userdata = this.navCtrl['rootParams'].email;
-    this.getProfile();
+    this.events.subscribe('profile',(res)=>{
+      this._email = res['email']
+      this._faculty = res['faculty']
+      this._fname = res['fname']
+      this._lname = res['lname']
+      this._major = res['major']
+      this._role = res['role']
+      this._student_id = res['student_id']
+      this._uid = res['uid']
+
+      this.ClassroomService.getClassroom(this._role,this._uid)
+      .then((resp)=>{
+          this.classroom = resp;
+      });
+    })
 
   }
 
@@ -48,27 +61,29 @@ export class HomePage {
         this.classroom = resp;
     });
     this.events.publish('dismissLoading');
+
+
   }
 
-  getProfile() {
-    this.AuthService.getProfile()
-      .then(res => {
-        this._email = res['email']
-        this._faculty = res['faculty']
-        this._fname = res['fname']
-        this._lname = res['lname']
-        this._major = res['major']
-        this._role = res['role']
-        this._student_id = res['student_id']
-        this._uid = res['uid']
+  // getProfile() {
+  //   this.AuthService.getProfile()
+  //     .then(res => {
+  //       this._email = res['email']
+  //       this._faculty = res['faculty']
+  //       this._fname = res['fname']
+  //       this._lname = res['lname']
+  //       this._major = res['major']
+  //       this._role = res['role']
+  //       this._student_id = res['student_id']
+  //       this._uid = res['uid']
 
-        this.ClassroomService.getClassroom(this._role,this._uid)
-        .then((resp)=>{
-            this.classroom = resp;
-        });
+  //       this.ClassroomService.getClassroom(this._role,this._uid)
+  //       .then((resp)=>{
+  //           this.classroom = resp;
+  //       });
       
-      });
-  }
+  //     });
+  // }
 
   toAddClassroom() {
     this.events.publish('showLoading');
@@ -99,10 +114,6 @@ export class HomePage {
       ]
     });
     alert.present();
-
-
-
-     
   }
 
 
