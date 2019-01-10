@@ -1,9 +1,11 @@
 import { AddclassroomPage } from '../addclassroom/addclassroom';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events,AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events,AlertController,PopoverController } from 'ionic-angular';
 
 // import { AuthenticationProvider } from '../../providers/authentication/authentication'
 import { ClassroomProvider } from '../../providers/classroom/classroom';
+
+import { ClassroomPage } from '../classroom/classroom';
 
 @IonicPage()
 @Component({
@@ -30,6 +32,7 @@ export class HomePage {
     public events: Events,
     public alertCtrl: AlertController,
     public ClassroomService: ClassroomProvider,
+    public popoverCtrl: PopoverController
   ) {
     this.events.subscribe('profile',(res)=>{
       this._email = res['email']
@@ -47,6 +50,14 @@ export class HomePage {
       });
     })
 
+    // Hidden Tab menu
+    let elements = document.querySelectorAll(".tabbar");
+
+    if (elements != null) {
+        Object.keys(elements).map((key) => {
+            elements[key].style.display = 'none';
+        });
+    }
   }
 
   ionViewDidLoad() {
@@ -61,8 +72,6 @@ export class HomePage {
         this.classroom = resp;
     });
     this.events.publish('dismissLoading');
-
-
   }
 
   // getProfile() {
@@ -116,5 +125,18 @@ export class HomePage {
     alert.present();
   }
 
+  toClassroom(item?){
+    let index = this.classroom.indexOf(item);
+    if(index>-1){
+      // this.ClassroomService.removeClassroom(this._role,this.classroom[index]['group_code']);
+      //   this.classroom.splice(index,1); 
+      // this.events.publish('classroom',this.classroom[index]);
+      this.events.publish('showLoading');
+      this.navCtrl.push(ClassroomPage,{classroom : this.classroom[index]});
+    }
+
+    // this.events.publish('');
+
+  }
 
 }

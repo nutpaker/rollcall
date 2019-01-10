@@ -1,7 +1,7 @@
 import { AddclassroomDateModalPage } from '../addclassroom-date-modal/addclassroom-date-modal';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,Events,AlertController,  ModalController, } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators,AbstractControl,ValidationErrors } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { ClassroomProvider } from '../../providers/classroom/classroom'
 
 

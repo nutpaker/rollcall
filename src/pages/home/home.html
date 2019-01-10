@@ -1,9 +1,3 @@
-<!--
-  Generated template for the HomePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -27,10 +21,13 @@
 
 <ion-content padding>
 
-  <ion-card *ngFor="let item of classroom">
+  <ion-card *ngFor="let item of classroom" >
     <ion-card-header>
-      <ion-item>
-        {{item.group_name}}
+      <ion-item >
+        <ion-label (click)="toClassroom(item)">
+            {{item.group_name}}
+        </ion-label>
+
         <button ion-button icon-only item-right clear type="button" (click)="removeClassroom(item)">
           <ion-icon name="trash"></ion-icon>
           DELETE
@@ -41,6 +38,24 @@
       <ion-label>Invite Code : {{item.invite_code}}</ion-label>
     </ion-card-content>
   </ion-card>
+
+  <!-- <ion-list>
+      <ion-item-sliding *ngFor="let item of classroom">
+        <ion-item (click)="toClassroom()">
+            {{item.group_name}}
+        </ion-item>
+        <ion-item-options side="left">
+          <button ion-button (click)="favorite(item)">Favorite</button>
+          <button ion-button color="danger" (click)="share(item)">Share</button>
+        </ion-item-options>
+    
+        <ion-item-options side="right">
+          <button ion-button (click)="removeClassroom(item)">Delete</button>
+          <button ion-button color="danger">Code Invite</button>
+        </ion-item-options>
+      </ion-item-sliding>
+  </ion-list> -->
+
 
   <ion-fab right bottom *ngIf="_role == 0">
       <button ion-fab><ion-icon name="arrow-dropleft"></ion-icon></button>
