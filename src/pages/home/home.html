@@ -21,6 +21,10 @@
 
 <ion-content padding>
 
+  <ion-item *ngIf="classroom == ''" no-lines>
+    กรุณาสร้าง Classroom
+  </ion-item>
+
   <ion-card *ngFor="let item of classroom" >
     <ion-card-header>
       <ion-item >

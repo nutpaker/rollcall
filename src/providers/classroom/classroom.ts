@@ -9,6 +9,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class ClassroomProvider {
 
   classroom: any[] = [];
+  subject: any[] = [];
 
   constructor(public http: HttpClient,
     private afd: AngularFireDatabase,
@@ -40,8 +41,8 @@ export class ClassroomProvider {
         group_code: groupcode,
         owner_code: owner_group.uid,
         day: data.day,
-        time_start: data.start,
-        time_end: data.end,
+        start: data.start,
+        end: data.end,
         time_stamp_start: "",
         time_stamp_end: "",
         time_stamp_late_start: "",
@@ -94,12 +95,42 @@ export class ClassroomProvider {
       }
       // "Teacher"
       else if (role == 1) {
-        const subRemove = this.afd.database.ref(`/groups/${key}`);
-        subRemove.remove();
+        const groupRemove = this.afd.database.ref(`/groups/${key}`);
+        groupRemove.remove();
+
+        var query = this.afd.database.ref('subjects').orderByKey();
+        query.once("value")
+        .then((snapshot)=>{
+            snapshot.forEach(chilSnapshot=>{
+                if(key == chilSnapshot.val()['group_code']){
+                  const subRemove = this.afd.database.ref(`/subjects/${chilSnapshot.val()['subject_code']}`);
+                  subRemove.remove();
+                }
+            });
+        });
+
+
+        
       }
       // "Admin"
       else {
       }
+  }
+
+  getSubject(group_code:any){
+    return new Promise(resolve=>{
+      this.afd.database.ref('subjects').orderByKey().once("value")
+      .then((snapshot)=>{
+        this.subject = [];
+        snapshot.forEach(childSnapshot =>{
+          if (group_code == childSnapshot.val()['group_code']){
+            this.subject.push(childSnapshot.val());
+          }
+        });
+        resolve(this.subject);
+      });
+    })
+
   }
 
 }

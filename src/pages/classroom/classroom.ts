@@ -5,6 +5,8 @@ import { HomeClassroomPage } from '../home-classroom/home-classroom';
 import { SettingClassroomPage } from '../setting-classroom/setting-classroom';
 import { NotificationClassroomPage } from '../notification-classroom/notification-classroom';
 
+import { AddclassroomPage } from '../addclassroom/addclassroom';
+
 @IonicPage()
 @Component({
   selector: 'page-classroom',
