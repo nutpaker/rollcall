@@ -19,13 +19,10 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="outer-content">
 
-  <ion-item *ngIf="classroom == ''" no-lines>
-    กรุณาสร้าง Classroom
-  </ion-item>
 
-  <ion-card *ngFor="let item of classroom" >
+  <!-- <ion-card *ngFor="let item of classroom" >
     <ion-card-header>
       <ion-item >
         <ion-label (click)="toClassroom(item)">
@@ -41,24 +38,32 @@
     <ion-card-content>
       <ion-label>Invite Code : {{item.invite_code}}</ion-label>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
 
-  <!-- <ion-list>
-      <ion-item-sliding *ngFor="let item of classroom">
-        <ion-item (click)="toClassroom()">
-            {{item.group_name}}
-        </ion-item>
-        <ion-item-options side="left">
-          <button ion-button (click)="favorite(item)">Favorite</button>
-          <button ion-button color="danger" (click)="share(item)">Share</button>
-        </ion-item-options>
-    
-        <ion-item-options side="right">
-          <button ion-button (click)="removeClassroom(item)">Delete</button>
-          <button ion-button color="danger">Code Invite</button>
-        </ion-item-options>
-      </ion-item-sliding>
-  </ion-list> -->
+
+  <ion-list>
+    <ion-list-header>
+      ห้องเรียน
+    </ion-list-header>
+    <ion-item-sliding  *ngFor="let item of classroom">
+      <ion-item  (click)="toClassroom(item)" no-lines>
+        <ion-label item-start>
+          <h2>{{item.group_name}}</h2>
+          <p>Invaite Code : {{item.invite_code}}</p>
+        </ion-label>
+        <ion-note item-end></ion-note>
+      </ion-item>
+      <ion-item-options side="right">
+          <button ion-button color="primary">Share</button>
+        <button ion-button color="danger" type="button" (click)="removeClassroom(item)">Delete</button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item *ngIf="classroom == ''" no-lines>
+        กรุณาสร้าง Classroom
+      </ion-item>
+  </ion-list>
+
+
 
 
   <ion-fab right bottom *ngIf="_role == 0">
