@@ -15,7 +15,6 @@
 <ion-content>
   <ion-item-group>
     <ion-item-divider>คาบเรียน
-      <ion-icon *ngIf="subject.length <= 1" class="icon-divider" name="add" color="primary" (click)="addDayTime('Add')"></ion-icon>
     </ion-item-divider>
   </ion-item-group>
 
@@ -30,16 +29,9 @@
         <ion-label *ngIf="item.day =='thu'">วันพฤหัสบดี</ion-label>
         <ion-label *ngIf="item.day =='fri'">วันศุกร์</ion-label>
         <ion-label *ngIf="item.day =='sat'">วันเสาร์</ion-label>
-        <button ion-button icon-only item-right clear type="button" (click)="removeDayTime(item)">
-          <ion-icon name="trash"></ion-icon>
-          DELETE
-        </button>
-        <button ion-button icon-only type="button" (click)="editDayTime('Edit',item)" item-right clear>
-          <ion-icon name="md-create"></ion-icon>
-          EDIT
-        </button>
       </ion-item>
     </ion-card-header>
+
     <ion-card-content>
       <ion-label>Start {{item.start}}</ion-label>
       <ion-label>End {{item.end}}</ion-label>

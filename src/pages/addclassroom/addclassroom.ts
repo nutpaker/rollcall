@@ -56,8 +56,6 @@ export class AddclassroomPage {
     })
 
 
-
-
   }
 
   ionViewDidLoad() {
@@ -95,8 +93,6 @@ export class AddclassroomPage {
       .then(res => {
         this.subjectAll.push(res ? res : {})
       });
-
-
   }
 
   addDayTime(action: any) {
@@ -149,66 +145,6 @@ export class AddclassroomPage {
       
     });
   }
-
-  // editDayTime(action: any, item: any) {
-  //   let index = this.classroomdate.indexOf(item);
-  //   let para_data;
-  //   if (index == 0 && this.classroomdate.length == 1) {
-  //     para_data = {
-  //       type: action,
-  //       index: index,
-  //       edit: {
-  //         day: this.classroomdate[index].day,
-  //         start: this.classroomdate[index].start,
-  //         end: this.classroomdate[index].end
-  //       },
-
-  //     };
-
-  //   } else if (index == 1 && this.classroomdate.length == 2) {
-  //     para_data = {
-  //       type: action,
-  //       index: index,
-  //       len: this.classroomdate.length,
-  //       edit: {
-  //         day: this.classroomdate[index].day,
-  //         start: this.classroomdate[index].start,
-  //         end: this.classroomdate[index].end
-  //       },
-  //       day: this.classroomdate[index - 1].day,
-  //       start: this.classroomdate[index - 1].start,
-  //       end: this.classroomdate[index - 1].end
-  //     };
-
-  //   } else if (index == 0 && this.classroomdate.length == 2) {
-  //     para_data = {
-  //       type: action,
-  //       index: index,
-  //       len: this.classroomdate.length,
-  //       edit: {
-  //         day: this.classroomdate[index].day,
-  //         start: this.classroomdate[index].start,
-  //         end: this.classroomdate[index].end
-  //       },
-  //       day: this.classroomdate[index + 1].day,
-  //       start: this.classroomdate[index + 1].start,
-  //       end: this.classroomdate[index + 1].end
-  //     };
-
-  //   }
-
-
-  //   let modal = this.mdCtrl.create(AddclassroomDateModalPage, para_data);
-  //   modal.present();
-  //   modal.onDidDismiss(data => {
-  //     if (data) {
-  //       this.classroomdate[data.index] = data.data_day;
-  //     }
-  //   });
-
-  // }
-
-  // 
 
   toCreateclassroom() {
     this.events.publish('showLoading');
