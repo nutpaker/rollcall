@@ -19,62 +19,56 @@
 </ion-header>
 
 
-<ion-content class="outer-content">
-
-
-  <!-- <ion-card *ngFor="let item of classroom" >
-    <ion-card-header>
-      <ion-item >
-        <ion-label (click)="toClassroom(item)">
-            {{item.group_name}}
-        </ion-label>
-
-        <button ion-button icon-only item-right clear type="button" (click)="removeClassroom(item)">
-          <ion-icon name="trash"></ion-icon>
-          DELETE
-        </button>
-      </ion-item>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-label>Invite Code : {{item.invite_code}}</ion-label>
-    </ion-card-content>
-  </ion-card> -->
-
-
+<ion-content>
   <ion-list>
     <ion-list-header>
-      ห้องเรียน
+        ห้องเรียน
     </ion-list-header>
-    <ion-item-sliding  *ngFor="let item of classroom">
-      <ion-item  (click)="toClassroom(item)" no-lines>
-        <ion-label item-start>
+
+    <ion-item-sliding *ngFor="let item of classroom">
+      <ion-item (click)="toClassroom(item)">
           <h2>{{item.group_name}}</h2>
           <p>Invaite Code : {{item.invite_code}}</p>
-        </ion-label>
-        <ion-note item-end></ion-note>
+        <ion-note item-end>
+            <ion-icon name="menu"></ion-icon>
+        </ion-note>
       </ion-item>
       <ion-item-options side="right">
-          <button ion-button color="primary">Share</button>
-        <button ion-button color="danger" type="button" (click)="removeClassroom(item)">Delete</button>
+        <button ion-button color="primary">
+            <ion-icon name="share"></ion-icon>
+            Share
+        </button>
+        <button ion-button color="danger" (click)="removeClassroom(item)" type="button">
+            <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>
       </ion-item-options>
     </ion-item-sliding>
+
     <ion-item *ngIf="classroom == ''" no-lines>
         กรุณาสร้าง Classroom
       </ion-item>
+
   </ion-list>
 
 
 
 
   <ion-fab right bottom *ngIf="_role == 0">
-      <button ion-fab><ion-icon name="arrow-dropleft"></ion-icon></button>
-      <ion-fab-list side="left">
-        <button ion-fab><ion-icon name="camera"></ion-icon></button>
-        <button ion-fab><ion-icon name="add"></ion-icon></button>
-      </ion-fab-list>
-    </ion-fab>
+    <button ion-fab>
+      <ion-icon name="arrow-dropleft"></ion-icon>
+    </button>
+    <ion-fab-list side="left">
+      <button ion-fab>
+        <ion-icon name="camera"></ion-icon>
+      </button>
+      <button ion-fab>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
 
-  <ion-fab right bottom  *ngIf="_role == 1">
+  <ion-fab right bottom *ngIf="_role == 1">
     <button ion-fab (click)="toAddClassroom()">
       <ion-icon name="add"></ion-icon>
     </button>

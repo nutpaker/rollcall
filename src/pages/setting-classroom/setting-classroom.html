@@ -1,72 +1,49 @@
 <ion-header>
 
-    <ion-navbar>
-        <ion-buttons left>
-            <button ion-button icon-only (click)="toHome()">
-                <ion-icon name="arrow-back"></ion-icon>
-            </button>
-        </ion-buttons>
-        <ion-title>{{group_name}}</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="toHome()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{group_name}}</ion-title>
+  </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-        <ion-item-group>
-                <ion-item-divider>คาบเรียน
-                  <ion-icon *ngIf="subject.length <= 1" class="icon-divider" name="add" color="primary" (click)="addDayTime('Add')"></ion-icon>
-                </ion-item-divider>
-              </ion-item-group>
-                <ion-card *ngFor="let item of subject; let i = index">
-                  <ion-card-header>
-                    <ion-item>
-                      <ion-label *ngIf="item.day =='sun'">วันอาทิตย์</ion-label>
-                      <ion-label *ngIf="item.day =='mon'">วันจันทร์</ion-label>
-                      <ion-label *ngIf="item.day =='tue'">วันอังคาร</ion-label>
-                      <ion-label *ngIf="item.day =='wed'">วันพุธ</ion-label>
-                      <ion-label *ngIf="item.day =='thu'">วันพฤหัสบดี</ion-label>
-                      <ion-label *ngIf="item.day =='fri'">วันศุกร์</ion-label>
-                      <ion-label *ngIf="item.day =='sat'">วันเสาร์</ion-label>
-                      <button ion-button icon-only item-right clear type="button" (click)="removeDayTime(item)">
-                        <ion-icon name="trash"></ion-icon>
-                        DELETE
-                      </button>
-                      <button ion-button icon-only type="button" (click)="editDayTime('Edit',item)" item-right clear>
-                        <ion-icon name="md-create"></ion-icon>
-                        EDIT
-                      </button>
-                    </ion-item>
-                  </ion-card-header>
-                  <ion-card-content>
-                    <ion-label>Start {{item.start}}</ion-label>
-                    <ion-label>End {{item.end}}</ion-label>
-                  </ion-card-content>
-                </ion-card>
-                <!--  -->
-                <ion-card *ngFor="let item of subject; let i = index">
-                        <ion-card-header>
-                          <ion-item>
-                            <ion-label *ngIf="item.day =='sun'">วันอาทิตย์</ion-label>
-                            <ion-label *ngIf="item.day =='mon'">วันจันทร์</ion-label>
-                            <ion-label *ngIf="item.day =='tue'">วันอังคาร</ion-label>
-                            <ion-label *ngIf="item.day =='wed'">วันพุธ</ion-label>
-                            <ion-label *ngIf="item.day =='thu'">วันพฤหัสบดี</ion-label>
-                            <ion-label *ngIf="item.day =='fri'">วันศุกร์</ion-label>
-                            <ion-label *ngIf="item.day =='sat'">วันเสาร์</ion-label>
-                            <button ion-button icon-only item-right clear type="button" (click)="removeDayTime(item)">
-                              <ion-icon name="trash"></ion-icon>
-                              DELETE
-                            </button>
-                            <button ion-button icon-only type="button" (click)="editDayTime('Edit',item)" item-right clear>
-                              <ion-icon name="md-create"></ion-icon>
-                              EDIT
-                            </button>
-                          </ion-item>
-                        </ion-card-header>
-                        <ion-card-content>
-                          <ion-label>Start {{item.start}}</ion-label>
-                          <ion-label>End {{item.end}}</ion-label>
-                        </ion-card-content>
-                      </ion-card>
+  <ion-item-group>
+    <ion-item-divider>คาบเรียน
+      <ion-icon *ngIf="subject.length <= 1" class="icon-divider" name="add" color="primary" (click)="addDayTime('Add')"></ion-icon>
+    </ion-item-divider>
+  </ion-item-group>
+
+
+  <ion-card *ngFor="let item of subject; let i = index">
+    <ion-card-header>
+      <ion-item>
+        <ion-label *ngIf="item.day =='sun'">วันอาทิตย์</ion-label>
+        <ion-label *ngIf="item.day =='mon'">วันจันทร์</ion-label>
+        <ion-label *ngIf="item.day =='tue'">วันอังคาร</ion-label>
+        <ion-label *ngIf="item.day =='wed'">วันพุธ</ion-label>
+        <ion-label *ngIf="item.day =='thu'">วันพฤหัสบดี</ion-label>
+        <ion-label *ngIf="item.day =='fri'">วันศุกร์</ion-label>
+        <ion-label *ngIf="item.day =='sat'">วันเสาร์</ion-label>
+        <button ion-button icon-only item-right clear type="button" (click)="removeDayTime(item)">
+          <ion-icon name="trash"></ion-icon>
+          DELETE
+        </button>
+        <button ion-button icon-only type="button" (click)="editDayTime('Edit',item)" item-right clear>
+          <ion-icon name="md-create"></ion-icon>
+          EDIT
+        </button>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label>Start {{item.start}}</ion-label>
+      <ion-label>End {{item.end}}</ion-label>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
