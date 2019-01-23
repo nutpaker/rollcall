@@ -46,7 +46,7 @@ export class SettingClassroomPage {
     this.navCtrl.setRoot(MenuPage,{},{animate: true, direction:'back'});
   }
 
-    getSubject(group_code: any) {
+  getSubject(group_code: any) {
     this.classroomService.getSubject(group_code)
       .then(res => {
         // console.log(res);
