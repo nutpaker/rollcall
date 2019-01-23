@@ -31,6 +31,11 @@ import { AddclassroomDateModalPageModule } from '../pages/addclassroom-date-moda
 // Menu
 import { MenuPageModule } from '../pages/menu/menu.module';
 
+// Tabs
+import { ClassroomPageModule } from '../pages/classroom/classroom.module';
+import { HomeClassroomPageModule } from '../pages/home-classroom/home-classroom.module';
+import { NotificationClassroomPageModule } from '../pages/notification-classroom/notification-classroom.module';
+import { SettingClassroomPageModule } from '../pages/setting-classroom/setting-classroom.module';
 
 // Provider
 import { AuthenticationProvider } from '../providers/authentication/authentication';
@@ -56,6 +61,11 @@ import { ClassroomProvider } from '../providers/classroom/classroom';
     AddclassroomDateModalPageModule,
     //Menu
     MenuPageModule,
+    //Tab
+    ClassroomPageModule,
+    HomeClassroomPageModule,
+    NotificationClassroomPageModule,
+    SettingClassroomPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

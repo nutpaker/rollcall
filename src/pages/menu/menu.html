@@ -6,15 +6,20 @@
   </ion-header>
 
   <ion-content>
-   <div>
-     {{_fname}} {{_lname}}
-     <br>
-     Role : {{_role}}
-   </div>
-      <ion-footer>
-          <button ion-button (click)="toLogout()">LogOut</button>
-    </ion-footer>
+
+
+   <ion-item>
+    {{_fname}} {{_lname}}
+   </ion-item>
+   <ion-item>
+    Role : {{_role}}
+   </ion-item>
+
   </ion-content>
+
+  <ion-footer>
+    <button ion-button (click)="toLogout()">LogOut</button>
+</ion-footer>
 
 </ion-menu>
 
