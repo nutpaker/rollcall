@@ -1,6 +1,7 @@
 import { MenuPage } from './../menu/menu';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Events ,ModalController} from 'ionic-angular';
+import { AddclassroomDateModalPage } from '../addclassroom-date-modal/addclassroom-date-modal';
 
 import { ClassroomProvider } from '../../providers/classroom/classroom';
 
@@ -16,13 +17,15 @@ export class SettingClassroomPage {
   group_name: any;
   invite_code: any;
   owner_code: any
-  subject = [];
+  subject:any[] = [];
+  subjectAll:any[] = [];
   
   constructor(
     public navCtrl: NavController,
      public navParams: NavParams,
      public events:Events,
-     public classroomService:ClassroomProvider
+     public classroomService:ClassroomProvider,
+     public mdCtrl: ModalController,
      ) {
       this.group_code = this.navParams.get('group_code');
       this.group_name = this.navParams.get('group_name');
@@ -46,13 +49,12 @@ export class SettingClassroomPage {
     this.navCtrl.setRoot(MenuPage,{},{animate: true, direction:'back'});
   }
 
+
+
   getSubject(group_code: any) {
     this.classroomService.getSubject(group_code)
       .then(res => {
-        // console.log(res);
-
         this.subject = JSON.parse(JSON.stringify(res));
-        console.log(this.subject);
       });
   }
 
