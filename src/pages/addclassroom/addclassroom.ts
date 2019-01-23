@@ -44,7 +44,7 @@ export class AddclassroomPage {
     this.getSubjectAll();
 
     this.AddClassroomForm = this.formBuilder.group({
-      'classname': ['PAKsd', Validators.compose([Validators.required])]
+      'classname': ['', Validators.compose([Validators.required])]
     });
 
     // Back Button Android
