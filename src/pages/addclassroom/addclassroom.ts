@@ -1,9 +1,8 @@
 import { AddclassroomDateModalPage } from '../addclassroom-date-modal/addclassroom-date-modal';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, AlertController, ModalController, } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Events, AlertController, ModalController, Navbar,Platform } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ClassroomProvider } from '../../providers/classroom/classroom'
-import { createOfflineCompileUrlResolver } from '@angular/compiler';
 
 
 @IonicPage()
@@ -11,10 +10,17 @@ import { createOfflineCompileUrlResolver } from '@angular/compiler';
   selector: 'page-addclassroom',
   templateUrl: 'addclassroom.html',
 })
+
+
 export class AddclassroomPage {
+  @ViewChild(Navbar) navBar: Navbar;
+
   AddClassroomForm: FormGroup;
-  uid: any;
-  classroomdate: any[] = [];
+
+  // classroomdate: any[] = [];
+  subjectAll: any[] = [];
+  subject: any[]= [];
+  classroom: any;
 
   group_code: any;
   group_name: any;
@@ -30,78 +36,82 @@ export class AddclassroomPage {
     public mdCtrl: ModalController,
     public alertCtrl: AlertController,
     public classroomService: ClassroomProvider,
+    public platform: Platform
   ) {
-
-
-    this.uid = this.navParams.data
+    this.group_code = this.classroomService.keygroup();
+    this.owner_code = this.navParams.data['uid'];
+    this.classroom = this.navParams.data['classroom'] ? this.navParams.data['classroom'] : {}
+    this.getSubjectAll();
 
     this.AddClassroomForm = this.formBuilder.group({
-      'classname': ['', Validators.compose([Validators.required])]
+      'classname': ['PAKsd', Validators.compose([Validators.required])]
     });
 
-    // let classroom = this.uid ? this.uid : {};
-    // if (classroom['group_code'] != null) {
-    //   this.group_code = classroom['group_code'];
-    //   this.group_name = classroom['group_name'];
-    //   this.invite_code = classroom['invite_code'];
-    //   this.owner_code = classroom['owner_code'];
-    //   this.AddClassroomForm.get('classname').setValue(this.group_name);
-    //   this.getSubject(this.group_code);
-    // }
+    // Back Button Android
+    platform.registerBackButtonAction(()=>{
+      this.subject.forEach(item => {
+        this.classroomService.removeSubject(item['subject_code']);
+      });
+      this.navCtrl.pop();
+    })
 
-    // Dev Test data
-    // this.classroomdate = [{
-    //   day:"mon",
-    //   start:"10:00",
-    //   end:"11:00"
-    // },
-    // {
-    //   day:"tue",
-    //   start:"10:00",
-    //   end:"11:00"
-    // }]
+
+
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddclassroomPage');
+    // Back Button
+    this.navBar.backButtonClick = (ev:UIEvent) => {
+        this.subject.forEach(item => {
+          this.classroomService.removeSubject(item['subject_code']);
+        });
+        this.navCtrl.pop();
+      }
   }
+
+
 
   ionViewWillEnter() {
     this.events.publish('dismissLoading');
   }
 
-  addDayTime(action: any) {
-    if (this.classroomdate.length >= 1) {
-      let chkDay = {
-        type: action,
-        day: this.classroomdate[0].day,
-        start: this.classroomdate[0].start,
-        end: this.classroomdate[0].end,
-      }
-
-      let modal = this.mdCtrl.create(AddclassroomDateModalPage, chkDay);
-      modal.present();
-      modal.onDidDismiss(data => {
-        if (data) {
-          this.classroomdate.push(data);
-        }
+  getSubject(group_code: any) {
+    this.classroomService.getSubject(group_code)
+      .then(res => {
+        this.subject = JSON.parse(JSON.stringify(res));
       });
+  }
 
-    } else {
-      let chkDay = {
-        type: action
-      }
-
-      let modal = this.mdCtrl.create(AddclassroomDateModalPage, chkDay);
-      modal.present();
-      modal.onDidDismiss(data => {
-        if (data) {
-          this.classroomdate.push(data);
-        }
-      });
+  getSubjectAll() {
+    for (let data of this.classroom) {
+      this.classroomService.getSubject(data['group_code'])
+        .then(res => {
+          this.subjectAll.push(res ? res : {})
+        });
     }
-  };
+    this.classroomService.getSubject(this.group_code)
+      .then(res => {
+        this.subjectAll.push(res ? res : {})
+      });
+
+
+  }
+
+  addDayTime(action: any) {
+    this.getSubjectAll();
+    let modal = this.mdCtrl.create(AddclassroomDateModalPage, { action: action, subject: this.subjectAll });
+    modal.present();
+    modal.onDidDismiss(data => {
+      if(action=="Add"){
+        if (data) {
+          this.classroomService.addSub(data, this.group_code, this.owner_code);
+          this.getSubject(this.group_code);
+        }
+      }
+    });
+  }
 
   removeDayTime(item: any) {
     let alert = this.alertCtrl.create({
@@ -116,10 +126,8 @@ export class AddclassroomPage {
         {
           text: 'Agree',
           handler: () => {
-            let index = this.classroomdate.indexOf(item);
-            if (index > -1) {
-              this.classroomdate.splice(index, 1);
-            }
+            this.classroomService.removeSubject(item['subject_code']);
+            this.getSubject(this.group_code);
           }
         }
       ]
@@ -127,78 +135,87 @@ export class AddclassroomPage {
     alert.present();
   }
 
-  editDayTime(action: any, item: any) {
-    let index = this.classroomdate.indexOf(item);
-    let para_data;
-    if (index == 0 && this.classroomdate.length == 1) {
-      para_data = {
-        type: action,
-        index: index,
-        edit: {
-          day: this.classroomdate[index].day,
-          start: this.classroomdate[index].start,
-          end: this.classroomdate[index].end
-        },
-
-      };
-
-    } else if (index == 1 && this.classroomdate.length == 2) {
-      para_data = {
-        type: action,
-        index: index,
-        len: this.classroomdate.length,
-        edit: {
-          day: this.classroomdate[index].day,
-          start: this.classroomdate[index].start,
-          end: this.classroomdate[index].end
-        },
-        day: this.classroomdate[index - 1].day,
-        start: this.classroomdate[index - 1].start,
-        end: this.classroomdate[index - 1].end
-      };
-
-    } else if (index == 0 && this.classroomdate.length == 2) {
-      para_data = {
-        type: action,
-        index: index,
-        len: this.classroomdate.length,
-        edit: {
-          day: this.classroomdate[index].day,
-          start: this.classroomdate[index].start,
-          end: this.classroomdate[index].end
-        },
-        day: this.classroomdate[index + 1].day,
-        start: this.classroomdate[index + 1].start,
-        end: this.classroomdate[index + 1].end
-      };
-
-    }
-
-
-    let modal = this.mdCtrl.create(AddclassroomDateModalPage, para_data);
+  editDayTime(action: any,item:any) {
+    this.getSubjectAll();
+    let modal = this.mdCtrl.create(AddclassroomDateModalPage, { action: action, subject: this.subjectAll,item:item });
     modal.present();
     modal.onDidDismiss(data => {
-      if (data) {
-        this.classroomdate[data.index] = data.data_day;
+      if(action=="Edit"){
+        if (data) {
+          this.classroomService.updateSub(data,item);
+          this.getSubject(this.group_code);
+        }
       }
+      
     });
-
   }
+
+  // editDayTime(action: any, item: any) {
+  //   let index = this.classroomdate.indexOf(item);
+  //   let para_data;
+  //   if (index == 0 && this.classroomdate.length == 1) {
+  //     para_data = {
+  //       type: action,
+  //       index: index,
+  //       edit: {
+  //         day: this.classroomdate[index].day,
+  //         start: this.classroomdate[index].start,
+  //         end: this.classroomdate[index].end
+  //       },
+
+  //     };
+
+  //   } else if (index == 1 && this.classroomdate.length == 2) {
+  //     para_data = {
+  //       type: action,
+  //       index: index,
+  //       len: this.classroomdate.length,
+  //       edit: {
+  //         day: this.classroomdate[index].day,
+  //         start: this.classroomdate[index].start,
+  //         end: this.classroomdate[index].end
+  //       },
+  //       day: this.classroomdate[index - 1].day,
+  //       start: this.classroomdate[index - 1].start,
+  //       end: this.classroomdate[index - 1].end
+  //     };
+
+  //   } else if (index == 0 && this.classroomdate.length == 2) {
+  //     para_data = {
+  //       type: action,
+  //       index: index,
+  //       len: this.classroomdate.length,
+  //       edit: {
+  //         day: this.classroomdate[index].day,
+  //         start: this.classroomdate[index].start,
+  //         end: this.classroomdate[index].end
+  //       },
+  //       day: this.classroomdate[index + 1].day,
+  //       start: this.classroomdate[index + 1].start,
+  //       end: this.classroomdate[index + 1].end
+  //     };
+
+  //   }
+
+
+  //   let modal = this.mdCtrl.create(AddclassroomDateModalPage, para_data);
+  //   modal.present();
+  //   modal.onDidDismiss(data => {
+  //     if (data) {
+  //       this.classroomdate[data.index] = data.data_day;
+  //     }
+  //   });
+
+  // }
+
+  // 
+
   toCreateclassroom() {
     this.events.publish('showLoading');
-    this.classroomService.addGroup(this.AddClassroomForm.controls['classname'].value, this.classroomdate, this.uid);
+    this.classroomService.addGroup(this.group_code, this.AddClassroomForm.controls['classname'].value, this.owner_code);
     this.navCtrl.pop();
   }
 
-  // getSubject(group_code: any) {
-  //   this.classroomService.getSubject(group_code)
-  //     .then(res => {
-  //       // console.log(res);
-
-  //       this.classroomdate = JSON.parse(JSON.stringify(res));
-  //       console.log(this.classroomdate);
-  //     });
-  // }
 }
 
 

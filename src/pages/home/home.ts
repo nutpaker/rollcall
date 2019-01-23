@@ -62,8 +62,6 @@ export class HomePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
-
-
   }
 
   ionViewWillEnter() {
@@ -74,29 +72,9 @@ export class HomePage {
     this.events.publish('dismissLoading');
   }
 
-  // getProfile() {
-  //   this.AuthService.getProfile()
-  //     .then(res => {
-  //       this._email = res['email']
-  //       this._faculty = res['faculty']
-  //       this._fname = res['fname']
-  //       this._lname = res['lname']
-  //       this._major = res['major']
-  //       this._role = res['role']
-  //       this._student_id = res['student_id']
-  //       this._uid = res['uid']
-
-  //       this.ClassroomService.getClassroom(this._role,this._uid)
-  //       .then((resp)=>{
-  //           this.classroom = resp;
-  //       });
-      
-  //     });
-  // }
-
   toAddClassroom() {
     this.events.publish('showLoading');
-    this.navCtrl.push(AddclassroomPage, { uid: this._uid });
+    this.navCtrl.push(AddclassroomPage, { uid: this._uid,classroom:this.classroom});
     // this.navCtrl.push(AddclassroomDateModalPage);
   }
 
