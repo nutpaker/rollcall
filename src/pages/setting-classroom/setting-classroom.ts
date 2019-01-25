@@ -18,7 +18,7 @@ export class SettingClassroomPage {
   invite_code: any;
   owner_code: any
   subject:any[] = [];
-  subjectAll:any[] = [];
+  subjectAll:any[]= [] ;
   
   constructor(
     public navCtrl: NavController,
@@ -48,9 +48,7 @@ export class SettingClassroomPage {
     this.events.publish('showLoading');
     this.navCtrl.setRoot(MenuPage,{},{animate: true, direction:'back'});
   }
-
-
-
+ 
   getSubject(group_code: any) {
     this.classroomService.getSubject(group_code)
       .then(res => {
@@ -58,4 +56,25 @@ export class SettingClassroomPage {
       });
   }
 
+  addDayTime(action:any){
+    this.getSubjectAll(this.owner_code);
+    let modal = this.mdCtrl.create(AddclassroomDateModalPage, { action: action, subject: this.subjectAll });
+    modal.present();
+    modal.onDidDismiss(data => {
+      if(action=="Add"){
+        if (data) {
+          this.classroomService.addSub(data, this.group_code, this.owner_code);
+          this.getSubject(this.group_code);
+        }
+      }
+    });
+  }
+
+  getSubjectAll(owner_code:any) {
+    this.subjectAll = [];
+    this.classroomService.getSubjectbyOwner(owner_code)
+    .then(res=>{
+      this.subjectAll.push(res ? res : {});
+    })
+  }
 }

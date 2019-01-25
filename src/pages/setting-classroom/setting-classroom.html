@@ -15,8 +15,10 @@
 <ion-content>
   <ion-item-group>
     <ion-item-divider>คาบเรียน
+        <ion-icon *ngIf="subject.length <=2" class="icon-divider" name="add" color="primary"  (click)="addDayTime('Add')"></ion-icon>
     </ion-item-divider>
   </ion-item-group>
+
 
 
   <ion-card *ngFor="let item of subject; let i = index">

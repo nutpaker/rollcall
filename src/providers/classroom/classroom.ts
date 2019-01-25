@@ -146,6 +146,21 @@ export class ClassroomProvider {
     })
   }
 
+  getSubjectbyOwner(owner_code:any){
+    return new Promise(resolve=>{
+      this.afd.database.ref('subjects').orderByKey().once("value")
+      .then((snapshot)=>{
+        this.subject = [];
+        snapshot.forEach(childSnapshot =>{
+          if (owner_code == childSnapshot.val()['owner_code']){
+            this.subject.push(childSnapshot.val());
+          }
+        });
+        resolve(this.subject);
+      });
+    })
+  }
+
   removeSubject(sub_code:any){
     const groupRemove = this.afd.database.ref(`/subjects/${sub_code}`);
     groupRemove.remove();

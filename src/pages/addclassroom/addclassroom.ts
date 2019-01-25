@@ -83,6 +83,7 @@ export class AddclassroomPage {
   }
 
   getSubjectAll() {
+    this.subjectAll = [];
     for (let data of this.classroom) {
       this.classroomService.getSubject(data['group_code'])
         .then(res => {
