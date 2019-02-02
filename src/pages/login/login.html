@@ -4,37 +4,38 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+
+<!-- <ion-header>
 
   <div style="color:#ffffff; text-align:center;"><h1>Log In</h1></div>
 
-</ion-header>
+</ion-header> -->
 
 
 <ion-content padding class="Background">
 
-  <img class="logoImg" src= '../../assets/imgs/qr.png'>
+  <img class="logoImg" src= '../../assets/imgs/qr.jpg'>
   <br>
 
   <form [formGroup]="authForm" (ngSubmit)="toLogin()">
 
     <ion-item class="Bg-Transparent">
       <ion-input formControlName="email" clearInput type="text" placeholder="Email"></ion-input>
-      <ion-icon item-end name="ios-contact-outline"></ion-icon>
+      <ion-icon item-end name="ios-contact-outline" class="color-icon"></ion-icon>
     </ion-item>
     <span *ngIf="authForm.controls.email.errors?.required && (authForm.controls.email.dirty || authForm.controls.email.touched)">
-      <ion-label>
+      <ion-label class="color-error">
         <ion-icon name="md-information-circle"></ion-icon> Username is required
       </ion-label>
     </span>
 
     <ion-item  class="Bg-Transparent">
       <ion-input formControlName="password" clearInput type="password" placeholder="Password"></ion-input>
-      <ion-icon item-end name="ios-lock-outline"></ion-icon>
+      <ion-icon item-end name="ios-lock-outline" class="color-icon"></ion-icon>
     </ion-item>
 
     <span *ngIf="authForm.controls.password.errors?.required && (authForm.controls.password.dirty || authForm.controls.password.touched)">
-      <ion-label>
+      <ion-label class="color-error">
         <ion-icon name="md-information-circle"></ion-icon> Password is required
       </ion-label>
     </span>
@@ -45,7 +46,6 @@
       <button class="BtnLogin" ion-button round outline type="submit" [disabled]="authForm.invalid">LOGIN</button>
     </div>
   </form>
-
 
   <ion-footer>
       <div text-center>

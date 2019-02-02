@@ -1,30 +1,41 @@
 page-login {
 
   .Background {
-    background-image: url('../../assets/imgs/BgLogin.jpg');
+    // background-image: url('../../assets/imgs/BgLogin.jpg');
+     //background: linear-gradient(red, yellow);
   }
 
   .Bg-Transparent{
     background: transparent;
-    color: white;
+    color: black;
+  }
+
+  .color-icon{
+    color: #9A9A9A;
+  }
+
+  .color-error{
+    color: red;
   }
 
   .button.BtnLogin{
     width:90%;
-    background-color:green;// background-color:#F6AA36;
+    background-color:#20ABE6;
+    //background: linear-gradient(to bottom right,#20ABE6, rgb(103, 180, 212));
+    background: linear-gradient(to bottom right,#1F71BA, #20ABE6);
     color:white;
     border-color: white;
   }
 
   .button.BtnRegister{
     width:90%;
-    color:white;
-    border-color: white;
+    color:#20ABE6;
+    border-color: #20ABE6;
     margin-bottom: 20px;
   }
 
   .logoImg{
-    height: 150px;
+    height: 300px;
     width: auto;
     margin: auto;
     display: block;

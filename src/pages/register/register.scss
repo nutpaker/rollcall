@@ -1,5 +1,34 @@
 page-register {
-    .myCustomSelect{
-        max-width: 100% !important;
-      }
+  // .myCustomSelect{
+  //     max-width: 100% !important;
+  //   }
+
+  .button.BtnRegister{
+    width:90%;
+    background-color:#20ABE6;
+    //background: linear-gradient(to bottom right,#20ABE6, rgb(103, 180, 212));
+    background: linear-gradient(to bottom right,#1F71BA, #20ABE6);
+    color:white;
+    border-color: white;
+  }
+
+  ion-select{
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .color-error{
+    color: red;
+  }
+
+  .header-toolbar {
+    .toolbar-background {
+      background: linear-gradient(to bottom right,#1F71BA, #20ABE6);
+    }
+}
+
+.color-icon{
+  color: white;
+}
+
 }
