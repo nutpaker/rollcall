@@ -1,26 +1,120 @@
+import { AddclassroomPage } from '../addclassroom/addclassroom';
 import { Component } from '@angular/core';
-import { NavController,Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events,AlertController } from 'ionic-angular';
 
-import {AuthenticationProvider} from '../../providers/authentication/authentication'
+// import { AuthenticationProvider } from '../../providers/authentication/authentication'
+import { ClassroomProvider } from '../../providers/classroom/classroom';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
 })
 export class HomePage {
+  _email: any;
+  _faculty: any;
+  _fname: any;
+  _lname: any;
+  _major: any;
+  _role: any;
+  _student_id: any;
+  _uid: any
+
+  classroom:any;
+
 
   constructor(
     public navCtrl: NavController,
-    private AuthService:AuthenticationProvider,
-    public events:Events
-    ) {
+    public navParams: NavParams,
+    // private AuthService: AuthenticationProvider,
+    public events: Events,
+    public alertCtrl: AlertController,
+    public ClassroomService: ClassroomProvider,
+  ) {
+    this.events.subscribe('profile',(res)=>{
+      this._email = res['email']
+      this._faculty = res['faculty']
+      this._fname = res['fname']
+      this._lname = res['lname']
+      this._major = res['major']
+      this._role = res['role']
+      this._student_id = res['student_id']
+      this._uid = res['uid']
+
+      this.ClassroomService.getClassroom(this._role,this._uid)
+      .then((resp)=>{
+          this.classroom = resp;
+      });
+    })
+
   }
-  
-  ionViewWillEnter(){
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad HomePage');
+
+
+  }
+
+  ionViewWillEnter() {
+    this.ClassroomService.getClassroom(this._role,this._uid)
+    .then((resp)=>{
+        this.classroom = resp;
+    });
     this.events.publish('dismissLoading');
+
+
   }
-  toLogout(){
-    this.AuthService.logout();
+
+  // getProfile() {
+  //   this.AuthService.getProfile()
+  //     .then(res => {
+  //       this._email = res['email']
+  //       this._faculty = res['faculty']
+  //       this._fname = res['fname']
+  //       this._lname = res['lname']
+  //       this._major = res['major']
+  //       this._role = res['role']
+  //       this._student_id = res['student_id']
+  //       this._uid = res['uid']
+
+  //       this.ClassroomService.getClassroom(this._role,this._uid)
+  //       .then((resp)=>{
+  //           this.classroom = resp;
+  //       });
+      
+  //     });
+  // }
+
+  toAddClassroom() {
+    this.events.publish('showLoading');
+    this.navCtrl.push(AddclassroomPage, { uid: this._uid });
+    // this.navCtrl.push(AddclassroomDateModalPage);
   }
+
+  removeClassroom(item?){
+    let alert = this.alertCtrl.create({
+      title: 'Use this lightsaber?',
+      message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            let index = this.classroom.indexOf(item);
+            if(index>-1){
+              this.ClassroomService.removeClassroom(this._role,this.classroom[index]['group_code']);
+                this.classroom.splice(index,1); 
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 
 }
