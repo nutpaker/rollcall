@@ -91,7 +91,7 @@ export class RegisterPage {
       });
     }, 1000);
     });
-    
+
 
   }
 
@@ -116,4 +116,9 @@ export class RegisterPage {
     this.registerService.register(this.regForm.value);
     // console.log(this.regForm.value);
   }
+
+  backPage(){
+    this.navCtrl.pop();
+  }
+
 }
