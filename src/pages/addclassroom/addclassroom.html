@@ -1,13 +1,9 @@
-<!--
-  Generated template for the AddclassroomPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>addclassroom</ion-title>
+    <ion-title *ngIf="group_name == null">addclassroom</ion-title>
+
+    <ion-title *ngIf="group_name != null">Setting</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -31,16 +27,17 @@
     <div *ngIf="AddClassroomForm.value.classname">
       <ion-item-group>
         <ion-item-divider>Teach List
-          <ion-icon *ngIf="classroomdate.length <=1" class="icon-divider" name="add" color="primary" (click)="addDayTime('Add')"></ion-icon>
+          <ion-icon *ngIf="subject.length <=2" class="icon-divider" name="add" color="primary" (click)="addDayTime('Add')"></ion-icon>
         </ion-item-divider>
       </ion-item-group>
 
 
-      <ion-item *ngIf="classroomdate.length == 0" no-lines>
+      <!-- <ion-item *ngIf="subject == ''" no-lines>
         <ion-label>กรุณาเพิ่มวันที่สอน</ion-label>
-      </ion-item>
+      </ion-item> -->
 
-      <ion-card *ngFor="let item of classroomdate; let i = index">
+      <ion-item no-lines>
+      <ion-card *ngFor="let item of subject; let i = index">
         <ion-card-header>
           <ion-item>
             <ion-label *ngIf="item.day =='sun'">วันอาทิตย์</ion-label>
@@ -50,11 +47,11 @@
             <ion-label *ngIf="item.day =='thu'">วันพฤหัสบดี</ion-label>
             <ion-label *ngIf="item.day =='fri'">วันศุกร์</ion-label>
             <ion-label *ngIf="item.day =='sat'">วันเสาร์</ion-label>
-            <button ion-button icon-only item-right clear type="button" (click)="removeDayTime(item)">
+            <button ion-button icon-only item-right clear type="button" (click)="removeDayTime(item)" >
               <ion-icon name="trash"></ion-icon>
               DELETE
             </button>
-            <button ion-button icon-only type="button" (click)="editDayTime('Edit',item)" item-right clear>
+            <button ion-button icon-only type="button" item-right clear (click)="editDayTime('Edit',item)">
               <ion-icon name="md-create"></ion-icon>
               EDIT
             </button>
@@ -65,11 +62,11 @@
           <ion-label>End {{item.end}}</ion-label>
         </ion-card-content>
       </ion-card>
-
+    </ion-item>
     </div>
 
     <div padding>
-      <button ion-button full type="submit" [disabled]="!(AddClassroomForm.valid) || !(classroomdate.length > 0)">NEXT</button>
+      <button ion-button full type="submit" [disabled]="!(AddClassroomForm.valid) || !(subject.length > 0)">NEXT</button>
     </div>
   </form>
 
