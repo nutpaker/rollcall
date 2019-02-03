@@ -15,7 +15,7 @@
 <ion-content>
   <ion-item-group>
     <ion-item-divider>คาบเรียน
-        <ion-icon *ngIf="subject.length <=2" class="icon-divider" name="add" color="primary"  (click)="addDayTime('Add')"></ion-icon>
+      <ion-icon *ngIf="subject.length <=2" class="icon-divider" name="add" color="primary" (click)="addDayTime('Add')"></ion-icon>
     </ion-item-divider>
   </ion-item-group>
 
@@ -39,5 +39,6 @@
       <ion-label>End {{item.end}}</ion-label>
     </ion-card-content>
   </ion-card>
+
 
 </ion-content>

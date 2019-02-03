@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 
+import QRCode from 'qrcode';
+import firebase from 'firebase';
 
 @Injectable()
 export class ClassroomProvider {
@@ -11,10 +13,30 @@ export class ClassroomProvider {
   classroom: any[] = [];
   subject: any[] = [];
 
+  generated = '';
+
   constructor(public http: HttpClient,
     private afd: AngularFireDatabase,
   ) {
     console.log('Hello ClassroomProvider Provider');
+  }
+
+  createQR(subject:any) {
+    const qrcode = QRCode;
+    const self = this;
+    qrcode.toDataURL(subject, { errorCorrectionLevel: 'H' }, function (err, url) {
+      self.generated = url;
+      self.uploadImg(subject);
+    });
+  }
+
+  uploadImg(subject:any) {
+    let storageRef = firebase.storage().ref();
+    const imageRef = storageRef.child(`QRCode/${subject}.png`);
+    imageRef.putString(this.generated, firebase.storage.StringFormat.DATA_URL).then((snapshot)=> {
+     console.log("Upload Success")
+    });
+
   }
 
   keygroup(){
@@ -49,6 +71,7 @@ export class ClassroomProvider {
       }
       const subSave = this.afd.database.ref(`/subjects/${keysub}`);
       subSave.set(sub);
+      this.createQR(keysub);
   }
 
   updateSub(subject: any,item:any){
@@ -62,8 +85,7 @@ export class ClassroomProvider {
       time_stamp_start: "",
       time_stamp_end: "",
       time_stamp_late_start: "",
-      time_stamp_late_end: "",
-      imgQR: ""
+      time_stamp_late_end: ""
     }
     const subSave = this.afd.database.ref(`/subjects/${item['subject_code']}`);
     subSave.update(sub);
@@ -119,6 +141,8 @@ export class ClassroomProvider {
                 if(key == chilSnapshot.val()['group_code']){
                   const subRemove = this.afd.database.ref(`/subjects/${chilSnapshot.val()['subject_code']}`);
                   subRemove.remove();
+                  const imgRemove = firebase.storage().ref(`QRCode/${chilSnapshot.val()['subject_code']}.png`);
+                  imgRemove.delete();
                 }
             });
         });
@@ -164,6 +188,8 @@ export class ClassroomProvider {
   removeSubject(sub_code:any){
     const groupRemove = this.afd.database.ref(`/subjects/${sub_code}`);
     groupRemove.remove();
+    const imgRemove = firebase.storage().ref(`QRCode/${sub_code}.png`);
+    imgRemove.delete();
   }
 
 }
