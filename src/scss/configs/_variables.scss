@@ -1,0 +1,28 @@
+
+ $theme:(
+  main-color:#F68A2A,
+  tabs-color:#FF5400,
+  second-color:#20ABE6,
+  placeholder-color:#AAAAAB,
+  label-color:#7A7C7E,
+  white-color:#F2F2F2,
+  black-color:#585B5E,
+  error-color:#EF4C4D,
+);
+// linear-gradient(to bottom right,#1F71BA, #20ABE6);
+$background-gradient:linear-gradient(to bottom right,rgb(46, 141, 51), rgb(150, 238, 165));
+
+$font:(
+h1 : 22px,
+h2 : 15px,
+h3 : 13px,
+h4 : 12px,
+error: 8px
+);
+
+// Font-family
+// ----------------------------------------------
+$main-font:			'Poppins';
+
+//Font-size-responsive
+// ----------------------------------------------
