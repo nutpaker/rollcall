@@ -192,4 +192,14 @@ export class ClassroomProvider {
     imgRemove.delete();
   }
 
+  updategroupname(group_code:any,group_name:any){
+    return new Promise(resolve=>{
+      let group = {
+        group_name: group_name,
+      }
+      const groupSave = this.afd.database.ref(`/groups/${group_code}`);
+      groupSave.update(group).then((res)=> resolve("success"),err=>resolve("error"));
+    })
+  }
+
 }
