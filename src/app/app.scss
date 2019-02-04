@@ -1,16 +1,40 @@
-// http://ionicframework.com/docs/theming/
+
+// Include all of variable in 'configs' folder.
+@import "../scss/themes/mixins";        // mixin
+@import "../theme/variables";
+@import "../scss/configs/variables";
+
+//Include all of item that can use in another project.
+@import "../scss/frameworks/dimensions";
+@import "../scss/frameworks/boxsizings";
+@import "../scss/frameworks/aligns";
 
 
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
+// Include all of item that used in project.
+@import "../scss/themes/animates";      // animation css
+@import "../scss/themes/backdrops";     // background (Ex. color , img )
+@import "../scss/themes/bars";          // bar
+@import "../scss/themes/breadcrumb";    // breadcrumb
+@import "../scss/themes/bubbles";       // validate bubble
+@import "../scss/themes/buttons";       // button
+@import "../scss/themes/checkboxs";     // custom checkbox
+@import "../scss/themes/footers";       // custom footer
+@import "../scss/themes/forms";         // forms (Ex. input, placeholder)
+@import "../scss/themes/googlemap";     // Google map customize
+@import "../scss/themes/grids";         // grids (Ex. col,row)
+@import "../scss/themes/headers";       // header component , sub menu
+@import "../scss/themes/icons";         // custom icon
+@import "../scss/themes/images";        // img (Ex. width , height )
+@import "../scss/themes/lists";         // lists (Ex. list label , thumbnail )
+@import "../scss/themes/radios";        // custom radio button
+@import "../scss/themes/rangespinner";  // rangespinner (Ex. number range , etc range)
+@import "../scss/themes/ratings";       // rating component (start)
+@import "../scss/themes/selects";       // select list (Ex. option select)
+@import "../scss/themes/sidemenus";     // custom side menu
+@import "../scss/themes/slides";        // custom slidshow (Ex. img slidebox)
+@import "../scss/themes/spinners";      // custom loading (Ex. loading spinner)
+@import "../scss/themes/tabs";          // custom tabs
+@import "../scss/themes/types";         // custom type (Ex. font-size , font-style , font-color)
+@import "../scss/themes/media720";      // respondsive for min-witdh 720
+@import "../scss/themes/media1440";     // respondsive for min-witdh 1440
+@import "../scss/themes/mediaAspectRatio";      // respondsive for Aspect Ratio

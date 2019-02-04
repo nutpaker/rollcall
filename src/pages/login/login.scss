@@ -20,17 +20,16 @@ page-login {
 
   .button.BtnLogin{
     width:90%;
-    background-color:#20ABE6;
-    //background: linear-gradient(to bottom right,#20ABE6, rgb(103, 180, 212));
-    background: linear-gradient(to bottom right,#1F71BA, #20ABE6);
+    background-color:map-get($theme,second-color);
+    background: $background-gradient;
     color:white;
     border-color: white;
   }
 
   .button.BtnRegister{
     width:90%;
-    color:#20ABE6;
-    border-color: #20ABE6;
+    color:map-get($theme,second-color);
+    border-color: map-get($theme,second-color);
     margin-bottom: 20px;
   }
 
@@ -40,6 +39,13 @@ page-login {
     margin: auto;
     display: block;
     padding-top:50px;
+  }
+
+  .button-ios.activated,
+  .button-md.activated,
+  .button-outline-md:hover:not(.disable-hover) {
+      background-color: transparent;
+      color: map-get($theme, second-color)
   }
 
 }
