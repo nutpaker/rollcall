@@ -24,7 +24,7 @@
       <ion-icon item-end name="ios-contact-outline" class="color-icon"></ion-icon>
     </ion-item>
     <span *ngIf="authForm.controls.email.errors?.required && (authForm.controls.email.dirty || authForm.controls.email.touched)">
-      <ion-label class="color-error">
+      <ion-label class="color-red">
         <ion-icon name="md-information-circle"></ion-icon> Username is required
       </ion-label>
     </span>
@@ -35,7 +35,7 @@
     </ion-item>
 
     <span *ngIf="authForm.controls.password.errors?.required && (authForm.controls.password.dirty || authForm.controls.password.touched)">
-      <ion-label class="color-error">
+      <ion-label class="color-red">
         <ion-icon name="md-information-circle"></ion-icon> Password is required
       </ion-label>
     </span>

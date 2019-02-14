@@ -8,7 +8,7 @@
     <ion-toolbar class="header-toolbar" style="height: unset;" mode="ios">
 
       <button mode="ios" ion-button icon-only clear (click)="backPage();">
-        <ion-icon name="ios-arrow-dropleft-outline" class="color-icon"></ion-icon>
+        <ion-icon name="ios-arrow-dropleft-outline" class="color-white"></ion-icon>
       </button>
 
       <ion-title mode="ios">Register</ion-title>
@@ -26,13 +26,13 @@
         </ion-item>
 
         <span *ngIf="regForm.controls.email.errors?.emailchk && (regForm.controls.email.dirty || regForm.controls.email.touched)">
-          <ion-label class="color-error">
+          <ion-label class="color-red">
             <ion-icon name="md-information-circle"></ion-icon> Email นี้ถูกใช้งานไปแล้ว
           </ion-label>
         </span>
 
         <span *ngIf="regForm.controls.email.errors?.email && (regForm.controls.email.dirty || regForm.controls.email.touched)">
-          <ion-label class="color-error">
+          <ion-label class="color-red">
             <ion-icon name="md-information-circle"></ion-icon> รูปแบบของ Email ไม่ถูกต้อง
           </ion-label>
         </span>
@@ -44,7 +44,7 @@
         </ion-item>
 
         <span *ngIf="regForm.controls.password.errors?.required && (regForm.controls.password.dirty || regForm.controls.password.touched)">
-          <ion-label class="color-error">
+          <ion-label class="color-red">
             <ion-icon name="md-information-circle"></ion-icon> กรุณาใส่รหัสผ่าน
           </ion-label>
         </span>
@@ -56,7 +56,7 @@
         </ion-item>
 
         <span *ngIf="regForm.controls.confirmPassword.errors?.MatchPassword && (regForm.controls.confirmPassword.dirty || regForm.controls.confirmPassword.touched)">
-          <ion-label class="color-error">
+          <ion-label class="color-red">
             <ion-icon name="md-information-circle"></ion-icon> รหัสผ่านของคุณไม่ตรงกัน, กรุณาใส่อีกครั้ง
           </ion-label>
         </span>
@@ -68,7 +68,7 @@
         </ion-item>
 
         <span *ngIf="regForm.controls.firstname.errors?.required && (regForm.controls.firstname.dirty || regForm.controls.firstname.touched)">
-          <ion-label class="color-error">
+          <ion-label class="color-red">
             <ion-icon name="md-information-circle"></ion-icon> กรุณาใส่ชื่อ
           </ion-label>
         </span>
@@ -80,7 +80,7 @@
         </ion-item>
 
         <span *ngIf="regForm.controls.lastname.errors?.required && (regForm.controls.lastname.dirty || regForm.controls.lastname.touched)">
-          <ion-label class="color-error">
+          <ion-label class="color-red">
             <ion-icon name="md-information-circle"></ion-icon> กรุณาใส่นามสกุล
           </ion-label>
         </span>
@@ -92,13 +92,13 @@
         </ion-item>
 
         <span *ngIf="regForm.controls.studentid.errors?.student && (regForm.controls.studentid.dirty || regForm.controls.studentid.touched)">
-          <ion-label class="color-error">
+          <ion-label class="color-red">
             <ion-icon name="md-information-circle"></ion-icon> รหัสนักศึกษาถูกใช้งานไปแล้ว
           </ion-label>
         </span>
 
         <span *ngIf="regForm.controls.studentid.errors?.required && (regForm.controls.studentid.dirty || regForm.controls.studentid.touched)">
-          <ion-label class="color-error">
+          <ion-label class="color-red">
             <ion-icon name="md-information-circle"></ion-icon> กรุณาใส่รหัสนักศึกษา
           </ion-label>
         </span>
@@ -115,7 +115,7 @@
 
 
         <span *ngIf="regForm.controls.faculty.errors?.required && (regForm.controls.faculty.dirty || regForm.controls.faculty.touched)">
-          <ion-label class="color-error">
+          <ion-label class="color-red">
             <ion-icon name="md-information-circle"></ion-icon> กรุณาเลือกคณะ
           </ion-label>
         </span>
@@ -151,7 +151,7 @@
       </ion-item>
 
         <span *ngIf="regForm.controls.major.errors?.required && (regForm.controls.major.dirty || regForm.controls.major.touched)">
-          <ion-label class="color-error">
+          <ion-label class="color-red">
             <ion-icon name="md-information-circle"></ion-icon> กรุณาเลือกสาขา
           </ion-label>
         </span>
