@@ -21,10 +21,36 @@ export class ClassroomProvider {
     console.log('Hello ClassroomProvider Provider');
   }
 
+  getQR(subject:any){
+    return new Promise(resolve=>{
+      let storageRef = firebase.storage().ref();
+      var imageRef  = storageRef.child(`QRCode/${subject}.png`);
+      imageRef.getDownloadURL()
+      .then((url)=>{
+        resolve(url);
+      })
+    })
+
+    // imageRef.getDownloadURL()
+    // .then((url)=>{
+    //   var xhr = new XMLHttpRequest();
+    //   xhr.responseType = 'blob'
+    //   xhr.onload = function(event){
+    //     var blob = xhr.response
+    //   };
+    //   xhr.open('GET',url)
+    //   xhr.send();
+    //   return url
+    // }).catch(function(error) {
+    //   console.log("Image Error")
+    // });
+
+  }
+
   createQR(subject:any) {
     const qrcode = QRCode;
     const self = this;
-    qrcode.toDataURL(subject, { errorCorrectionLevel: 'H' }, function (err, url) {
+    qrcode.toDataURL(btoa(subject), { errorCorrectionLevel: 'H' }, function (err, url) {
       self.generated = url;
       self.uploadImg(subject);
     });
@@ -36,7 +62,6 @@ export class ClassroomProvider {
     imageRef.putString(this.generated, firebase.storage.StringFormat.DATA_URL).then((snapshot)=> {
      console.log("Upload Success")
     });
-
   }
 
   keygroup(){
@@ -67,8 +92,9 @@ export class ClassroomProvider {
         time_stamp_end: "",
         time_stamp_late_start: "",
         time_stamp_late_end: "",
-        imgQR: ""
+        // imgQR: ""
       }
+
       const subSave = this.afd.database.ref(`/subjects/${keysub}`);
       subSave.set(sub);
       this.createQR(keysub);

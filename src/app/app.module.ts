@@ -27,6 +27,7 @@ import { AddclassroomPageModule } from '../pages/addclassroom/addclassroom.modul
 
 // Page Modal
 import { AddclassroomDateModalPageModule } from '../pages/addclassroom-date-modal/addclassroom-date-modal.module';
+import { EditsubjectModalPageModule } from '../pages/editsubject-modal/editsubject-modal.module'
 
 // Menu
 import { MenuPageModule } from '../pages/menu/menu.module';
@@ -59,6 +60,7 @@ import { ClassroomProvider } from '../providers/classroom/classroom';
     HomePageModule,
     AddclassroomPageModule,
     AddclassroomDateModalPageModule,
+    EditsubjectModalPageModule,
     //Menu
     MenuPageModule,
     //Tab

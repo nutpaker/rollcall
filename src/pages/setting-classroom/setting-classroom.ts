@@ -2,6 +2,7 @@ import { MenuPage } from './../menu/menu';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,Events ,ModalController,AlertController} from 'ionic-angular';
 import { AddclassroomDateModalPage } from '../addclassroom-date-modal/addclassroom-date-modal';
+import { EditsubjectModalPageModule } from '../editsubject-modal/editsubject-modal.module';
 
 import { ClassroomProvider } from '../../providers/classroom/classroom';
 
@@ -21,6 +22,7 @@ export class SettingClassroomPage {
   subject:any[] = [];
   subjectAll:any[]= [] ;
   classroom: any;
+  testimg:any;
   
   constructor(
     public navCtrl: NavController,
@@ -37,7 +39,16 @@ export class SettingClassroomPage {
       this.group_name_change = this.navParams.get('group_name');
       this.classroom = this.navParams.data['classroom'] ? this.navParams.data['classroom'] : {}
       this.getSubject(this.group_code);
-      
+
+      // console.log(classroomService.getQR("-LYapY5fHJJR8z0GzO31"))
+      // // this.testimg = classroomService.getQR("-LYapY5fHJJR8z0GzO31")
+
+      this.classroomService.getQR("-LYapY5fHJJR8z0GzO31")
+      .then((res)=>{
+        this.testimg = res;
+        // console.log(this.testimg)
+      });
+
   }
 
   ionViewDidLoad() {
@@ -54,10 +65,34 @@ export class SettingClassroomPage {
     this.navCtrl.setRoot(MenuPage,{},{animate: true, direction:'back'});
   }
  
+    // รับค่า Subject ของ Class Room นี้
   getSubject(group_code: any) {
     this.classroomService.getSubject(group_code)
       .then(res => {
-        this.subject = JSON.parse(JSON.stringify(res));
+        var data = JSON.parse(JSON.stringify(res));
+
+        var sorter = {
+          // "sunday": 0, // << if sunday is first day of week
+          "mon": 1,
+          "tue": 2,
+          "wed": 3,
+          "thu": 4,
+          "fri": 5,
+          "sat": 6,
+          "sun": 7
+        }
+
+        var sortByProperty = function (property) {
+          return function (x, y) {
+            return ((x[property] === y[property]) ? 0 : ((x[property] > y[property]) ? 1 : -1));
+          };
+        };
+
+        data.sort(function (a, b) {
+          return sorter[a.day] - sorter[b.day];
+        });
+
+        this.subject = JSON.parse(JSON.stringify(data, null, 0))
       });
   }
 
@@ -75,6 +110,7 @@ export class SettingClassroomPage {
     });
   }
 
+  // รับค่า Subject ที่เป็าเจ้าของ ของทุก Classroom
   getSubjectAll(owner_code:any) {
     this.subjectAll = [];
     this.classroomService.getSubjectbyOwner(owner_code)
@@ -131,23 +167,9 @@ export class SettingClassroomPage {
     alert.present();
   }
 
-  // getSubjectAll2() {
-  //   this.subjectAll = [];
-  //   for (let data of this.classroom) {
-  //     this.classroomService.getSubject(data['group_code'])
-  //       .then(res => {
-  //         this.subjectAll.push(res ? res : {})
-  //       });
-  //   }
-  //   this.classroomService.getSubject(this.group_code)
-  //     .then(res => {
-  //       this.subjectAll.push(res ? res : {})
-  //     });
-  // }
-
   editDayTime(action: any,item:any) {
     this.getSubjectAll(this.owner_code);
-    let modal = this.mdCtrl.create(AddclassroomDateModalPage, { action: action, subject: this.subjectAll,item:item });
+    let modal = this.mdCtrl.create(EditsubjectModalPageModule, { action: action, subject: this.subjectAll,item:item });
     modal.present();
     modal.onDidDismiss(data => {
       if(action=="Edit"){
