@@ -1,8 +1,8 @@
 import { MenuPage } from './../menu/menu';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Events ,ModalController,AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Events ,ModalController,AlertController, Img} from 'ionic-angular';
 import { AddclassroomDateModalPage } from '../addclassroom-date-modal/addclassroom-date-modal';
-import { EditsubjectModalPageModule } from '../editsubject-modal/editsubject-modal.module';
+import { EditsubjectModalPage } from '../editsubject-modal/editsubject-modal';
 
 import { ClassroomProvider } from '../../providers/classroom/classroom';
 
@@ -22,7 +22,6 @@ export class SettingClassroomPage {
   subject:any[] = [];
   subjectAll:any[]= [] ;
   classroom: any;
-  testimg:any;
   
   constructor(
     public navCtrl: NavController,
@@ -39,15 +38,6 @@ export class SettingClassroomPage {
       this.group_name_change = this.navParams.get('group_name');
       this.classroom = this.navParams.data['classroom'] ? this.navParams.data['classroom'] : {}
       this.getSubject(this.group_code);
-
-      // console.log(classroomService.getQR("-LYapY5fHJJR8z0GzO31"))
-      // // this.testimg = classroomService.getQR("-LYapY5fHJJR8z0GzO31")
-
-      this.classroomService.getQR("-LYapY5fHJJR8z0GzO31")
-      .then((res)=>{
-        this.testimg = res;
-        // console.log(this.testimg)
-      });
 
   }
 
@@ -93,6 +83,7 @@ export class SettingClassroomPage {
         });
 
         this.subject = JSON.parse(JSON.stringify(data, null, 0))
+        // console.log(JSON.stringify(this.subject));
       });
   }
 
@@ -167,18 +158,16 @@ export class SettingClassroomPage {
     alert.present();
   }
 
-  editDayTime(action: any,item:any) {
+  editDayTime(item:any) {
+    this.events.publish('showLoading');
     this.getSubjectAll(this.owner_code);
-    let modal = this.mdCtrl.create(EditsubjectModalPageModule, { action: action, subject: this.subjectAll,item:item });
+    let modal = this.mdCtrl.create(EditsubjectModalPage, {subject: this.subjectAll,item:item});
     modal.present();
     modal.onDidDismiss(data => {
-      if(action=="Edit"){
         if (data) {
           this.classroomService.updateSub(data,item);
           this.getSubject(this.group_code);
         }
-      }
-      
     });
   }
 }

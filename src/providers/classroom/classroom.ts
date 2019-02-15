@@ -28,23 +28,8 @@ export class ClassroomProvider {
       imageRef.getDownloadURL()
       .then((url)=>{
         resolve(url);
-      })
-    })
-
-    // imageRef.getDownloadURL()
-    // .then((url)=>{
-    //   var xhr = new XMLHttpRequest();
-    //   xhr.responseType = 'blob'
-    //   xhr.onload = function(event){
-    //     var blob = xhr.response
-    //   };
-    //   xhr.open('GET',url)
-    //   xhr.send();
-    //   return url
-    // }).catch(function(error) {
-    //   console.log("Image Error")
-    // });
-
+      });
+    });
   }
 
   createQR(subject:any) {
@@ -81,6 +66,8 @@ export class ClassroomProvider {
 
   addSub(subject: any, groupcode: any, owner_group: any) {
       let keysub = this.afd.database.ref().push().key;
+      let time = this.calculateTime(subject.start);
+
       let sub = {
         subject_code: keysub,
         group_code: groupcode,
@@ -88,11 +75,9 @@ export class ClassroomProvider {
         day: subject.day,
         start: subject.start,
         end: subject.end,
-        time_stamp_start: "",
-        time_stamp_end: "",
-        time_stamp_late_start: "",
-        time_stamp_late_end: "",
-        // imgQR: ""
+        time_stamp_start: time["time_stamp_start"],
+        time_stamp_late_start: time["time_stamp_late_start"],
+        time_stamp_late_end: time["time_stamp_late_end"],
       }
 
       const subSave = this.afd.database.ref(`/subjects/${keysub}`);
@@ -101,6 +86,8 @@ export class ClassroomProvider {
   }
 
   updateSub(subject: any,item:any){
+    
+    let time = this.calculateTime(subject['start']);
     let sub = {
       subject_code: item['subject_code'],
       group_code: item['group_code'],
@@ -108,10 +95,9 @@ export class ClassroomProvider {
       day: subject['day'],
       start: subject['start'],
       end: subject['end'],
-      time_stamp_start: "",
-      time_stamp_end: "",
-      time_stamp_late_start: "",
-      time_stamp_late_end: ""
+      time_stamp_start: time["time_stamp_start"],
+      time_stamp_late_start: time["time_stamp_late_start"],
+      time_stamp_late_end: time["time_stamp_late_end"],
     }
     const subSave = this.afd.database.ref(`/subjects/${item['subject_code']}`);
     subSave.update(sub);
@@ -226,6 +212,31 @@ export class ClassroomProvider {
       const groupSave = this.afd.database.ref(`/groups/${group_code}`);
       groupSave.update(group).then((res)=> resolve("success"),err=>resolve("error"));
     })
+  }
+
+  pad(num, size) {
+    var s = num+"";
+    while (s.length < size) s = "0" + s;
+    return s;
+  }
+
+  calculateTime(start:string){
+
+      let timestart = Date.parse("01/01/2019 " + start + ":00");
+      let timestarts = timestart - 900000
+      let timelatestart = timestart + 600000
+      let timelateend = timelatestart + 600000
+      let datetimestart = new Date(timestarts)
+      let datetimelatestart = new Date(timelatestart)
+      let datetimelateend = new Date(timelateend)
+
+      let time = {
+        time_stamp_start: ("0"+(datetimestart.getHours())).substr(-2)+":" + ("0"+(datetimestart.getMinutes())).substr(-2),
+        time_stamp_late_start: ("0"+(datetimelatestart.getHours())).substr(-2)+":" + ("0"+(datetimelatestart.getMinutes())).substr(-2),
+        time_stamp_late_end: ("0"+(datetimelateend.getHours())).substr(-2)+":" + ("0"+(datetimelateend.getMinutes())).substr(-2)
+      }
+
+      return time;
   }
 
 }
