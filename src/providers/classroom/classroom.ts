@@ -85,22 +85,38 @@ export class ClassroomProvider {
       this.createQR(keysub);
   }
 
-  updateSub(subject: any,item:any){
-    
-    let time = this.calculateTime(subject['start']);
-    let sub = {
-      subject_code: item['subject_code'],
-      group_code: item['group_code'],
-      owner_code: item['owner_code'],
-      day: subject['day'],
-      start: subject['start'],
-      end: subject['end'],
-      time_stamp_start: time["time_stamp_start"],
-      time_stamp_late_start: time["time_stamp_late_start"],
-      time_stamp_late_end: time["time_stamp_late_end"],
+  updateSub(subject: any,item:any,action:any){
+    if(action == 0){
+      let time = this.calculateTime(subject['start']);
+      let sub = {
+        subject_code: item['subject_code'],
+        group_code: item['group_code'],
+        owner_code: item['owner_code'],
+        day: subject['day'],
+        start: subject['start'],
+        end: subject['end'],
+        time_stamp_start: time["time_stamp_start"],
+        time_stamp_late_start: time["time_stamp_late_start"],
+        time_stamp_late_end: time["time_stamp_late_end"],
+      }
+      const subSave = this.afd.database.ref(`/subjects/${item['subject_code']}`);
+      subSave.update(sub);
+    }else{
+      let sub = {
+        subject_code: item['subject_code'],
+        group_code: item['group_code'],
+        owner_code: item['owner_code'],
+        day: subject['day'],
+        start: subject['start'],
+        end: subject['end'],
+        time_stamp_start: subject["time_stamp_start"],
+        time_stamp_late_start: subject["time_stamp_late_start"],
+        time_stamp_late_end: subject["time_stamp_late_end"],
+      }
+      const subSave = this.afd.database.ref(`/subjects/${item['subject_code']}`);
+      subSave.update(sub);
     }
-    const subSave = this.afd.database.ref(`/subjects/${item['subject_code']}`);
-    subSave.update(sub);
+    
   }
 
   randomInvite(length) {

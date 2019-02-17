@@ -83,16 +83,10 @@ export class AddclassroomPage {
 
   getSubjectAll() {
     this.subjectAll = [];
-    for (let data of this.classroom) {
-      this.classroomService.getSubject(data['group_code'])
-        .then(res => {
-          this.subjectAll.push(res ? res : {})
-        });
-    }
-    this.classroomService.getSubject(this.group_code)
-      .then(res => {
-        this.subjectAll.push(res ? res : {})
-      });
+    this.classroomService.getSubjectbyOwner(this.owner_code)
+    .then(res=>{
+      this.subjectAll.push(res ? res : {});
+    })
   }
 
   addDayTime(action: any) {
@@ -138,7 +132,7 @@ export class AddclassroomPage {
     modal.onDidDismiss(data => {
       if(action=="Edit"){
         if (data) {
-          this.classroomService.updateSub(data,item);
+          this.classroomService.updateSub(data,item,0);
           this.getSubject(this.group_code);
         }
       }

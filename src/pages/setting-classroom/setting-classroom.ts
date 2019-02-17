@@ -165,7 +165,7 @@ export class SettingClassroomPage {
     modal.present();
     modal.onDidDismiss(data => {
         if (data) {
-          this.classroomService.updateSub(data,item);
+          this.classroomService.updateSub(data,item,1);
           this.getSubject(this.group_code);
         }
     });
