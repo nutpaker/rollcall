@@ -181,50 +181,115 @@ export class EditsubjectModalPage {
     // }
 
 
-    // let chk: boolean = true;
-    // let nstart = Date.parse("01/01/2019 " + this.studyForm.value['studyTimestart'] + ":00");
-    // let nend = Date.parse("01/01/2019 " + this.studyForm.value['studyTimeend'] + ":00");
-    // let calTime = nend - nstart;
-    // if (calTime >= 3600000) {
-    //   for (let i of this.subject) {
-    //     for (let j of i) {
-    //       if (this.type == 'Edit' && j['subject_code'] == this.edit['subject_code']) {
-    //         continue;
-    //       }
-    //         let ostart = Date.parse("01/01/2019 " + j['start'] + ":00");
-    //         let oend = Date.parse("01/01/2019 " + j['end'] + ":00");
-    //         if (j['day'] == this.studyForm.value['studyDay'] && (nstart < oend && nend > ostart)) {
-    //           let alert = this.alertCtrl.create({
-    //             title: 'Warring',
-    //             subTitle: 'เวลาทับ',
-    //             buttons: ['Dismiss']
-    //           });
-    //           alert.present();
-    //           chk = false
-    //           break;
-    //         }
-    //     }
-    //   }
-    // }else{
-    //   let alert = this.alertCtrl.create({
-    //     title: 'Warring',
-    //     subTitle: 'ไม่สามารถเพิ่มตารางเวลาเรียนได้เนื่องจากต้องมีเวลาเรียนอย่างน้อย 1 ชั่วโมง',
-    //     buttons: ['Dismiss']
-    //   });
-    //   alert.present();
-    //   chk = false;
+    let chk: boolean = true;
+    let nstart = Date.parse("01/01/2019 " + this.studyForm.value['studyTimestart'] + ":00");
+    let nend = Date.parse("01/01/2019 " + this.studyForm.value['studyTimeend'] + ":00");
+    let calTime = nend - nstart;
+    if (calTime >= 3600000) {
+      for (let i of this.subject) {
+        for (let j of i) {
+          if (j['subject_code'] == this.data['subject_code']) {
+            continue;
+          }
+            let ostart = Date.parse("01/01/2019 " + j['start'] + ":00");
+            let oend = Date.parse("01/01/2019 " + j['end'] + ":00");
+            if (j['day'] == this.studyForm.value['studyDay'] && (nstart < oend && nend > ostart)) {
+              let alert = this.alertCtrl.create({
+                title: 'Warring',
+                subTitle: 'เวลาทับ',
+                buttons: ['Dismiss']
+              });
+              alert.present();
+              chk = false
+              break;
+            }
+        }
+      }
+    }else{
+      let alert = this.alertCtrl.create({
+        title: 'Warring',
+        subTitle: 'ไม่สามารถเพิ่มตารางเวลาเรียนได้เนื่องจากต้องมีเวลาเรียนอย่างน้อย 1 ชั่วโมง',
+        buttons: ['Dismiss']
+      });
+      alert.present();
+      chk = false;
 
-    // }
+    }
 
-    // if(chk) {
-    //   // Add subject
-    //   let data_add = {
-    //     day: this.studyForm.controls['studyDay'].value,
-    //     start: this.studyForm.controls['studyTimestart'].value,
-    //     end: this.studyForm.controls['studyTimeend'].value
-    //   }
-    //   this.closeModal(data_add);
-    // }
+    if(chk) {
+       let nstart = Date.parse("01/01/2019 " + this.studyForm.value['studyTimestart'] + ":00");
+        let studyTime_stamp_start = Date.parse("01/01/2019 " + this.studyForm.value['studyTime_stamp_start'] + ":00");
+        let studyTime_late_start = Date.parse("01/01/2019 " + this.studyForm.value['studyTime_late_start'] + ":00");
+        let studyTime_late_end = Date.parse("01/01/2019 " + this.studyForm.value['studyTime_late_end'] + ":00");
+
+        // ต้องน้อยกว่าเท่ากับเวลาเรียน และห้ามมากว่า 30 นาที
+        if ((nstart - studyTime_stamp_start) > 1800000 || studyTime_stamp_start > nstart) {
+          // alt ห้ามเช็คชื่อก่อนเวลา 30 นาที
+          let alert = this.alertCtrl.create({
+            title: 'Warring',
+            subTitle: 'ต้องน้อยกว่าเท่ากับเวลาเรียน และห้ามมากว่า 30 นาที',
+            buttons: ['Dismiss']
+          });
+          alert.present();
+          //  สายได้ไม่เกิน 30 นาทีนับจากเวลาเรียน และไม่สามารถเช็คสายก่อนเวลาเรียนได้
+        } else if ((studyTime_late_start < nstart) || (studyTime_late_start - nstart) > 1800000) {
+          let alert = this.alertCtrl.create({
+            title: 'Warring',
+            subTitle: 'สายได้ไม่เกิน 30 นาทีนับจากเวลาเรียน และไม่สามารถเช็คสายก่อนเวลาเรียนได้',
+            buttons: ['Dismiss']
+          });
+          alert.present();
+          // เวลาขาดต้องมากกว่าเวลาสาย และเวลาขาดมากสุดได้แค่ 30 นาที ถึง หมดคาบเรียน
+        } else if ((studyTime_late_end < studyTime_late_start) || (studyTime_late_end - studyTime_late_start) > 1800000) {
+          let alert = this.alertCtrl.create({
+            title: 'Warring',
+            subTitle: 'เวลาขาดต้องมากกว่าเวลาสาย และเวลาขาดมากสุดได้แค่ 30 นาที ถึง หมดคาบเรียน',
+            buttons: ['Dismiss']
+          });
+          alert.present();
+
+          // ไม่มีการเช็คสาย
+        } else if (studyTime_late_end == studyTime_late_start) {
+          const confirm = this.alertCtrl.create({
+            title: 'Use this lightsaber?',
+            message: 'ไม่มีการเช็คสาย หลังจากเวลาสาย ถือว่าขาดทั้งหมด',
+            buttons: [
+              {
+                text: 'Disagree',
+                handler: () => {
+                  console.log('Disagree clicked');
+                }
+              },
+              {
+                text: 'Agree',
+                handler: () => {
+                  let data_add = {
+                    day: this.studyForm.controls['studyDay'].value,
+                    start: this.studyForm.controls['studyTimestart'].value,
+                    end: this.studyForm.controls['studyTimeend'].value,
+                    time_stamp_start: this.studyForm.controls['studyTime_stamp_start'].value,
+                    time_stamp_late_start: this.studyForm.controls['studyTime_late_start'].value,
+                    time_stamp_late_end: this.studyForm.controls['studyTime_late_end'].value
+                  }
+                  this.closeModal(data_add);
+                }
+              }
+            ]
+          });
+          confirm.present();
+        } else {
+          let data_add = {
+            day: this.studyForm.controls['studyDay'].value,
+            start: this.studyForm.controls['studyTimestart'].value,
+            end: this.studyForm.controls['studyTimeend'].value,
+            time_stamp_start: this.studyForm.controls['studyTime_stamp_start'].value,
+            time_stamp_late_start: this.studyForm.controls['studyTime_late_start'].value,
+            time_stamp_late_end: this.studyForm.controls['studyTime_late_end'].value
+          }
+          this.closeModal(data_add);
+        }
+
+    }
   }
 
   closeModal(data?) {
