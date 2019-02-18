@@ -4,7 +4,6 @@ import { IonicPage, NavController, NavParams, Events, AlertController, ModalCont
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ClassroomProvider } from '../../providers/classroom/classroom'
 
-
 @IonicPage()
 @Component({
   selector: 'page-addclassroom',
@@ -26,6 +25,7 @@ export class AddclassroomPage {
   group_name: any;
   invite_code: any;
   owner_code: any
+
 
 
   constructor(
@@ -53,9 +53,7 @@ export class AddclassroomPage {
         this.classroomService.removeSubject(item['subject_code']);
       });
       this.navCtrl.pop();
-    })
-
-
+    });
   }
 
   ionViewDidLoad() {
@@ -71,6 +69,7 @@ export class AddclassroomPage {
 
 
 
+
   ionViewWillEnter() {
     this.events.publish('dismissLoading');
   }
@@ -83,16 +82,11 @@ export class AddclassroomPage {
   }
 
   getSubjectAll() {
-    for (let data of this.classroom) {
-      this.classroomService.getSubject(data['group_code'])
-        .then(res => {
-          this.subjectAll.push(res ? res : {})
-        });
-    }
-    this.classroomService.getSubject(this.group_code)
-      .then(res => {
-        this.subjectAll.push(res ? res : {})
-      });
+    this.subjectAll = [];
+    this.classroomService.getSubjectbyOwner(this.owner_code)
+    .then(res=>{
+      this.subjectAll.push(res ? res : {});
+    })
   }
 
   addDayTime(action: any) {
@@ -138,7 +132,7 @@ export class AddclassroomPage {
     modal.onDidDismiss(data => {
       if(action=="Edit"){
         if (data) {
-          this.classroomService.updateSub(data,item);
+          this.classroomService.updateSub(data,item,0);
           this.getSubject(this.group_code);
         }
       }

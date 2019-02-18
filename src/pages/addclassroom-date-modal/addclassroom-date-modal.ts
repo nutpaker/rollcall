@@ -16,7 +16,7 @@ export class AddclassroomDateModalPage {
   // index: any;
   type: any;
   subject: any[];
-  edit:any;
+  edit: any;
 
   constructor(
     public navCtrl: NavController,
@@ -42,8 +42,12 @@ export class AddclassroomDateModalPage {
       this.studyForm.controls['studyDay'].setValue(this.edit.day);
       this.studyForm.controls['studyTimestart'].setValue(this.edit.start);
       this.studyForm.controls['studyTimeend'].setValue(this.edit.end);
- 
+
     }
+
+
+    // console.log(JSON.stringify(this.subject));
+    // console.log(this.subject)
 
   }
 
@@ -56,58 +60,49 @@ export class AddclassroomDateModalPage {
   }
 
   onSubmit() {
-    let chk: boolean = false;
+    let chk: boolean = true;
     let nstart = Date.parse("01/01/2019 " + this.studyForm.value['studyTimestart'] + ":00");
     let nend = Date.parse("01/01/2019 " + this.studyForm.value['studyTimeend'] + ":00");
     let calTime = nend - nstart;
     if (calTime >= 3600000) {
-      this.subject.forEach(res => {
-        res.forEach(resp => {
-          if (resp) {
-            let ostart = Date.parse("01/01/2019 " + resp['start'] + ":00");
-            let oend = Date.parse("01/01/2019 " + resp['end'] + ":00");
-            // ตรวจสอบวันเวลา ชนกันไหม
-            if (resp['day'] == this.studyForm.value['studyDay'] && (nstart < oend && nend > ostart)) {
-              if (this.type == 'Edit') {
-                if(resp['subject_code'] == this.edit['subject_code']){
-                  return chk = false
-                }
-                return chk = true 
-              }
-              return chk = true
-            }
-          } else {
-            return chk = false;
+      for (let i of this.subject) {
+        for (let j of i) {
+          if (this.type == 'Edit' && j['subject_code'] == this.edit['subject_code']) {
+            continue;
           }
-        });
-      });
-
-      if (!chk) {
-        // Add subject
-       
-          let data_add = {
-                        // subject_code: this.edit['subject_code'],
-                        day: this.studyForm.controls['studyDay'].value,
-                        start: this.studyForm.controls['studyTimestart'].value,
-                        end: this.studyForm.controls['studyTimeend'].value
-                      }
-          this.closeModal(data_add);
-      } else {
-        // แจ้งเตือนเวลาชน
-        let alert = this.alertCtrl.create({
-          title: 'Warring',
-          subTitle: 'เวลาทับ',
-          buttons: ['Dismiss']
-        });
-        alert.present();
+            let ostart = Date.parse("01/01/2019 " + j['start'] + ":00");
+            let oend = Date.parse("01/01/2019 " + j['end'] + ":00");
+            if (j['day'] == this.studyForm.value['studyDay'] && (nstart < oend && nend > ostart)) {
+              let alert = this.alertCtrl.create({
+                title: 'Warring',
+                subTitle: 'เวลาทับ',
+                buttons: ['Dismiss']
+              });
+              alert.present();
+              chk = false
+              break;
+            }
+        }
       }
-    } else {
+    }else{
       let alert = this.alertCtrl.create({
         title: 'Warring',
         subTitle: 'ไม่สามารถเพิ่มตารางเวลาเรียนได้เนื่องจากต้องมีเวลาเรียนอย่างน้อย 1 ชั่วโมง',
         buttons: ['Dismiss']
       });
       alert.present();
+      chk = false;
+
+    }
+
+    if(chk) {
+      // Add subject
+      let data_add = {
+        day: this.studyForm.controls['studyDay'].value,
+        start: this.studyForm.controls['studyTimestart'].value,
+        end: this.studyForm.controls['studyTimeend'].value
+      }
+      this.closeModal(data_add);
     }
   }
 

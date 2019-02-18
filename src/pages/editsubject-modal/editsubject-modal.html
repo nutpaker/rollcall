@@ -13,11 +13,14 @@
 
 </ion-header>
 
-
 <ion-content padding>
+  <!-- <ion-item *ngIf="!img" > -->
+      <img [src]="img">
+  <!-- </ion-item> -->
+
   <form [formGroup]="studyForm" (ngSubmit)="onSubmit()">
     <ion-item no-lines>
-        <ion-label hidden>วันที่สอน</ion-label>
+        <ion-label >วันที่สอน</ion-label>
         <ion-select  placeholder="วันที่สอน"  formControlName="studyDay">
             <ion-option value="sun">วันอาทิตย์</ion-option>
             <ion-option value="mon">วันจันทร์</ion-option>
@@ -29,14 +32,32 @@
           </ion-select>
     </ion-item>
     <ion-item no-lines>
+        <ion-label>เริ่ม</ion-label>
         <ion-datetime formControlName="studyTimestart" displayFormat="HH:mm" minuteValues="0,15,30,45" placeholder="Pickup Time"></ion-datetime>
       </ion-item>
       <ion-item no-lines>
+          <ion-label>เลิก</ion-label>
           <ion-datetime formControlName="studyTimeend" displayFormat="HH:mm" minuteValues="0,15,30,45" placeholder="Pickup Time"></ion-datetime>
       </ion-item> 
 
-        <!-- studyForm.controls.studyTimestart.errors?.timechk || studyForm.controls.studyTimeend.errors?.timechk || !(studyForm.value.studyDay && studyForm.value.studyTimestart && studyForm.value.studyTimeend) -->
-      <button ion-button type="submit" [disabled]="!studyForm.valid">{{type}}</button>
+      <ion-item no-lines>
+          <ion-label>เช็คก่อนเรียน</ion-label>
+          <ion-datetime formControlName="studyTime_stamp_start" displayFormat="HH:mm" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" placeholder="Pickup Time"></ion-datetime>
+      </ion-item> 
+
+      <ion-item no-lines>
+          <ion-label>สาย</ion-label>
+          <ion-datetime formControlName="studyTime_late_start" displayFormat="HH:mm" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" placeholder="Pickup Time"></ion-datetime>
+      </ion-item> 
+
+      <ion-item no-lines>
+          <ion-label>ขาด</ion-label>
+          <ion-datetime formControlName="studyTime_late_end" displayFormat="HH:mm" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" placeholder="Pickup Time"></ion-datetime>
+      </ion-item> 
+
+      
+
+      <button ion-button type="submit" [disabled]="!studyForm.valid">Edit</button>
   </form>
 
 </ion-content>

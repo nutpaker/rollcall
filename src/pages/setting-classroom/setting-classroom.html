@@ -10,29 +10,46 @@
 
 
 <ion-content>
+  <ion-item no-lines>
+      <ion-label>ชื่อห้องเรียน</ion-label>
+      <ion-input type="text" [(ngModel)]="group_name_change"></ion-input>
+      <button *ngIf="group_name != group_name_change && group_name_change !=''"  ion-button item-right (click)="changeGroupname()" >บันทึก</button>
+  </ion-item>
   <ion-item-group>
     <ion-item-divider>คาบเรียน
+      <ion-icon *ngIf="subject.length <=2" class="icon-divider" name="add" color="primary" (click)="addDayTime('Add')"></ion-icon>
     </ion-item-divider>
   </ion-item-group>
 
-
-  <ion-card *ngFor="let item of subject; let i = index">
-    <ion-card-header>
-      <ion-item>
-        <ion-label *ngIf="item.day =='sun'">วันอาทิตย์</ion-label>
-        <ion-label *ngIf="item.day =='mon'">วันจันทร์</ion-label>
-        <ion-label *ngIf="item.day =='tue'">วันอังคาร</ion-label>
-        <ion-label *ngIf="item.day =='wed'">วันพุธ</ion-label>
-        <ion-label *ngIf="item.day =='thu'">วันพฤหัสบดี</ion-label>
-        <ion-label *ngIf="item.day =='fri'">วันศุกร์</ion-label>
-        <ion-label *ngIf="item.day =='sat'">วันเสาร์</ion-label>
+  <ion-list>  
+      <ion-item-sliding *ngFor="let item of subject; let i = index">
+        <ion-item>
+        <h2 *ngIf="item.day =='sun'">วันอาทิตย์</h2>
+        <h2 *ngIf="item.day =='mon'">วันจันทร์</h2>
+        <h2 *ngIf="item.day =='tue'">วันอังคาร</h2>
+        <h2 *ngIf="item.day =='wed'">วันพุธ</h2>
+        <h2 *ngIf="item.day =='thu'">วันพฤหัสบดี</h2>
+        <h2 *ngIf="item.day =='fri'">วันศุกร์</h2>
+        <h2 *ngIf="item.day =='sat'">วันเสาร์</h2>
+        <p>Time : {{item.start}} - {{item.end}}</p>
+        <ion-note item-end>
+            <ion-icon name="arrow-forward"></ion-icon>
+        </ion-note>
       </ion-item>
-    </ion-card-header>
+        <ion-item-options side="right">
+            <button ion-button color="primary" (click)="editDayTime(item)">
+                <ion-icon name="create"></ion-icon>
+                Edit
+            </button>
+            <button ion-button color="danger" (click)="removeDayTime(item)">
+                <ion-icon name="trash"></ion-icon>
+              Delete
+            </button>
+          </ion-item-options>
+      </ion-item-sliding>
 
-    <ion-card-content>
-      <ion-label>Start {{item.start}}</ion-label>
-      <ion-label>End {{item.end}}</ion-label>
-    </ion-card-content>
-  </ion-card>
-
+    <ion-item *ngIf="subject.length ==0" no-lines>
+        กรุณาสร้าง Classroom
+      </ion-item>
+  </ion-list>
 </ion-content>

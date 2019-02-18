@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 
+import QRCode from 'qrcode';
+import firebase from 'firebase';
 
 @Injectable()
 export class ClassroomProvider {
@@ -11,10 +13,40 @@ export class ClassroomProvider {
   classroom: any[] = [];
   subject: any[] = [];
 
+  generated = '';
+
   constructor(public http: HttpClient,
     private afd: AngularFireDatabase,
   ) {
     console.log('Hello ClassroomProvider Provider');
+  }
+
+  getQR(subject:any){
+    return new Promise(resolve=>{
+      let storageRef = firebase.storage().ref();
+      var imageRef  = storageRef.child(`QRCode/${subject}.png`);
+      imageRef.getDownloadURL()
+      .then((url)=>{
+        resolve(url);
+      });
+    });
+  }
+
+  createQR(subject:any) {
+    const qrcode = QRCode;
+    const self = this;
+    qrcode.toDataURL(btoa(subject), { errorCorrectionLevel: 'H' }, function (err, url) {
+      self.generated = url;
+      self.uploadImg(subject);
+    });
+  }
+
+  uploadImg(subject:any) {
+    let storageRef = firebase.storage().ref();
+    const imageRef = storageRef.child(`QRCode/${subject}.png`);
+    imageRef.putString(this.generated, firebase.storage.StringFormat.DATA_URL).then((snapshot)=> {
+     console.log("Upload Success")
+    });
   }
 
   keygroup(){
@@ -34,6 +66,8 @@ export class ClassroomProvider {
 
   addSub(subject: any, groupcode: any, owner_group: any) {
       let keysub = this.afd.database.ref().push().key;
+      let time = this.calculateTime(subject.start);
+
       let sub = {
         subject_code: keysub,
         group_code: groupcode,
@@ -41,32 +75,48 @@ export class ClassroomProvider {
         day: subject.day,
         start: subject.start,
         end: subject.end,
-        time_stamp_start: "",
-        time_stamp_end: "",
-        time_stamp_late_start: "",
-        time_stamp_late_end: "",
-        imgQR: ""
+        time_stamp_start: time["time_stamp_start"],
+        time_stamp_late_start: time["time_stamp_late_start"],
+        time_stamp_late_end: time["time_stamp_late_end"],
       }
+
       const subSave = this.afd.database.ref(`/subjects/${keysub}`);
       subSave.set(sub);
+      this.createQR(keysub);
   }
 
-  updateSub(subject: any,item:any){
-    let sub = {
-      subject_code: item['subject_code'],
-      group_code: item['group_code'],
-      owner_code: item['owner_code'],
-      day: subject['day'],
-      start: subject['start'],
-      end: subject['end'],
-      time_stamp_start: "",
-      time_stamp_end: "",
-      time_stamp_late_start: "",
-      time_stamp_late_end: "",
-      imgQR: ""
+  updateSub(subject: any,item:any,action:any){
+    if(action == 0){
+      let time = this.calculateTime(subject['start']);
+      let sub = {
+        subject_code: item['subject_code'],
+        group_code: item['group_code'],
+        owner_code: item['owner_code'],
+        day: subject['day'],
+        start: subject['start'],
+        end: subject['end'],
+        time_stamp_start: time["time_stamp_start"],
+        time_stamp_late_start: time["time_stamp_late_start"],
+        time_stamp_late_end: time["time_stamp_late_end"],
+      }
+      const subSave = this.afd.database.ref(`/subjects/${item['subject_code']}`);
+      subSave.update(sub);
+    }else{
+      let sub = {
+        subject_code: item['subject_code'],
+        group_code: item['group_code'],
+        owner_code: item['owner_code'],
+        day: subject['day'],
+        start: subject['start'],
+        end: subject['end'],
+        time_stamp_start: subject["time_stamp_start"],
+        time_stamp_late_start: subject["time_stamp_late_start"],
+        time_stamp_late_end: subject["time_stamp_late_end"],
+      }
+      const subSave = this.afd.database.ref(`/subjects/${item['subject_code']}`);
+      subSave.update(sub);
     }
-    const subSave = this.afd.database.ref(`/subjects/${item['subject_code']}`);
-    subSave.update(sub);
+    
   }
 
   randomInvite(length) {
@@ -119,6 +169,8 @@ export class ClassroomProvider {
                 if(key == chilSnapshot.val()['group_code']){
                   const subRemove = this.afd.database.ref(`/subjects/${chilSnapshot.val()['subject_code']}`);
                   subRemove.remove();
+                  const imgRemove = firebase.storage().ref(`QRCode/${chilSnapshot.val()['subject_code']}.png`);
+                  imgRemove.delete();
                 }
             });
         });
@@ -146,9 +198,61 @@ export class ClassroomProvider {
     })
   }
 
+  getSubjectbyOwner(owner_code:any){
+    return new Promise(resolve=>{
+      this.afd.database.ref('subjects').orderByKey().once("value")
+      .then((snapshot)=>{
+        this.subject = [];
+        snapshot.forEach(childSnapshot =>{
+          if (owner_code == childSnapshot.val()['owner_code']){
+            this.subject.push(childSnapshot.val());
+          }
+        });
+        resolve(this.subject);
+      });
+    })
+  }
+
   removeSubject(sub_code:any){
     const groupRemove = this.afd.database.ref(`/subjects/${sub_code}`);
     groupRemove.remove();
+    const imgRemove = firebase.storage().ref(`QRCode/${sub_code}.png`);
+    imgRemove.delete();
+  }
+
+  updategroupname(group_code:any,group_name:any){
+    return new Promise(resolve=>{
+      let group = {
+        group_name: group_name,
+      }
+      const groupSave = this.afd.database.ref(`/groups/${group_code}`);
+      groupSave.update(group).then((res)=> resolve("success"),err=>resolve("error"));
+    })
+  }
+
+  pad(num, size) {
+    var s = num+"";
+    while (s.length < size) s = "0" + s;
+    return s;
+  }
+
+  calculateTime(start:string){
+
+      let timestart = Date.parse("01/01/2019 " + start + ":00");
+      let timestarts = timestart - 900000
+      let timelatestart = timestart + 600000
+      let timelateend = timelatestart + 600000
+      let datetimestart = new Date(timestarts)
+      let datetimelatestart = new Date(timelatestart)
+      let datetimelateend = new Date(timelateend)
+
+      let time = {
+        time_stamp_start: ("0"+(datetimestart.getHours())).substr(-2)+":" + ("0"+(datetimestart.getMinutes())).substr(-2),
+        time_stamp_late_start: ("0"+(datetimelatestart.getHours())).substr(-2)+":" + ("0"+(datetimelatestart.getMinutes())).substr(-2),
+        time_stamp_late_end: ("0"+(datetimelateend.getHours())).substr(-2)+":" + ("0"+(datetimelateend.getMinutes())).substr(-2)
+      }
+
+      return time;
   }
 
 }
