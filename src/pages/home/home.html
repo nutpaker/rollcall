@@ -1,5 +1,4 @@
-<ion-header>
-
+<!-- <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -15,8 +14,25 @@
       </button>
     </ion-buttons>
   </ion-navbar>
+</ion-header> -->
 
-</ion-header>
+<ion-header>
+    <ion-toolbar class="header-toolbar" style="height: unset;" mode="ios">
+        <button ion-button menuToggle>
+            <ion-icon name="menu" class="color-white"></ion-icon>
+          </button>
+      <ion-title mode="ios">home</ion-title>
+      <ion-buttons end>
+          <button ion-button *ngIf="_role == 0">
+            <ion-icon name="add"></ion-icon>
+          </button>
+
+          <button ion-button *ngIf="_role == 1" (click)="toAddClassroom()">
+            <ion-icon name="add" class="color-white"></ion-icon>
+          </button>
+        </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
 
 <ion-content>

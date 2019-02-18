@@ -1,14 +1,11 @@
 <ion-header>
+  <ion-toolbar class="header-toolbar" style="height: unset;" mode="ios">
 
-  <ion-navbar>
-    <ion-buttons left>
-      <button ion-button icon-only (click)="toHome()">
-        <ion-icon name="arrow-back"></ion-icon>
-      </button>
-    </ion-buttons>
+    <button mode="ios" ion-button icon-only clear (click)="toHome()">
+      <ion-icon name="ios-arrow-dropleft-outline" class="color-white"></ion-icon>
+    </button>
     <ion-title>{{group_name}}</ion-title>
-  </ion-navbar>
-
+  </ion-toolbar>
 </ion-header>
 
 

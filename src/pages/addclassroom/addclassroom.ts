@@ -136,7 +136,7 @@ export class AddclassroomPage {
           this.getSubject(this.group_code);
         }
       }
-      
+
     });
   }
 
@@ -146,6 +146,9 @@ export class AddclassroomPage {
     this.navCtrl.pop();
   }
 
+  backPage(){
+    this.navCtrl.pop();
+  }
 }
 
 
