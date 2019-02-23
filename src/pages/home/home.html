@@ -23,8 +23,8 @@
           </button>
       <ion-title mode="ios">home</ion-title>
       <ion-buttons end>
-          <button ion-button *ngIf="_role == 0">
-            <ion-icon name="add"></ion-icon>
+          <button ion-button *ngIf="_role == 0" (click)="joinClassroom()">
+            <ion-icon name="add" class="color-white"></ion-icon>
           </button>
 
           <button ion-button *ngIf="_role == 1" (click)="toAddClassroom()">
@@ -36,6 +36,7 @@
 
 
 <ion-content>
+  
   <ion-list>
     <ion-list-header>
         ห้องเรียน
@@ -61,10 +62,9 @@
       </ion-item-options>
     </ion-item-sliding>
 
-    <ion-item *ngIf="classroom == ''" no-lines>
-        กรุณาสร้าง Classroom
-      </ion-item>
-
+      <ion-item *ngIf="classroom == null" no-lines>
+        กรุณากด + เพื่อเพิ่มห้องเรียน
+        </ion-item>
   </ion-list>
 
 
@@ -78,7 +78,7 @@
       <button ion-fab>
         <ion-icon name="camera"></ion-icon>
       </button>
-      <button ion-fab>
+      <button ion-fab (click)="joinClassroom()" >
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-fab-list>
