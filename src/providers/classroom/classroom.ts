@@ -11,7 +11,7 @@ import firebase from 'firebase';
 @Injectable()
 export class ClassroomProvider {
 
-  classroom: any[] = [];
+  // classroom: any[] = [];
   subject: any[] = [];
 
   generated = '';
@@ -127,25 +127,11 @@ export class ClassroomProvider {
     return result;
   }
 
-  // getMyclassroom(uid: any) {
-  //   return new Promise(resolve => {
-  //   this.afd.database.ref('classrooms').orderByKey().once("value")
-  //     .then((snapshot) => {
-  //       this.myClassroom = [];
-  //       snapshot.forEach((childSnapshot) => {
-  //         if (uid == childSnapshot.val()['uid']) {
-  //           this.myClassroom.push(childSnapshot.val())
-  //         }
-  //       });
-  //     });
-  //     console.log(">>>>>>>>>>>>>" + JSON.stringify(this.myClassroom))
-  //     resolve(this.myClassroom);
-  //   });
-  // }
-
   getClassroom(role: any, uid: any) {
+    // this.classroom = [];
+    let classroom:any[] = [];
     return new Promise(resolve => {
-      this.classroom = [];
+      
       // "Student"
       if (role == 0) {
         let myclassroom = [];
@@ -163,11 +149,11 @@ export class ClassroomProvider {
                   for(let i of myclassroom){
                     snapshott.forEach((childsnapshott)=>{
                       if(childsnapshott.val()['group_code'] == i['group_code']){
-                        this.classroom.push(childsnapshott.val());
+                        classroom.push(childsnapshott.val());
                       }
                     });
                   }
-                  resolve(this.classroom);
+                  resolve(classroom);
                 }
               });
             }
@@ -180,10 +166,10 @@ export class ClassroomProvider {
           .then((snapshot) => {
             snapshot.forEach(childSnapshot => {
               if (uid == childSnapshot.val()['owner_code']) {
-                this.classroom.push(childSnapshot.val());
+                classroom.push(childSnapshot.val());
               }
             });
-            resolve(this.classroom);
+            resolve(classroom);
           });
       }
       // "Admin"

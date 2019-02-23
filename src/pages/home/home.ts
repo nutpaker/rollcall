@@ -23,7 +23,6 @@ export class HomePage {
 
   classroom: any;
 
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -62,9 +61,12 @@ export class HomePage {
   }
 
   getClassrooms(role:any,uid:any){
+    this.classroom = [];
     this.ClassroomService.getClassroom(role,uid)
     .then((resp) => {
       this.classroom = resp;
+      // console.log(">>>>>>>>>>>> "+JSON.stringify(resp))
+      // console.log(JSON.stringify(this.classroom));
     });
   }
 
