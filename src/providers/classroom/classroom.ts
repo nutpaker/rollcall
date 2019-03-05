@@ -210,6 +210,19 @@ export class ClassroomProvider {
           });
         });
 
+        query = this.afd.database.ref('classrooms').orderByKey();
+      query.once("value")
+        .then((snapshot) => {
+          snapshot.forEach(chilSnapshot => {
+            if (key == chilSnapshot.val()['group_code']) {
+              const classroom = this.afd.database.ref(`/classrooms/${chilSnapshot.key}`);
+              classroom.remove();
+            }
+          });
+        });
+
+
+
 
 
     }

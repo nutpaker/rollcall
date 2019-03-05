@@ -7,6 +7,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/'
 import { ClassroomProvider } from '../../providers/classroom/classroom';
 
 import { ClassroomPage } from '../classroom/classroom';
+import { HomeStudentPage } from '../home-student/home-student';
 
 @IonicPage()
 @Component({
@@ -23,7 +24,7 @@ export class HomePage {
   _student_id: any;
   _uid: any
 
-  classroom: any;
+  classroom: any = [];
 
   constructor(
     public navCtrl: NavController,
@@ -122,9 +123,17 @@ export class HomePage {
       // this.ClassroomService.removeClassroom(this._role,this.classroom[index]['group_code']);
       //   this.classroom.splice(index,1); 
       // this.events.publish('classroom',this.classroom[index]);
-      this.events.publish('showLoading');
-      this.navCtrl.push(ClassroomPage, { classroom: this.classroom[index] });
+
+      if(this._role ==0){
+        this.events.publish('showLoading');
+        this.navCtrl.push(HomeStudentPage,{ classroom: this.classroom[index],uid:this._uid })
+      }else{
+        this.events.publish('showLoading');
+        this.navCtrl.push(ClassroomPage, { classroom: this.classroom[index]});
+      }
     }
+
+
 
     // this.events.publish('');
 

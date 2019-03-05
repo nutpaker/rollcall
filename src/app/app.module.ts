@@ -25,6 +25,7 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { RegisterPageModule } from '../pages/register/register.module';
 import { HomePageModule } from '../pages/home/home.module';
 import { AddclassroomPageModule } from '../pages/addclassroom/addclassroom.module';
+import { HomeStudentPageModule } from '../pages/home-student/home-student.module';
 
 // Page Modal
 import { AddclassroomDateModalPageModule } from '../pages/addclassroom-date-modal/addclassroom-date-modal.module';
@@ -62,6 +63,7 @@ import { ClassroomProvider } from '../providers/classroom/classroom';
     AddclassroomPageModule,
     AddclassroomDateModalPageModule,
     EditsubjectModalPageModule,
+    HomeStudentPageModule,
     //Menu
     MenuPageModule,
     //Tab
