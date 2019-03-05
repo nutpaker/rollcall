@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 // Other
 // FIREBASE
@@ -80,7 +81,8 @@ import { ClassroomProvider } from '../providers/classroom/classroom';
     AuthenticationProvider,
     AngularFireDatabase,
     RegisterProvider,
-    ClassroomProvider
+    ClassroomProvider,
+    SocialSharing
   ]
 })
 export class AppModule {}

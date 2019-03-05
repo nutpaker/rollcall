@@ -1,6 +1,8 @@
+import { AppSettings } from './../../envelopments/AppSettings';
 import { AddclassroomPage } from '../addclassroom/addclassroom';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, AlertController, PopoverController } from 'ionic-angular';
+import { SocialSharing } from '@ionic-native/social-sharing/'
 
 import { ClassroomProvider } from '../../providers/classroom/classroom';
 
@@ -30,7 +32,8 @@ export class HomePage {
     public events: Events,
     public alertCtrl: AlertController,
     public ClassroomService: ClassroomProvider,
-    public popoverCtrl: PopoverController
+    public popoverCtrl: PopoverController,
+    public socialSharing:SocialSharing,
   ) {
     this.events.subscribe('profile', (res) => {
       this._email = res['email']
@@ -184,6 +187,18 @@ export class HomePage {
       ]
     });
     prompt.present();
+  }
+
+  shareClassroom(item?){
+    let index = this.classroom.indexOf(item);
+    if (index > -1) {
+      this.socialSharing.share("สามารถเข้าร่วม Classroom ด้วยรหัส " + this.classroom[index]['invite_code'],null,null,AppSettings.API_SHARE+'?gcode='+this.classroom[index]['group_code'])
+      .then((res)=>{
+        console.log("Share Success");
+      },(err)=>{
+        console.log(err);
+      })
+    }
   }
 
 
