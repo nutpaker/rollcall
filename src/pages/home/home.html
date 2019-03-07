@@ -37,7 +37,7 @@
 
 <ion-content>
 
-  <ion-list>
+  <ion-list *ngIf="classroom != 0">
     <ion-list-header>
       ห้องเรียน
     </ion-list-header>
@@ -62,12 +62,12 @@
       </ion-item-options>
     </ion-item-sliding>
 
-
-    <ion-item *ngIf="classroom == 0" no-lines>
-      กรุณากด + เพื่อเพิ่มห้องเรียน
-    </ion-item>
-
   </ion-list>
+
+  <ion-item *ngIf="classroom == 0" no-lines>
+    <!-- กรุณากด + เพื่อเพิ่มห้องเรียน -->
+    <img src="../../assets/imgs/createorjoin.png">
+  </ion-item>
 
 
 
@@ -77,7 +77,7 @@
       <ion-icon name="arrow-dropleft"></ion-icon>
     </button>
     <ion-fab-list side="left">
-      <button ion-fab>
+      <button ion-fab (click)="scanQR()" >
         <ion-icon name="camera"></ion-icon>
       </button>
       <button ion-fab (click)="joinClassroom()">

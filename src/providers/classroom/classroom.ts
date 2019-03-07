@@ -19,7 +19,6 @@ export class ClassroomProvider {
   constructor(public http: HttpClient,
     private afd: AngularFireDatabase,
   ) {
-    console.log('Hello ClassroomProvider Provider');
   }
 
   getQR(subject: any) {
@@ -381,6 +380,20 @@ export class ClassroomProvider {
         } else {
           resolve({ status: false, message: "Invite Code ไม่ถูกต้อง" })
         }
+      });
+    });
+  }
+
+  joinClassroomWithGroupcode(group_code:any,uid:any,fullname){
+    return new Promise(resolve=>{
+      let classroom = {
+        group_code: group_code,
+        uid: uid,
+        fullname: fullname
+      }
+      const classroomSave = this.afd.database.ref(`/classrooms/${this.afd.database.ref().push().key}`);
+      classroomSave.set(classroom).then(() => {
+        resolve({ status: true, message: "เพิ่มกลุ่มเรียนเรียบร้อยยยย" });
       });
     });
   }

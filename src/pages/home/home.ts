@@ -3,11 +3,15 @@ import { AddclassroomPage } from '../addclassroom/addclassroom';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, AlertController, PopoverController } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing/'
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner'
+import { Toast } from '@ionic-native/toast'
 
 import { ClassroomProvider } from '../../providers/classroom/classroom';
+import { TimestampProvider } from '../../providers/timestamp/timestamp';
 
 import { ClassroomPage } from '../classroom/classroom';
 import { HomeStudentPage } from '../home-student/home-student';
+
 
 @IonicPage()
 @Component({
@@ -26,6 +30,8 @@ export class HomePage {
 
   classroom: any = [];
 
+  options: BarcodeScannerOptions;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -33,8 +39,11 @@ export class HomePage {
     public events: Events,
     public alertCtrl: AlertController,
     public ClassroomService: ClassroomProvider,
+    public TimestampService: TimestampProvider,
     public popoverCtrl: PopoverController,
-    public socialSharing:SocialSharing,
+    public socialSharing: SocialSharing,
+    public barcodeScanner: BarcodeScanner,
+    public toast: Toast
   ) {
     this.events.subscribe('profile', (res) => {
       this._email = res['email']
@@ -45,14 +54,8 @@ export class HomePage {
       this._role = res['role']
       this._student_id = res['student_id']
       this._uid = res['uid']
-
-      // this.ClassroomService.getClassroom(this._role, this._uid)
-      //   .then((resp) => {
-      //     this.classroom = resp;
-      //   });
-
-      this.getClassrooms(this._role,this._uid);
-    })
+      this.getClassrooms(this._role, this._uid);
+    });
 
     // Hidden Tab menu
     let elements = document.querySelectorAll(".tabbar");
@@ -64,14 +67,12 @@ export class HomePage {
     }
   }
 
-  getClassrooms(role:any,uid:any){
+  getClassrooms(role: any, uid: any) {
     this.classroom = [];
-    this.ClassroomService.getClassroom(role,uid)
-    .then((resp) => {
-      this.classroom = resp;
-      // console.log(">>>>>>>>>>>> "+JSON.stringify(resp))
-      // console.log(JSON.stringify(this.classroom));
-    });
+    this.ClassroomService.getClassroom(role, uid)
+      .then((resp) => {
+        this.classroom = resp;
+      });
   }
 
   ionViewDidLoad() {
@@ -107,7 +108,7 @@ export class HomePage {
           handler: () => {
             let index = this.classroom.indexOf(item);
             if (index > -1) {
-              this.ClassroomService.removeClassroom(this._role, this.classroom[index]['group_code'],this._uid);
+              this.ClassroomService.removeClassroom(this._role, this.classroom[index]['group_code'], this._uid);
               this.classroom.splice(index, 1);
             }
           }
@@ -124,19 +125,14 @@ export class HomePage {
       //   this.classroom.splice(index,1); 
       // this.events.publish('classroom',this.classroom[index]);
 
-      if(this._role ==0){
+      if (this._role == 0) {
         this.events.publish('showLoading');
-        this.navCtrl.push(HomeStudentPage,{ classroom: this.classroom[index],uid:this._uid })
-      }else{
+        this.navCtrl.push(HomeStudentPage, { classroom: this.classroom[index], uid: this._uid })
+      } else {
         this.events.publish('showLoading');
-        this.navCtrl.push(ClassroomPage, { classroom: this.classroom[index]});
+        this.navCtrl.push(ClassroomPage, { classroom: this.classroom[index] });
       }
     }
-
-
-
-    // this.events.publish('');
-
   }
 
   joinClassroom() {
@@ -156,10 +152,9 @@ export class HomePage {
         {
           text: 'Join',
           handler: data => {
-              this.ClassroomService.joinClassroom(data['invitecode'],this._uid,this._fname + "  " +this._lname)
-              .then((res)=>{
-
-                if(res['status']){
+            this.ClassroomService.joinClassroom(data['invitecode'], this._uid, this._fname + "  " + this._lname)
+              .then((res) => {
+                if (res['status']) {
                   let alert = this.alertCtrl.create({
                     title: 'Use this lightsaber?',
                     message: res['message'],
@@ -167,18 +162,13 @@ export class HomePage {
                       {
                         text: 'Agree',
                         handler: () => {
-                          // this.ClassroomService.getClassroom(this._role, this._uid)
-                          // .then((resp) => {
-                          //   this.classroom = resp;
-                          //   console.log(JSON.stringify(resp));
-                          // });
-                          this.getClassrooms(this._role,this._uid);
+                          this.getClassrooms(this._role, this._uid);
                         }
                       }
                     ]
                   });
                   alert.present();
-                }else{
+                } else {
                   let alert = this.alertCtrl.create({
                     title: 'Use this lightsaber?',
                     message: res['message'],
@@ -198,16 +188,70 @@ export class HomePage {
     prompt.present();
   }
 
-  shareClassroom(item?){
+  shareClassroom(item?) {
     let index = this.classroom.indexOf(item);
     if (index > -1) {
-      this.socialSharing.share("สามารถเข้าร่วม Classroom ด้วยรหัส " + this.classroom[index]['invite_code'],null,null,AppSettings.API_SHARE+'?gcode='+this.classroom[index]['group_code'])
-      .then((res)=>{
-        console.log("Share Success");
-      },(err)=>{
-        console.log(err);
-      })
+      this.socialSharing.share("สามารถเข้าร่วม Classroom ด้วยรหัส " + this.classroom[index]['invite_code'], null, null, AppSettings.API_SHARE + '?gcode=' + this.classroom[index]['group_code'])
+        .then((res) => {
+          console.log("Share Success");
+        }, (err) => {
+          console.log(err);
+        })
     }
+  }
+
+  scanQR() {
+    this.options = {
+      prompt: "Testtttttttttt",
+    };
+    this.barcodeScanner.scan(this.options)
+      .then(barcodeData => {
+        this.TimestampService.chkSubject(atob(barcodeData.text), this._uid).then((res) => {
+          // this.toast.show(JSON.stringify(res), '5000', 'bottom').subscribe();
+
+          ///////////////// ไม่มีกลุ่มอยู่
+          if (res['status']) {
+            const prompt = this.alertCtrl.create({
+              title: 'Login',
+              message: res['message'] + " " +res['group_code'],
+              buttons: [
+                {
+                  text: 'Cancel',
+                  handler: data => {
+                    console.log('Cancel clicked');
+                  }
+                },
+                {
+                  text: 'Confirm',
+                  handler: data => {
+                    // console.log('Saved clicked');
+                    this.ClassroomService.joinClassroomWithGroupcode(res['group_code'],this._uid,this._fname + "  " + this._lname)
+                    .then((res)=>{
+                      if(res['status']){
+                        this.getClassrooms(this._role, this._uid);
+                        this.toast.show(res['message'], '5000', 'bottom').subscribe();
+                      }
+              
+                    })
+                  }
+                }
+              ]
+            });
+            prompt.present();
+       
+              ///////////////// มีกลุ่มอยู่แล้ว } else {
+            const alert = this.alertCtrl.create({
+              title: 'New Friend!',
+              subTitle: res['message'],
+              buttons: ['OK']
+            });
+            alert.present();
+          }
+        });
+      }).catch(err => {
+        console.log(err);
+        this.toast.show("QR code ไม่ถูกต้อง!! กรุณาสแกน QR Code ใหม่", '5000', 'bottom').subscribe();
+      })
   }
 
 
