@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner'
+import { Toast } from '@ionic-native/toast'
 
 // Other
 // FIREBASE
@@ -25,6 +27,7 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { RegisterPageModule } from '../pages/register/register.module';
 import { HomePageModule } from '../pages/home/home.module';
 import { AddclassroomPageModule } from '../pages/addclassroom/addclassroom.module';
+import { HomeStudentPageModule } from '../pages/home-student/home-student.module';
 
 // Page Modal
 import { AddclassroomDateModalPageModule } from '../pages/addclassroom-date-modal/addclassroom-date-modal.module';
@@ -43,6 +46,7 @@ import { SettingClassroomPageModule } from '../pages/setting-classroom/setting-c
 import { AuthenticationProvider } from '../providers/authentication/authentication';
 import { RegisterProvider } from '../providers/register/register';
 import { ClassroomProvider } from '../providers/classroom/classroom';
+import { TimestampProvider } from '../providers/timestamp/timestamp';
 
 @NgModule({
   declarations: [
@@ -62,6 +66,7 @@ import { ClassroomProvider } from '../providers/classroom/classroom';
     AddclassroomPageModule,
     AddclassroomDateModalPageModule,
     EditsubjectModalPageModule,
+    HomeStudentPageModule,
     //Menu
     MenuPageModule,
     //Tab
@@ -82,7 +87,10 @@ import { ClassroomProvider } from '../providers/classroom/classroom';
     AngularFireDatabase,
     RegisterProvider,
     ClassroomProvider,
-    SocialSharing
+    SocialSharing,
+    BarcodeScanner,
+    Toast,
+    TimestampProvider,
   ]
 })
 export class AppModule {}

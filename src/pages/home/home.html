@@ -17,55 +17,57 @@
 </ion-header> -->
 
 <ion-header>
-    <ion-toolbar class="header-toolbar" style="height: unset;" mode="ios">
-        <button ion-button menuToggle>
-            <ion-icon name="menu" class="color-white"></ion-icon>
-          </button>
-      <ion-title mode="ios">home</ion-title>
-      <ion-buttons end>
-          <button ion-button *ngIf="_role == 0" (click)="joinClassroom()">
-            <ion-icon name="add" class="color-white"></ion-icon>
-          </button>
+  <ion-toolbar class="header-toolbar" style="height: unset;" mode="ios">
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="color-white"></ion-icon>
+    </button>
+    <ion-title mode="ios">home</ion-title>
+    <ion-buttons end>
+      <button ion-button *ngIf="_role == 0" (click)="joinClassroom()">
+        <ion-icon name="add" class="color-white"></ion-icon>
+      </button>
 
-          <button ion-button *ngIf="_role == 1" (click)="toAddClassroom()">
-            <ion-icon name="add" class="color-white"></ion-icon>
-          </button>
-        </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+      <button ion-button *ngIf="_role == 1" (click)="toAddClassroom()">
+        <ion-icon name="add" class="color-white"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 
 <ion-content>
-  
-  <ion-list>
+
+  <ion-list *ngIf="classroom != 0">
     <ion-list-header>
-        ห้องเรียน
+      ห้องเรียน
     </ion-list-header>
 
     <ion-item-sliding *ngFor="let item of classroom">
       <ion-item (click)="toClassroom(item)">
-          <h2>{{item.group_name}}</h2>
-          <p>Invaite Code : {{item.invite_code}}</p>
+        <h2>{{item.group_name}}</h2>
+        <p>Invaite Code : {{item.invite_code}}</p>
         <ion-note item-end>
-            <ion-icon name="menu"></ion-icon>
+          <ion-icon name="menu"></ion-icon>
         </ion-note>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button color="primary">
-            <ion-icon name="share" (click)="shareClassroom(item)" ></ion-icon>
-            Share
+          <ion-icon name="share" (click)="shareClassroom(item)"></ion-icon>
+          Share
         </button>
         <button ion-button color="danger" (click)="removeClassroom(item)" type="button">
-            <ion-icon name="trash"></ion-icon>
+          <ion-icon name="trash"></ion-icon>
           Delete
         </button>
       </ion-item-options>
     </ion-item-sliding>
 
-      <ion-item *ngIf="classroom == null" no-lines>
-        กรุณากด + เพื่อเพิ่มห้องเรียน
-        </ion-item>
   </ion-list>
+
+  <ion-item *ngIf="classroom == 0" no-lines>
+    <!-- กรุณากด + เพื่อเพิ่มห้องเรียน -->
+    <img src="../../assets/imgs/createorjoin.png">
+  </ion-item>
 
 
 
@@ -75,10 +77,10 @@
       <ion-icon name="arrow-dropleft"></ion-icon>
     </button>
     <ion-fab-list side="left">
-      <button ion-fab>
+      <button ion-fab (click)="scanQR()" >
         <ion-icon name="camera"></ion-icon>
       </button>
-      <button ion-fab (click)="joinClassroom()" >
+      <button ion-fab (click)="joinClassroom()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-fab-list>

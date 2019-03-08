@@ -1,6 +1,6 @@
 import { MenuPage } from './../menu/menu';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Events ,ModalController,AlertController, Img} from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Events ,ModalController,AlertController} from 'ionic-angular';
 import { AddclassroomDateModalPage } from '../addclassroom-date-modal/addclassroom-date-modal';
 import { EditsubjectModalPage } from '../editsubject-modal/editsubject-modal';
 
