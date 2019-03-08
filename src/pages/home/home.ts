@@ -239,7 +239,8 @@ export class HomePage {
             });
             prompt.present();
        
-              ///////////////// มีกลุ่มอยู่แล้ว } else {
+              ///////////////// มีกลุ่มอยู่แล้ว 
+            } else {
             const alert = this.alertCtrl.create({
               title: 'New Friend!',
               subTitle: res['message'],
