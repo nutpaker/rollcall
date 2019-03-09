@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
 
   <ion-navbar>
     <ion-title *ngIf="group_name == null">addclassroom</ion-title>
@@ -6,6 +6,19 @@
     <ion-title *ngIf="group_name != null">Setting</ion-title>
   </ion-navbar>
 
+</ion-header> -->
+
+<ion-header>
+  <ion-toolbar class="header-toolbar" style="height: unset;" mode="ios">
+
+    <button mode="ios" ion-button icon-only clear (click)="backPage();">
+      <ion-icon name="ios-arrow-dropleft-outline" class="color-white"></ion-icon>
+    </button>
+
+    <ion-title mode="ios" *ngIf="group_name == null">addclassroom</ion-title>
+
+    <ion-title mode="ios" *ngIf="group_name != null">Setting</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 
@@ -66,7 +79,7 @@
       </ion-card>
     </ion-item> -->
 
-    <ion-list>  
+    <ion-list>
         <ion-item-sliding *ngFor="let item of subject; let i = index">
           <ion-item>
           <h2 *ngIf="item.day =='sun'">วันอาทิตย์</h2>
@@ -92,17 +105,18 @@
               </button>
             </ion-item-options>
         </ion-item-sliding>
-  
+
       <ion-item *ngIf="subject.length ==0" no-lines>
           <img src="../../assets//imgs/classes.png">
         </ion-item>
     </ion-list>
-  
+
     </div>
 
-    <div padding>
-      <button ion-button full type="submit" [disabled]="!(AddClassroomForm.valid) || !(subject.length > 0)">NEXT</button>
+    <div text-center>
+      <button class="BtnAddClass" ion-button type="submit" [disabled]="!(AddClassroomForm.valid) || !(subject.length > 0)">NEXT</button>
     </div>
+
   </form>
 
 </ion-content>
