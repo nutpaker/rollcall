@@ -1,19 +1,4 @@
 <ion-menu [content]="content">
-
-  <!-- <ion-header>
-    <ion-toolbar>
-      <ion-item no-lines>
-        {{_fname}} {{_lname}}
-      </ion-item>
-      <ion-item no-lines>
-        Role : {{_role}}
-      </ion-item>
-      <ion-item no-lines>
-        vvvv
-      </ion-item>
-    </ion-toolbar>
-  </ion-header> -->
-
   <ion-header>
     <ion-toolbar>
       <ion-item no-lines>
@@ -31,9 +16,16 @@
           <button class="BtnLogOut" ion-button round outline (click)="toLogout()"><ion-icon name="power" class="margin-right-2"></ion-icon>LogOut</button>
       </div>
   </ion-footer>
-
-
 </ion-menu>
+
+
+<ion-menu id="filterMenu" side="right" [content]="content" [swipeEnabled]="false">
+  <ion-content>
+    <ion-label>1111111111111</ion-label>
+  </ion-content>
+</ion-menu>
+
+
 
 <ion-nav [root]="rootPage" [rootParams]="userdata" #content swipeBackEnabled="false"></ion-nav>
 <!-- <ion-nav #content swipeBackEnabled="false"></ion-nav> -->

@@ -47,6 +47,7 @@ import { AuthenticationProvider } from '../providers/authentication/authenticati
 import { RegisterProvider } from '../providers/register/register';
 import { ClassroomProvider } from '../providers/classroom/classroom';
 import { TimestampProvider } from '../providers/timestamp/timestamp';
+import { SubjectProvider } from '../providers/subject/subject';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { TimestampProvider } from '../providers/timestamp/timestamp';
     BarcodeScanner,
     Toast,
     TimestampProvider,
+    SubjectProvider,
   ]
 })
 export class AppModule {}
