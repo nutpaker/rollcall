@@ -4,7 +4,7 @@
     <button mode="ios" ion-button icon-only clear (click)="toHome()">
       <ion-icon name="ios-arrow-dropleft-outline" class="color-white"></ion-icon>
     </button>
-    <ion-title>{{group_name}}</ion-title>
+    <ion-title mode="ios">{{group_name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,7 +21,7 @@
     </ion-item-divider>
   </ion-item-group>
 
-  <ion-list>  
+  <ion-list>
       <ion-item-sliding *ngFor="let item of subject; let i = index">
         <ion-item>
         <h2 *ngIf="item.day =='sun'">วันอาทิตย์</h2>

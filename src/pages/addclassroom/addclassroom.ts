@@ -59,12 +59,12 @@ export class AddclassroomPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddclassroomPage');
     // Back Button
-    this.navBar.backButtonClick = (ev:UIEvent) => {
-        this.subject.forEach(item => {
-          this.classroomService.removeSubject(item['subject_code']);
-        });
-        this.navCtrl.pop();
-      }
+    // this.navBar.backButtonClick = (ev:UIEvent) => {
+    //     this.subject.forEach(item => {
+    //       this.classroomService.removeSubject(item['subject_code']);
+    //     });
+    //     this.navCtrl.pop();
+    //   }
   }
 
 

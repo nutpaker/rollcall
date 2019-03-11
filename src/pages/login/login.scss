@@ -26,7 +26,10 @@ page-login {
     width:90%;
     color:map-get($theme,second-color);
     border-color: map-get($theme,second-color);
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
+    position: absolute; //กำหนดรูปแบบตำแหน่งของปุ่ม
+    bottom: 10px;
+    left: 5%;
   }
 
   .logoImg{
