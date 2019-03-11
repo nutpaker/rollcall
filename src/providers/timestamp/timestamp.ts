@@ -197,7 +197,8 @@ export class TimestampProvider {
         // 0 มา, 1 สาย, 2 ขาด , 3 ลา
         status: status,
         time: time,
-        day: date
+        day: date,
+        stamp: Date.parse(date + " " + time)
       }
       const timestamp = this.afd.database.ref(`/timestamp/`);
       timestamp.push(data).then((res) => {
