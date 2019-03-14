@@ -13,54 +13,86 @@
 
 <ion-content padding>
 
-    <form [formGroup]="leaveForm">
-      <ion-item>
-          <ion-label>Start Date</ion-label>
-        <ion-datetime formControlName="startdate"></ion-datetime>
-      </ion-item>
+  <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
+      <ion-row class="border-bottom">
+    <ion-item no-lines>
+      <ion-label>Start Date</ion-label>
+      <ion-datetime formControlName="startdate"></ion-datetime>
+    </ion-item>
 
-      <span *ngIf="leaveForm.controls.startdate.errors?.required && (leaveForm.controls.startdate.dirty || leaveForm.controls.startdate.touched)" >
-          <ion-label class="color-red">
-              <ion-icon name="md-information-circle"></ion-icon> รูปแบบของ Email ไม่ถูกต้อง
-            </ion-label>
-      </span>
-
-      <ion-item>
-          <ion-label>End Date</ion-label>
-        <ion-datetime formControlName="enddate"></ion-datetime>
-      </ion-item>
-
-      <span *ngIf="leaveForm.controls.enddate.errors?.required && (leaveForm.controls.enddate.dirty || leaveForm.controls.enddate.touched)" >
-          <ion-label class="color-red">
-              <ion-icon name="md-information-circle"></ion-icon> รูปแบบของ Email ไม่ถูกต้อง
-            </ion-label>
-      </span>
-
-      <span *ngIf="leaveForm.controls.enddate.errors?.MatchDate && (leaveForm.controls.enddate.dirty || leaveForm.controls.enddate.touched)">
-          <ion-label class="color-red">
-            <ion-icon name="md-information-circle"></ion-icon> สามารถลาหยุดได้มากสุด 3 วัน
-          </ion-label>
-        </span>
-
-<ion-item>
-    <ion-label>Detail</ion-label>
-    <ion-textarea formControlName="detail" rows="2"></ion-textarea>
-</ion-item>
-<span *ngIf="leaveForm.controls.detail.errors?.required && (leaveForm.controls.detail.dirty || leaveForm.controls.detail.touched)" >
-    <ion-label class="color-red">
+    <span
+      *ngIf="leaveForm.controls.startdate.errors?.required && (leaveForm.controls.startdate.dirty || leaveForm.controls.startdate.touched)">
+      <ion-label class="color-red">
         <ion-icon name="md-information-circle"></ion-icon> รูปแบบของ Email ไม่ถูกต้อง
       </ion-label>
-</span>
+    </span>
+    </ion-row>
 
-<ion-item>
-    <ion-label>Picture</ion-label>
-    <ion-textarea formControlName="picture" rows="5"></ion-textarea>
-</ion-item>
 
-<div>
-  <button ion-button n round outline type="submit" [disabled]="leaveForm.invalid" >Send</button>
-</div>
+    <ion-row class="border-bottom">
 
-    </form>
+    <ion-item no-lines>
+      <ion-label>End Date</ion-label>
+      <ion-datetime formControlName="enddate"></ion-datetime>
+    </ion-item>
+
+    <span *ngIf="leaveForm.controls.enddate.errors?.required && (leaveForm.controls.enddate.dirty || leaveForm.controls.enddate.touched)">
+      <ion-label class="color-red">
+        <ion-icon name="md-information-circle"></ion-icon> รูปแบบของ Email ไม่ถูกต้อง
+      </ion-label>
+    </span>
+
+    <span
+      *ngIf="leaveForm.controls.enddate.errors?.MatchDate && (leaveForm.controls.enddate.dirty || leaveForm.controls.enddate.touched)">
+      <ion-label class="color-red">
+        <ion-icon name="md-information-circle"></ion-icon> สามารถลาหยุดได้มากสุด 3 วัน
+      </ion-label>
+    </span>
+    </ion-row>
+
+    <ion-row class="border-bottom">
+      <ion-item no-lines>
+        <ion-label>Detail</ion-label>
+        <ion-textarea formControlName="detail" rows="2"></ion-textarea>
+      </ion-item>
+      <span
+        *ngIf="leaveForm.controls.detail.errors?.required && (leaveForm.controls.detail.dirty || leaveForm.controls.detail.touched)">
+        <ion-label class="color-red">
+          <ion-icon name="md-information-circle"></ion-icon> รูปแบบของ Email ไม่ถูกต้อง
+        </ion-label>
+      </span>
+    </ion-row>
+
+
+    <ion-row class="border-bottom" *ngIf="!leaveForm.value.picture" (click)="selectPhoto()">
+      <ion-item no-lines>
+        <ion-label class="label-content">Select Image</ion-label>
+        <ion-icon name="camera" item-end></ion-icon>
+      </ion-item>
+    </ion-row>
+
+
+    <ion-row class="border-bottom" *ngIf="leaveForm.value.picture" (click)="selectPhoto()">
+      <ion-item no-lines>
+        <div item-start>
+          <p style="color: green">
+            <ion-icon name="checkmark-circle"></ion-icon> Upload Image Success
+          </p>
+        </div>
+
+        <ion-thumbnail float-right>
+          <img [src]="img_source">
+        </ion-thumbnail>
+        <ion-icon name="camera" item-end></ion-icon>
+      </ion-item>
+    </ion-row>
+
+    <div>
+      <button ion-button round outline type="submit" [disabled]="leaveForm.invalid">Send</button>
+    </div>
+
+  </form>
+
+
 
 </ion-content>

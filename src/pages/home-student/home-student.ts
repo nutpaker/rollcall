@@ -5,6 +5,8 @@ import { IonicPage, NavController, NavParams,Events,MenuController,ModalControll
 import { SubjectProvider } from '../../providers/subject/subject';
 import { LeaveModalPage } from '../leave-modal/leave-modal';
 import { MenuPage } from './../menu/menu';
+import {storage} from 'firebase';
+
 @IonicPage()
 @Component({
   selector: 'page-home-student',
@@ -66,8 +68,16 @@ export class HomeStudentPage {
 
   goToLeavemodal(){
     let modal = this.mdCtrl.create(LeaveModalPage);
-
+    // this.events.publish('showLoading');
     modal.present();
+    modal.onDidDismiss(data => {
+        if (data) {
+          console.log(data);
+                  const pictures = storage().ref('leaves/');
+        pictures.putString(data.picture,'data_url');
+        }
+      
+    });
   }
 
   toHome() {
