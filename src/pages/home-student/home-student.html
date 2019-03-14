@@ -1,12 +1,15 @@
 <ion-header>
   <ion-toolbar class="header-toolbar" style="height: unset;" mode="ios">
-    <button ion-button menuToggle>
+    <!-- <button ion-button menuToggle>
       <ion-icon name="menu" class="color-white"></ion-icon>
-    </button>
+    </button> -->
+    <button mode="ios" ion-button icon-only clear (click)="toHome()">
+        <ion-icon name="ios-arrow-dropleft-outline" class="color-white"></ion-icon>
+      </button>
     <ion-title>home-student</ion-title>
     <ion-buttons end>
-      <button ion-button *ngIf="topic == 'history'" (click)="filterToggle()"  >
-        <ion-icon name="options" class="color-white"></ion-icon>
+      <button ion-button *ngIf="topic == 'news'" (click)="goToLeavemodal()"  >
+        <ion-icon name="add" class="color-white"></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>

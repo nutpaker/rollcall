@@ -1,8 +1,10 @@
+
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Events,MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Events,MenuController,ModalController, } from 'ionic-angular';
 
 import { SubjectProvider } from '../../providers/subject/subject';
-
+import { LeaveModalPage } from '../leave-modal/leave-modal';
+import { MenuPage } from './../menu/menu';
 @IonicPage()
 @Component({
   selector: 'page-home-student',
@@ -21,7 +23,8 @@ export class HomeStudentPage {
     public navParams: NavParams,
     public events:Events,
     public menuCtrl:MenuController,
-    public subjectService:SubjectProvider
+    public subjectService:SubjectProvider,
+    public mdCtrl: ModalController,
     ) {
       this.topic = "history";
 
@@ -56,13 +59,20 @@ export class HomeStudentPage {
       var date = Date.parse(data.day);
 
       // var sor
-
-
-
-
-
       this.subject = res;
       console.log(this.subject);
     });
+  }
+
+  goToLeavemodal(){
+    let modal = this.mdCtrl.create(LeaveModalPage);
+
+    modal.present();
+  }
+
+  toHome() {
+    // this.navCtrl.setRoot(MenuPage,{},{animate: true, direction:'forward'});
+    this.events.publish('showLoading');
+    this.navCtrl.setRoot(MenuPage, {}, { animate: true, direction: 'back' });
   }
 }

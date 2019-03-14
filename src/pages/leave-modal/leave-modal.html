@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar class="header-toolbar" style="height: unset;" mode="ios">
+
+    <ion-buttons right>
+      <button ion-button icon-only (click)="viewCtrl.dismiss()">
+        <ion-icon name="close" class="color-white"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title mode="ios">Add Leave</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <form [formGroup]="leaveForm">
+      <ion-item>
+          <ion-label>Start Date</ion-label>
+        <ion-datetime formControlName="startdate"></ion-datetime>
+      </ion-item>
+
+      <span *ngIf="leaveForm.controls.startdate.errors?.required && (leaveForm.controls.startdate.dirty || leaveForm.controls.startdate.touched)" >
+          <ion-label class="color-red">
+              <ion-icon name="md-information-circle"></ion-icon> รูปแบบของ Email ไม่ถูกต้อง
+            </ion-label>
+      </span>
+
+      <ion-item>
+          <ion-label>End Date</ion-label>
+        <ion-datetime formControlName="enddate"></ion-datetime>
+      </ion-item>
+
+      <span *ngIf="leaveForm.controls.enddate.errors?.required && (leaveForm.controls.enddate.dirty || leaveForm.controls.enddate.touched)" >
+          <ion-label class="color-red">
+              <ion-icon name="md-information-circle"></ion-icon> รูปแบบของ Email ไม่ถูกต้อง
+            </ion-label>
+      </span>
+
+      <span *ngIf="leaveForm.controls.enddate.errors?.MatchDate && (leaveForm.controls.enddate.dirty || leaveForm.controls.enddate.touched)">
+          <ion-label class="color-red">
+            <ion-icon name="md-information-circle"></ion-icon> สามารถลาหยุดได้มากสุด 3 วัน
+          </ion-label>
+        </span>
+
+<ion-item>
+    <ion-label>Detail</ion-label>
+    <ion-textarea formControlName="detail" rows="2"></ion-textarea>
+</ion-item>
+<span *ngIf="leaveForm.controls.detail.errors?.required && (leaveForm.controls.detail.dirty || leaveForm.controls.detail.touched)" >
+    <ion-label class="color-red">
+        <ion-icon name="md-information-circle"></ion-icon> รูปแบบของ Email ไม่ถูกต้อง
+      </ion-label>
+</span>
+
+<ion-item>
+    <ion-label>Picture</ion-label>
+    <ion-textarea formControlName="picture" rows="5"></ion-textarea>
+</ion-item>
+
+<div>
+  <button ion-button n round outline type="submit" [disabled]="leaveForm.invalid" >Send</button>
+</div>
+
+    </form>
+
+</ion-content>

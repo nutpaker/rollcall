@@ -32,6 +32,7 @@ import { HomeStudentPageModule } from '../pages/home-student/home-student.module
 // Page Modal
 import { AddclassroomDateModalPageModule } from '../pages/addclassroom-date-modal/addclassroom-date-modal.module';
 import { EditsubjectModalPageModule } from '../pages/editsubject-modal/editsubject-modal.module'
+import { LeaveModalPageModule } from '../pages/leave-modal/leave-modal.module';
 
 // Menu
 import { MenuPageModule } from '../pages/menu/menu.module';
@@ -68,6 +69,7 @@ import { SubjectProvider } from '../providers/subject/subject';
     AddclassroomDateModalPageModule,
     EditsubjectModalPageModule,
     HomeStudentPageModule,
+    LeaveModalPageModule,
     //Menu
     MenuPageModule,
     //Tab
