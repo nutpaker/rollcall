@@ -104,4 +104,11 @@ export class HistoryModalPage {
 
   }
 
+  doRefresh(event) {
+    setTimeout(() => {
+      this.getTimestampHistory(this.items['uid'],this.items['group_code']);
+      event.complete();
+    }, 2000);
+  }
+
 }

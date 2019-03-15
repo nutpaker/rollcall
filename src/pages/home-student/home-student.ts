@@ -50,6 +50,17 @@ export class HomeStudentPage {
       // console.log(this.fullname);
   }
 
+  doRefresh(event) {
+    setTimeout(() => {
+      if (this.topic == "history"){
+      this.getSuject(this.uid,this.classroom['group_code']);
+      }else{
+        this.getLeave(this.uid,this.classroom['group_code']); 
+      }
+      event.complete();
+    }, 2000);
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomeStudentPage');
   }

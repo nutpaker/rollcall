@@ -255,5 +255,12 @@ export class HomePage {
       })
   }
 
+  doRefresh(event) {
+    setTimeout(() => {
+      this.getClassrooms(this._role, this._uid);
+      event.complete();
+    }, 2000);
+  }
+
 
 }

@@ -68,4 +68,12 @@ export class HomeClassroomPage {
     modal.present();
   }
 
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.getStudent(this.group_code);
+      event.complete();
+    }, 2000);
+  }
+
 }

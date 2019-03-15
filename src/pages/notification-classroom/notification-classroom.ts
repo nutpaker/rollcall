@@ -34,6 +34,14 @@ export class NotificationClassroomPage {
       console.log(this.leave);
   }
 
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.getLeve();
+      event.complete();
+    }, 2000);
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad NotificationClassroomPage');
   }
