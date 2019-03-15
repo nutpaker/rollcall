@@ -30,4 +30,3 @@ Ionic:
 Cordova:
 
    cordova (Cordova CLI) : 8.1.2 (cordova-lib@8.1.1)
-   Cordova Plugins       : cordova-plugin-ionic-keyboard 2.1.3, cordova-plugin-ionic-webview 2.3.3, (and 4 other plugins)
