@@ -127,7 +127,7 @@ export class HomePage {
 
       if (this._role == 0) {
         this.events.publish('showLoading');
-        this.navCtrl.push(HomeStudentPage, { classroom: this.classroom[index], uid: this._uid })
+        this.navCtrl.push(HomeStudentPage, { classroom: this.classroom[index], uid: this._uid ,fullname:this._fname+"  "+this._lname})
       } else {
         this.events.publish('showLoading');
         this.navCtrl.push(ClassroomPage, { classroom: this.classroom[index] });

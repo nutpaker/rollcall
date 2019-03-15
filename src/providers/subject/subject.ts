@@ -53,7 +53,7 @@ export class SubjectProvider {
     });
   }
 
-  saveLeave(data,uid:any,group){
+  saveLeave(data,uid:any,group:any,fullname:any){
     return new Promise(resolve=>{
       this.timeNow().then((unix) => {
         // firebase.database.ServerValue.TIMESTAMP
@@ -61,13 +61,14 @@ export class SubjectProvider {
         let key = this.afd.database.ref().push().key;
         let leave = {
           uid:uid,
+          fullname:fullname,
           group_code:group.group_code,
           detail:data.detail,
           date_start:data.startdate,
           date_end:data.enddate,
           image_name:key,
-          // 0 ผ่าน, 1 ไม่ผ่าน, 2 กำลังตรวจสอบ
-          status:2,
+          // 1 ผ่าน, 2 ไม่ผ่าน, 0 กำลังตรวจสอบ
+          status:0,
           timestapm:date
         }
         const Leave = this.afd.database.ref(`/leaves/${key}`);

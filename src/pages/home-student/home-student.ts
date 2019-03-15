@@ -19,6 +19,7 @@ export class HomeStudentPage {
   classroom: any;
   uid:any;
   topic:any;
+  fullname:any;
 
   subject:any;
   leave:any;
@@ -38,8 +39,7 @@ export class HomeStudentPage {
 
       this.classroom = this.navParams.get('classroom') ? this.navParams.get('classroom') : {};
       this.uid = this.navParams.get('uid') ? this.navParams.get('uid') : {};
-      // console.log(this.classroom);
-      // console.log(this.uid);
+      this.fullname = this.navParams.get('fullname');
 
       this.getSuject(this.uid,this.classroom['group_code']);
       this.getLeave(this.uid,this.classroom['group_code']);
@@ -47,6 +47,7 @@ export class HomeStudentPage {
       console.log(this.subject);
 
       // this.subjectService.saveLeave(this.uid,this.classroom)
+      // console.log(this.fullname);
   }
 
   ionViewDidLoad() {
@@ -92,8 +93,7 @@ export class HomeStudentPage {
     modal.onDidDismiss(data => {
         if (data) {
           // let key = this.afd.database.ref().push().key;
-          
-            this.subjectService.saveLeave(data,this.uid,this.classroom).then(res=>{
+            this.subjectService.saveLeave(data,this.uid,this.classroom,this.fullname).then(res=>{
               this.presentToast("แจ้งลาหยุดให้เรียบร้อยแล้ว !!");
               this.getLeave(this.uid,this.classroom['group_code']);
             })
