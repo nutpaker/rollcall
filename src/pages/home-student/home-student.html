@@ -51,10 +51,10 @@
                   <ion-icon *ngIf="item.status == 3" style="color:#488aff" name="radio-button-on"></ion-icon>
               </ion-note>
             </ion-item>
-
-      
         </ion-list>
+        <img *ngIf="subject == 0" src="../../assets//imgs/qr2.png">
   </div>
+  
 
 
   <div *ngIf="topic == 'news'">
@@ -84,8 +84,8 @@
             </ion-item-options>
 
           </ion-item-sliding>
-
-    
       </ion-list>
+
+      <img *ngIf="leave == 0" src="../../assets//imgs/qr2.png">
 </div>
 </ion-content>

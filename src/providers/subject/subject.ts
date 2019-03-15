@@ -6,14 +6,18 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { storage } from 'firebase';
 
 @Injectable()
+
 export class SubjectProvider {
 
   subject: any[] = [];
   leave:any[] = []
+  student:any[] = [];
+
   constructor(public http: HttpClient,
     private afd: AngularFireDatabase,
     ) {}
 
+    
   getStamptime(uid,group_code){
     return new Promise(resolve=>{
       this.afd.database.ref('timestamp').orderByChild('stamp').once("value")
@@ -117,10 +121,41 @@ export class SubjectProvider {
     });
   }
 
-
   updateStatus(key:any,status:any){
     this.afd.database.ref(`/leaves/${key}`).update({status:status});
   }
+
+  getStuedent(group_code){
+    return new Promise(resolver=>{
+      this.afd.database.ref(`/classrooms/`).orderByChild('fullname').once("value")
+      .then(snapshot=>{
+        this.student = [];
+        snapshot.forEach(childsnapshot=>{
+            if(childsnapshot.val()['group_code'] == group_code){
+              this.student.push(childsnapshot.val());
+            }
+        });
+        resolver(this.student);
+      });
+
+    });
+  }
+
+  updateStatusTime(status:any,item:any){
+    return new Promise(resolve=>{
+      this.afd.database.ref('timestamp').orderByChild('stamp').once("value")
+      .then(snapshot=>{
+          snapshot.forEach(childsnapshot=>{
+            if(item.uid === childsnapshot.val()['uid'] && item.group_code === childsnapshot.val()['group_code'] && item.stamp === childsnapshot.val()['stamp']){
+              this.afd.database.ref(`/timestamp/${childsnapshot.key}`).update({status:status});
+              resolve();
+            }
+          }); 
+      });
+    })
+
+  }
+
   
 
 }

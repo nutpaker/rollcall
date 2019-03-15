@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar class="header-toolbar" style="height: unset;" mode="ios">
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="viewCtrl.dismiss()">
+          <ion-icon name="close" class="color-white"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title mode="ios">History-Modal</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+<ion-content>
+
+
+        <ion-list *ngIf="timestamp != 0">
+            <ion-list-header>
+              ประวัติการเช็คชื่อเข้าเรียน
+            </ion-list-header>
+        
+  
+              <ion-item *ngFor="let item of timestamp" (click)="updateStatus(item)">
+                <h2>วันที่ {{item.day}} เวลา {{item.time}}</h2>
+                <!-- // 0 มา, 1 สาย, 2 ขาด , 3 ลา -->
+                <p *ngIf="item.status == 0">สถานะ : เข้าเรียนปกติ</p>
+                <p *ngIf="item.status == 1">สถานะ : เข้าเรียนสาย</p>
+                <p *ngIf="item.status == 2">สถานะ : ไม่เข้าเรียน</p>
+                <p *ngIf="item.status == 3">สถานะ : ลา</p>
+                <ion-note item-end>
+                    <ion-icon *ngIf="item.status == 0" style="color:#32db64" name="radio-button-on"></ion-icon>
+                    <ion-icon *ngIf="item.status == 1" style="color:rgb(238, 95, 0)" name="radio-button-on"></ion-icon>
+                    <ion-icon *ngIf="item.status == 2" style="color:#f53d3d" name="radio-button-on"></ion-icon>
+                    <ion-icon *ngIf="item.status == 3" style="color:#488aff" name="radio-button-on"></ion-icon>
+                </ion-note>
+              </ion-item>
+          </ion-list>
+
+          <img *ngIf="timestamp == 0" src="../../assets//imgs/qr2.png">
+
+
+</ion-content>
