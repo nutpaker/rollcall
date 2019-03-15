@@ -57,7 +57,35 @@
   </div>
 
 
-  <ion-label  *ngIf="topic == 'news'" >
-    111111111112222
-  </ion-label>
+  <div *ngIf="topic == 'news'">
+    <ion-list *ngIf="leave != 0">
+        <ion-list-header>
+          ประวัติการแจ้งขอลาหยุด
+        </ion-list-header>
+    
+
+          <ion-item-sliding *ngFor="let item of leave">
+            <ion-item>
+                <h2>ขอลาวันที่ {{item.date_start}} - {{item.date_end}}</h2>
+                <p *ngIf="item.status == 0">สถานะ : ผ่าน</p>
+                <p *ngIf="item.status == 1">สถานะ : ไม่ผ่าน</p>
+                <p *ngIf="item.status == 2">สถานะ : กำลังตรวจสอบ</p>
+                <ion-note item-end>
+                    <ion-icon *ngIf="item.status == 0" style="color:#32db64" name="radio-button-on"></ion-icon>
+                    <ion-icon *ngIf="item.status == 1" style="color:#f53d3d" name="radio-button-on"></ion-icon>
+                    <ion-icon *ngIf="item.status == 2" style="color:rgb(238, 95, 0)" name="radio-button-on"></ion-icon>
+                </ion-note>
+            </ion-item>
+            <ion-item-options side="right" *ngIf="item.status == 2">
+              <button ion-button color="danger" (click)="removeleave(item)" type="button">
+                <ion-icon name="trash"></ion-icon>
+                Delete
+              </button>
+            </ion-item-options>
+
+          </ion-item-sliding>
+
+    
+      </ion-list>
+</div>
 </ion-content>
