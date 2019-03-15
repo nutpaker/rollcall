@@ -2,7 +2,9 @@
   <ion-header>
     <ion-toolbar>
       <ion-item no-lines>
-        <p>Welcome & Role : {{_role}}</p>
+        <p *ngIf="_role == 0">Welcome & Role : Student</p>
+        <p *ngIf="_role == 1">Welcome & Role : Teacher</p>
+        <p *ngIf="_role == 2">Welcome & Role : Admin</p>
         <h2>{{_fname}} {{_lname}}</h2>
       </ion-item>
     </ion-toolbar>
