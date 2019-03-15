@@ -26,8 +26,9 @@ page-login {
     width:90%;
     color:map-get($theme,second-color);
     border-color: map-get($theme,second-color);
-    // margin-bottom: 20px;
-    position: absolute; //กำหนดรูปแบบตำแหน่งของปุ่ม
+    // margin-top: 30px;
+    //  margin-bottom: 20px;
+    position: absolute;
     bottom: 10px;
     left: 5%;
   }
@@ -46,6 +47,8 @@ page-login {
       background-color: transparent;
       color: map-get($theme, second-color)
   }
+
+  --ion-grid-padding-xs:50px;
 
 }
 

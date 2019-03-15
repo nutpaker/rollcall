@@ -6,7 +6,7 @@
     <button mode="ios" ion-button icon-only clear (click)="toHome()">
         <ion-icon name="ios-arrow-dropleft-outline" class="color-white"></ion-icon>
       </button>
-    <ion-title>home-student</ion-title>
+    <ion-title mode="ios">home-student</ion-title>
     <ion-buttons end>
       <button ion-button *ngIf="topic == 'news'" (click)="goToLeavemodal()"  >
         <ion-icon name="add" class="color-white"></ion-icon>
@@ -17,10 +17,10 @@
   <ion-toolbar no-border-top>
     <ion-segment padding [(ngModel)]="topic">
       <ion-segment-button value="history">
-        <ion-label style="margin-top: 0;">History</ion-label>
+        <ion-label class="labeltextcolor">History</ion-label>
       </ion-segment-button>
       <ion-segment-button value="news" checked>
-        <ion-label style="margin-top: 0;">News</ion-label>
+        <ion-label class="labeltextcolor">News</ion-label>
       </ion-segment-button>
     </ion-segment>
 
@@ -38,13 +38,13 @@
           refreshingText="Refreshing...">
         </ion-refresher-content>
       </ion-refresher>
-      
+
   <div *ngIf="topic == 'history'">
       <ion-list *ngIf="subject != 0">
           <ion-list-header>
             ประวัติการเช็คชื่อเข้าเรียน
           </ion-list-header>
-      
+
 
             <ion-item *ngFor="let item of subject">
               <h2>วันที่ {{item.day}} เวลา {{item.time}}</h2>
@@ -63,7 +63,7 @@
         </ion-list>
         <img *ngIf="subject == 0" src="../../assets//imgs/qr2.png">
   </div>
-  
+
 
 
   <div *ngIf="topic == 'news'">
@@ -71,7 +71,7 @@
         <ion-list-header>
           ประวัติการแจ้งขอลาหยุด
         </ion-list-header>
-    
+
 
           <ion-item-sliding *ngFor="let item of leave">
             <ion-item>
