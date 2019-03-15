@@ -76,7 +76,7 @@
                     <ion-icon *ngIf="item.status == 0" style="color:rgb(238, 95, 0)" name="radio-button-on"></ion-icon>
                 </ion-note>
             </ion-item>
-            <ion-item-options side="right" *ngIf="item.status == 2">
+            <ion-item-options side="right" *ngIf="item.status == 0">
               <button ion-button color="danger" (click)="removeleave(item)" type="button">
                 <ion-icon name="trash"></ion-icon>
                 Delete

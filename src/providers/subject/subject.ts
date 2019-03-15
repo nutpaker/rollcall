@@ -36,8 +36,24 @@ export class SubjectProvider {
       .then(snapshot=>{
         this.leave = [];
           snapshot.forEach(childsnapshot=>{
-            if(uid === childsnapshot.val()['uid'] && group_code === childsnapshot.val()['group_code']){
-              this.leave.push(childsnapshot.val()); 
+              if(uid === childsnapshot.val()['uid'] && group_code === childsnapshot.val()['group_code']){
+                this.leave.push(childsnapshot.val()); 
+            }
+          });
+          resolve(this.leave);
+      });
+    })
+  }
+
+
+  getLeveAll(group_code){
+    return new Promise(resolve=>{
+      this.afd.database.ref('leaves').orderByChild('status').once("value")
+      .then(snapshot=>{
+        this.leave = [];
+          snapshot.forEach(childsnapshot=>{
+              if(group_code === childsnapshot.val()['group_code']){
+                this.leave.push(childsnapshot.val()); 
             }
           });
           resolve(this.leave);
@@ -57,20 +73,20 @@ export class SubjectProvider {
     return new Promise(resolve=>{
       this.timeNow().then((unix) => {
         // firebase.database.ServerValue.TIMESTAMP
-        let date = new Date((unix['timestamp'] - 25200) * 1000);
+        let date = (unix['timestamp'] - 25200) * 1000;
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+date);
         let key = this.afd.database.ref().push().key;
         let leave = {
           uid:uid,
           fullname:fullname,
+          timestapm:(unix['timestamp'] - 25200) * 1000,
           group_code:group.group_code,
           detail:data.detail,
           date_start:data.startdate,
           date_end:data.enddate,
           image_name:key,
-          // 1 ผ่าน, 2 ไม่ผ่าน, 0 กำลังตรวจสอบ
-          status:0,
-          timestapm:date
-        }
+          status:0,    
+        };
         const Leave = this.afd.database.ref(`/leaves/${key}`);
         Leave.set(leave).then(()=>{
           this.savePictureLeave(data.picture,key)

@@ -29,6 +29,34 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+    <ion-list *ngIf="leave != 0">
+        <ion-list-header>
+          ประวัติการแจ้งขอลาหยุด
+        </ion-list-header>
+    
 
+          <ion-item *ngFor="let item of leave">
+                <h2>ชื่อ {{item.fullname}}</h2>
+                <ion-row>
+                  <ion-col>
+                      <p *ngIf="item.status == 1">สถานะ : ผ่าน</p>
+                      <p *ngIf="item.status == 2">สถานะ : ไม่ผ่าน</p>
+                      <p *ngIf="item.status == 0">สถานะ : ยังไม่ตรวจสอบ</p>
+                  </ion-col>
+                  <ion-col>
+                      <p>เวลา : {{item.startDate | date: 'MMM dd, yyyy'}}</p>
+                  </ion-col>
+                </ion-row>
+                <ion-note item-end>
+                    <ion-icon *ngIf="item.status == 1" style="color:#32db64" name="radio-button-on"></ion-icon>
+                    <ion-icon *ngIf="item.status == 2" style="color:#f53d3d" name="radio-button-on"></ion-icon>
+                    <ion-icon *ngIf="item.status == 0" style="color:rgb(238, 95, 0)" name="radio-button-on"></ion-icon>
+                </ion-note>
+
+
+          </ion-item>
+
+    
+      </ion-list>
 </ion-content>

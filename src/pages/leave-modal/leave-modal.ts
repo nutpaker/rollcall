@@ -16,7 +16,7 @@ export class DateValidation {
     let enddate = Date.parse(abstractCtrl.get('enddate').value);
     let caldate = enddate - startdate;
     // 172800000
-    console.log(caldate);
+    // console.log(caldate);
     if (caldate > 172800000 || caldate < 0) {
       abstractCtrl.get('enddate').setErrors({ MatchDate: true });
     }
