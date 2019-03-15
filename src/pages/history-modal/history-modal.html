@@ -1,12 +1,12 @@
 <ion-header>
     <ion-toolbar class="header-toolbar" style="height: unset;" mode="ios">
-  
+
       <ion-buttons right>
         <button ion-button icon-only (click)="viewCtrl.dismiss()">
           <ion-icon name="close" class="color-white"></ion-icon>
         </button>
       </ion-buttons>
-      <ion-title mode="ios">History-Modal</ion-title>
+      <ion-title mode="ios">History - Modal</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -25,8 +25,8 @@
             <ion-list-header>
               ประวัติการเช็คชื่อเข้าเรียน
             </ion-list-header>
-        
-  
+
+
               <ion-item *ngFor="let item of timestamp" (click)="updateStatus(item)">
                 <h2>วันที่ {{item.day}} เวลา {{item.time}}</h2>
                 <!-- // 0 มา, 1 สาย, 2 ขาด , 3 ลา -->

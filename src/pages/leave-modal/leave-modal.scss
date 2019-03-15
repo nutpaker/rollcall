@@ -1,3 +1,15 @@
 page-leave-modal {
+  .toolbar-title-ios {
+    color: white;
+  }
+
+  .button.BtnSend{
+    width:90%;
+    background-color:map-get($theme,second-color);
+    background: $background-gradient;
+    color:white;
+    border-color: white;
+    margin-top: 30px;
+  }
 
 }
