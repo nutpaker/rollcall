@@ -5,8 +5,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { SocialSharing } from '@ionic-native/social-sharing';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner'
-import { Toast } from '@ionic-native/toast'
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Toast } from '@ionic-native/toast';
+import { Camera } from '@ionic-native/camera';
+import { FilePath } from '@ionic-native/file-path';
+import { File } from '@ionic-native/file';
+import { Base64 } from '@ionic-native/base64';
+import { ImageResizer } from '@ionic-native/image-resizer';
 
 // Other
 // FIREBASE
@@ -95,6 +100,11 @@ import { SubjectProvider } from '../providers/subject/subject';
     Toast,
     TimestampProvider,
     SubjectProvider,
+    Camera,
+    File,
+    FilePath,
+    Base64,
+    ImageResizer
   ]
 })
 export class AppModule {}

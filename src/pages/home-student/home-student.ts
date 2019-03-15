@@ -1,10 +1,14 @@
 
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Events,MenuController,ModalController, } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Events,MenuController,ModalController,ToastController } from 'ionic-angular';
 
 import { SubjectProvider } from '../../providers/subject/subject';
 import { LeaveModalPage } from '../leave-modal/leave-modal';
 import { MenuPage } from './../menu/menu';
+import {storage} from 'firebase';
+import { AngularFireDatabase } from 'angularfire2/database';
+
+
 @IonicPage()
 @Component({
   selector: 'page-home-student',
@@ -16,7 +20,9 @@ export class HomeStudentPage {
   uid:any;
   topic:any;
 
-  subject:any;;
+  subject:any;
+  leave:any;
+
 
   constructor(
     public navCtrl: NavController, 
@@ -25,6 +31,8 @@ export class HomeStudentPage {
     public menuCtrl:MenuController,
     public subjectService:SubjectProvider,
     public mdCtrl: ModalController,
+    public toastCtrl: ToastController,
+    private afd: AngularFireDatabase,
     ) {
       this.topic = "history";
 
@@ -34,8 +42,11 @@ export class HomeStudentPage {
       // console.log(this.uid);
 
       this.getSuject(this.uid,this.classroom['group_code']);
+      this.getLeave(this.uid,this.classroom['group_code']);
 
       console.log(this.subject);
+
+      // this.subjectService.saveLeave(this.uid,this.classroom)
   }
 
   ionViewDidLoad() {
@@ -57,22 +68,65 @@ export class HomeStudentPage {
     .then(res=>{
       var data = JSON.parse(JSON.stringify(res));
       var date = Date.parse(data.day);
-
-      // var sor
       this.subject = res;
-      console.log(this.subject);
+      // console.log(this.subject);
     });
   }
 
-  goToLeavemodal(){
-    let modal = this.mdCtrl.create(LeaveModalPage);
 
-    modal.present();
+  getLeave(uid:any,group_code:any){
+    this.leave = [];
+    this.subjectService.getLeve(uid,group_code)
+    .then(res=>{
+      this.leave = res;
+      console.log(this.leave);
+    });
   }
 
+
+
+  goToLeavemodal(){
+    let modal = this.mdCtrl.create(LeaveModalPage);
+    // this.events.publish('showLoading');
+    modal.present();
+    modal.onDidDismiss(data => {
+        if (data) {
+          // let key = this.afd.database.ref().push().key;
+          
+            this.subjectService.saveLeave(data,this.uid,this.classroom).then(res=>{
+              this.presentToast("แจ้งลาหยุดให้เรียบร้อยแล้ว !!");
+              this.getLeave(this.uid,this.classroom['group_code']);
+            })
+        }else{
+          this.presentToast("ไม่สามารถแจ้งลาหยุดได้ กรุณาแจ้งใหม่ !!");
+        }
+      
+    });
+  }
+
+  presentToast(_msg: any) {
+    let toast = this.toastCtrl.create({
+      message: _msg,
+      duration: 1500,
+      position: 'top'
+    });
+
+    toast.present();
+  }
   toHome() {
     // this.navCtrl.setRoot(MenuPage,{},{animate: true, direction:'forward'});
     this.events.publish('showLoading');
     this.navCtrl.setRoot(MenuPage, {}, { animate: true, direction: 'back' });
   }
+
+
+  removeleave(item:any){
+    this.afd.database.ref(`/leaves/${item.image_name}`).remove().then((res)=>{
+      storage().ref(`/leaves/${item.image_name}`).delete().then((ress)=>{
+        this.presentToast("ลบประวัติการแจ้งลา สำเร็จ");
+      });
+    });
+    this.getLeave(this.uid,this.classroom['group_code']);
+  }
+
 }
