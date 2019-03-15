@@ -36,7 +36,7 @@
         </ion-list-header>
     
 
-          <ion-item *ngFor="let item of leave">
+          <ion-item *ngFor="let item of leave" (click)="gotoLaveSetting(item)" >
                 <h2>ชื่อ {{item.fullname}}</h2>
                 <ion-row>
                   <ion-col>

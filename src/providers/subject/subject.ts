@@ -104,6 +104,23 @@ export class SubjectProvider {
           console.log("Error Save Image");
         })
   }
+
+
+  getImg(img_name: any) {
+    return new Promise(resolve => {
+      let storageRef = storage().ref();
+      var imageRef = storageRef.child(`leaves/${img_name}`);
+      imageRef.getDownloadURL()
+        .then((url) => { 
+          resolve(url);
+        });
+    });
+  }
+
+
+  updateStatus(key:any,status:any){
+    this.afd.database.ref(`/leaves/${key}`).update({status:status});
+  }
   
 
 }

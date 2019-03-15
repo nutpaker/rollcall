@@ -12,6 +12,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { File } from '@ionic-native/file';
 import { Base64 } from '@ionic-native/base64';
 import { ImageResizer } from '@ionic-native/image-resizer';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 // Other
 // FIREBASE
@@ -38,6 +39,7 @@ import { HomeStudentPageModule } from '../pages/home-student/home-student.module
 import { AddclassroomDateModalPageModule } from '../pages/addclassroom-date-modal/addclassroom-date-modal.module';
 import { EditsubjectModalPageModule } from '../pages/editsubject-modal/editsubject-modal.module'
 import { LeaveModalPageModule } from '../pages/leave-modal/leave-modal.module';
+import { LeaveSettingModalPageModule } from '../pages/leave-setting-modal/leave-setting-modal.module';
 
 // Menu
 import { MenuPageModule } from '../pages/menu/menu.module';
@@ -75,6 +77,7 @@ import { SubjectProvider } from '../providers/subject/subject';
     EditsubjectModalPageModule,
     HomeStudentPageModule,
     LeaveModalPageModule,
+    LeaveSettingModalPageModule,
     //Menu
     MenuPageModule,
     //Tab
@@ -104,7 +107,8 @@ import { SubjectProvider } from '../providers/subject/subject';
     File,
     FilePath,
     Base64,
-    ImageResizer
+    ImageResizer,
+    PhotoViewer
   ]
 })
 export class AppModule {}
