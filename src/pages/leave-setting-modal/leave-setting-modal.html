@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar class="header-toolbar" style="height: unset;" mode="ios">
+
+    <ion-buttons right>
+      <button ion-button icon-only (click)="viewCtrl.dismiss()">
+        <ion-icon name="close" class="color-white"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title mode="ios">Setting Leave</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+  <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
+
+      <ion-row class="border-bottom">
+          <ion-item no-lines >
+            <ion-label>ชื่อ</ion-label>
+            <ion-input formControlName="fullname"  [disabled]="true"></ion-input>
+          </ion-item>
+          </ion-row>
+
+
+    <ion-row class="border-bottom">
+  <ion-item no-lines>
+    <ion-label>Start Date</ion-label>
+    <ion-datetime formControlName="startdate" [disabled]="true"></ion-datetime>
+  </ion-item>
+  </ion-row>
+
+
+  <ion-row class="border-bottom">
+  <ion-item no-lines>
+    <ion-label>End Date</ion-label>
+    <ion-datetime formControlName="enddate" [disabled]="true"></ion-datetime>
+  </ion-item>
+  </ion-row>
+
+  <ion-row class="border-bottom">
+    <ion-item no-lines>
+      <ion-label>Detail</ion-label>
+      <ion-textarea formControlName="detail" rows="2" [disabled]="true"></ion-textarea>
+    </ion-item>
+  </ion-row>
+
+
+  <ion-row class="border-bottom" (click)="showPhoto()" >
+      <ion-item no-lines>
+        <div item-start>
+          Image
+        </div>
+
+        <ion-thumbnail float-right>
+          <img [src]="img_source">
+        </ion-thumbnail>
+      </ion-item>
+    </ion-row>
+
+
+
+        <ion-item>
+          <ion-label>แจ้งลาวันที่ </ion-label>
+          <ion-textarea formControlName="time" rows="2" [disabled]="true"></ion-textarea>
+        </ion-item>
+
+
+
+    <ion-list>
+        <ion-item>
+          <ion-label>สถานะ</ion-label>
+          <ion-select formControlName="status">
+            <ion-option value="0">กำลังตรวจสอบ</ion-option>
+            <ion-option value="1">ผ่าน</ion-option>
+            <ion-option value="2">ไม่ผ่าน</ion-option>
+
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+
+      <div>
+          <button ion-button round outline type="submit">Save</button>
+        </div>
+
+</form>
+
+</ion-content>

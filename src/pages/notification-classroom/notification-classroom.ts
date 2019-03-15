@@ -1,7 +1,8 @@
 import { MenuPage } from './../menu/menu';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Events } from 'ionic-angular';
-import { SubjectProvider } from '../../providers/subject/subject'
+import { IonicPage, NavController, NavParams,Events,ModalController,ToastController } from 'ionic-angular';
+import { SubjectProvider } from '../../providers/subject/subject';
+import { LeaveSettingModalPage } from '../leave-setting-modal/leave-setting-modal';
 
 @IonicPage()
 @Component({
@@ -21,6 +22,8 @@ export class NotificationClassroomPage {
      public navParams: NavParams,
      public events:Events,
      public subjectService:SubjectProvider,
+     public mdCtrl: ModalController,
+     public toastCtrl: ToastController,
      ) {
       this.group_code = this.navParams.get('group_code');
       this.group_name = this.navParams.get('group_name');
@@ -53,6 +56,17 @@ export class NotificationClassroomPage {
       this.leave = res;
       console.log(res);
     });
+  }
+  
+  gotoLaveSetting(item:any){
+    let modal = this.mdCtrl.create(LeaveSettingModalPage,{item:item});
+    modal.present();
+    modal.onDidDismiss(data => {
+      if (data) {
+      this.subjectService.updateStatus(item.image_name,data.status);
+      this.getLeve();
+      }
+  });
   }
 
 }
