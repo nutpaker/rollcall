@@ -40,6 +40,7 @@ import { AddclassroomDateModalPageModule } from '../pages/addclassroom-date-moda
 import { EditsubjectModalPageModule } from '../pages/editsubject-modal/editsubject-modal.module'
 import { LeaveModalPageModule } from '../pages/leave-modal/leave-modal.module';
 import { LeaveSettingModalPageModule } from '../pages/leave-setting-modal/leave-setting-modal.module';
+import { HistoryModalPageModule } from '../pages/history-modal/history-modal.module';
 
 // Menu
 import { MenuPageModule } from '../pages/menu/menu.module';
@@ -84,7 +85,8 @@ import { SubjectProvider } from '../providers/subject/subject';
     ClassroomPageModule,
     HomeClassroomPageModule,
     NotificationClassroomPageModule,
-    SettingClassroomPageModule
+    SettingClassroomPageModule,
+    HistoryModalPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
