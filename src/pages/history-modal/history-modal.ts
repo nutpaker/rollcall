@@ -59,7 +59,7 @@ export class HistoryModalPage {
     alert.setTitle('Select Status');
     alert.addInput({
       type: 'radio',
-      label: 'มาทันเข้าเรียนปกติ',
+      label: 'เข้าเรียนตรงเวลา',
       value: '0',
       checked: chk1
     });
@@ -92,7 +92,7 @@ export class HistoryModalPage {
             duration: 1500,
             position: 'top'
           });
-      
+
           toast.present();
 
           this.viewCtrl.dismiss();
