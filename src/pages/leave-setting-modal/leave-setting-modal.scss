@@ -1,2 +1,13 @@
 page-leave-setting-modal {
+    .toolbar-title-ios {
+        color: white;
+      }
+
+    .button.BtnSave{
+        width:50%;
+        background-color:map-get($theme,second-color);
+        background: $background-gradient;
+        color:white;
+        border-color: white;
+    }
 }

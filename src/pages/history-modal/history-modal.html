@@ -6,7 +6,7 @@
           <ion-icon name="close" class="color-white"></ion-icon>
         </button>
       </ion-buttons>
-      <ion-title mode="ios">History - Modal</ion-title>
+      <ion-title mode="ios">HISTORY MODEL</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -23,7 +23,9 @@
       </ion-refresher>
         <ion-list *ngIf="timestamp != 0">
             <ion-list-header>
-              ประวัติการเช็คชื่อเข้าเรียน
+              <div text-center>
+                  <h2 style="color:black;"><b>ประวัติการเช็คชื่อเข้าเรียน</b></h2>
+                </div>
             </ion-list-header>
 
 
@@ -43,7 +45,9 @@
               </ion-item>
           </ion-list>
 
-          <img *ngIf="timestamp == 0" src="../../assets//imgs/qr2.png">
-
+          
+          <ion-item no-lines>
+              <img style="margin-top: 40%;" *ngIf="timestamp == 0" src="../../assets//imgs/notification.png">
+          </ion-item>
 
 </ion-content>

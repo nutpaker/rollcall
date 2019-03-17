@@ -6,7 +6,7 @@
         <ion-icon name="close" class="color-white"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title mode="ios">Setting Leave</ion-title>
+    <ion-title mode="ios">SETTING LEAVE</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -26,7 +26,7 @@
 
     <ion-row class="border-bottom">
   <ion-item no-lines>
-    <ion-label>Start Date</ion-label>
+    <ion-label>วันที่ลา</ion-label>
     <ion-datetime formControlName="startdate" [disabled]="true"></ion-datetime>
   </ion-item>
   </ion-row>
@@ -34,14 +34,14 @@
 
   <ion-row class="border-bottom">
   <ion-item no-lines>
-    <ion-label>End Date</ion-label>
+    <ion-label>ถึงวันที่</ion-label>
     <ion-datetime formControlName="enddate" [disabled]="true"></ion-datetime>
   </ion-item>
   </ion-row>
 
   <ion-row class="border-bottom">
     <ion-item no-lines>
-      <ion-label>Detail</ion-label>
+      <ion-label>รายละเอียด</ion-label>
       <ion-textarea formControlName="detail" rows="2" [disabled]="true"></ion-textarea>
     </ion-item>
   </ion-row>
@@ -50,7 +50,7 @@
   <ion-row class="border-bottom" (click)="showPhoto()" >
       <ion-item no-lines>
         <div item-start>
-          Image
+          รูปภาพ
         </div>
 
         <ion-thumbnail float-right>
@@ -81,8 +81,8 @@
       </ion-list>
 
 
-      <div>
-          <button ion-button round outline type="submit">Save</button>
+      <div text-center>
+          <button class="BtnSave" ion-button round outline type="submit">Save</button>
         </div>
 
 </form>
