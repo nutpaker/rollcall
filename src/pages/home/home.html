@@ -1,27 +1,9 @@
-<!-- <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>home</ion-title>
-    <ion-buttons end>
-      <button ion-button *ngIf="_role == 0">
-        <ion-icon name="add"></ion-icon>
-      </button>
-
-      <button ion-button *ngIf="_role == 1" (click)="toAddClassroom()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-</ion-header> -->
-
 <ion-header>
   <ion-toolbar class="header-toolbar" style="height: unset;" mode="ios">
     <button ion-button menuToggle>
       <ion-icon name="menu" class="color-white"></ion-icon>
     </button>
-    <ion-title mode="ios">home</ion-title>
+    <ion-title mode="ios">HOME</ion-title>
     <ion-buttons end>
       <button ion-button *ngIf="_role == 0" (click)="joinClassroom()">
         <ion-icon name="add" class="color-white"></ion-icon>
@@ -46,7 +28,9 @@
       </ion-refresher>
   <ion-list *ngIf="classroom != 0">
     <ion-list-header>
-      ห้องเรียน
+      <div text-center>
+        <h2 style="color:black;"><b>ห้องเรียน</b></h2>
+      </div>
     </ion-list-header>
 
     <ion-item-sliding *ngFor="let item of classroom">
@@ -54,7 +38,7 @@
         <h2>{{item.group_name}}</h2>
         <p>Invaite Code : {{item.invite_code}}</p>
         <ion-note item-end>
-          <ion-icon name="menu"></ion-icon>
+          <ion-icon name="arrow-dropleft"></ion-icon>
         </ion-note>
       </ion-item>
       <ion-item-options side="right">

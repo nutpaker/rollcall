@@ -33,7 +33,7 @@ export class DateValidation {
 export class LeaveModalPage {
 
   leaveForm: FormGroup;
-  img_source: any = '../../assets/imgs/qr2.png';
+  img_source: any;
 
   constructor(
     public navCtrl: NavController,

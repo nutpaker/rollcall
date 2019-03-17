@@ -19,12 +19,12 @@
         </ion-refresher-content>
       </ion-refresher>
     <ion-list *ngIf="student != 0">
-        <ion-list-header>   
+        <ion-list-header style="backgroud-color:black;">   
           <div float-left>
-              สมาชิก
+            <h2 style="color:black;"><b>สมาชิก</b></h2>
           </div>
           <div float-right>
-              {{student.length}} คน
+            จำนวน : {{student.length}} คน
           </div>
         </ion-list-header>
           <ion-item *ngFor="let item of student" (click)="gotoHistory(item)" >
@@ -32,6 +32,7 @@
           </ion-item>
       </ion-list>
 
-
-      <img *ngIf="student == 0" src="../../assets//imgs/qr2.png">
+      <ion-item no-lines>
+        <img style="margin-top: 20%;" *ngIf="student == 0" src="../../assets//imgs/dontStudent.png">
+      </ion-item>
 </ion-content>

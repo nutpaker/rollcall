@@ -6,7 +6,7 @@
     <button mode="ios" ion-button icon-only clear (click)="toHome()">
         <ion-icon name="ios-arrow-dropleft-outline" class="color-white"></ion-icon>
       </button>
-    <ion-title mode="ios">home-student</ion-title>
+    <ion-title mode="ios">HOME STUDENT</ion-title>
     <ion-buttons end>
       <button ion-button *ngIf="topic == 'news'" (click)="goToLeavemodal()"  >
         <ion-icon name="add" class="color-white"></ion-icon>
@@ -42,7 +42,9 @@
   <div *ngIf="topic == 'history'">
       <ion-list *ngIf="subject != 0">
           <ion-list-header>
-            ประวัติการเช็คชื่อเข้าเรียน
+            <div text-center>
+                <h2 style="color:black;"><b>ประวัติการเช็คชื่อเข้าเรียน</b></h2>
+              </div>
           </ion-list-header>
 
 
@@ -61,7 +63,10 @@
               </ion-note>
             </ion-item>
         </ion-list>
-        <img *ngIf="subject == 0" src="../../assets//imgs/qr2.png">
+        <ion-item no-lines>
+          <img style="margin-top: 15%;" *ngIf="subject == 0" src="../../assets//imgs/dontScheduleStu.png">
+        </ion-item>
+
   </div>
 
 
@@ -69,7 +74,9 @@
   <div *ngIf="topic == 'news'">
     <ion-list *ngIf="leave != 0">
         <ion-list-header>
-          ประวัติการแจ้งขอลาหยุด
+            <div text-center>
+                <h2 style="color:black;"><b>ประวัติการแจ้งขอลาหยุด</b></h2>
+              </div>
         </ion-list-header>
 
 
@@ -95,6 +102,9 @@
           </ion-item-sliding>
       </ion-list>
 
-      <img *ngIf="leave == 0" src="../../assets//imgs/qr2.png">
+      
+      <ion-item no-lines>
+        <img style="margin-top: 15%;" *ngIf="leave == 0" src="../../assets//imgs/dontScheduleStu.png">
+      </ion-item>
 </div>
 </ion-content>

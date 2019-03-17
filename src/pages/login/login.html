@@ -45,12 +45,14 @@
     <div text-center>
       <button class="BtnLogin" ion-button round outline type="submit" [disabled]="authForm.invalid">LOGIN</button>
     </div>
+    
   </form>
-
+  
+  <div text-center>
+      <button class="BtnRegister" ion-button round outline (click)="toRegister()">Register Now</button>
+  </div>
   <!-- <ion-footer mode="ios"> -->
-      <div text-center>
-        <button class="BtnRegister" ion-button round outline (click)="toRegister()">Register Now</button>
-      </div>
+      
   <!-- </ion-footer> -->
 
   <!-- <ion-footer>
@@ -62,3 +64,4 @@
   </ion-footer> -->
 
 </ion-content>
+
