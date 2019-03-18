@@ -3,12 +3,6 @@ import { IonicPage, NavController, NavParams, Events, ViewController, ActionShee
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from "@angular/forms";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { DomSanitizer } from '@angular/platform-browser';
-import { FilePath } from '@ionic-native/file-path';
-import { File } from '@ionic-native/file';
-import { Base64 } from '@ionic-native/base64';
-import { ImageResizer, ImageResizerOptions } from '@ionic-native/image-resizer';
-
-declare var window
 
 export class DateValidation {
   static MatchDate(abstractCtrl: AbstractControl) {
@@ -46,11 +40,7 @@ export class LeaveModalPage {
     public domSanitizer: DomSanitizer,
     public actionSheetCtrl: ActionSheetController,
     public platform: Platform,
-    public filePath: FilePath,
-    public file: File,
-    public base64: Base64,
     public toastCtrl: ToastController,
-    public imageResizer: ImageResizer,
   ) {
 
     this.leaveForm = formBuilder.group({

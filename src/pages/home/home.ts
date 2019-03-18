@@ -189,8 +189,10 @@ export class HomePage {
   }
 
   shareClassroom(item?) {
+    console.log("Share.....");
     let index = this.classroom.indexOf(item);
     if (index > -1) {
+      console.log("Share if condition");
       this.socialSharing.share("สามารถเข้าร่วม Classroom ด้วยรหัส " + this.classroom[index]['invite_code'], null, null, AppSettings.API_SHARE + '?gcode=' + this.classroom[index]['group_code'])
         .then((res) => {
           console.log("Share Success");
