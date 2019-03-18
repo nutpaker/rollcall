@@ -361,7 +361,7 @@ export class ClassroomProvider {
             console.log(JSON.stringify(resp));
             if (resp) {
               if (resp['status']) {
-                resolve({ status: false, message: "คุณอยู่ในกลุ่มนี้อยู่แล้วครับผมมม" });
+                resolve({ status: false, message: "คุณอยู่ในกลุ่มนี้อยู่แล้ว" });
               } else {
                 let classroom = {
                   group_code: res['group_code'],
@@ -370,7 +370,7 @@ export class ClassroomProvider {
                 }
                 const classroomSave = this.afd.database.ref(`/classrooms/${this.afd.database.ref().push().key}`);
                 classroomSave.set(classroom).then(() => {
-                  resolve({ status: true, message: "เพิ่มกลุ่มเรียนเรียบร้อยยยย" });
+                  resolve({ status: true, message: "เพิ่มกลุ่มเรียนเรียบร้อยแล้ว" });
                 })
 
               }
@@ -393,7 +393,7 @@ export class ClassroomProvider {
       }
       const classroomSave = this.afd.database.ref(`/classrooms/${this.afd.database.ref().push().key}`);
       classroomSave.set(classroom).then(() => {
-        resolve({ status: true, message: "เพิ่มกลุ่มเรียนเรียบร้อยยยย" });
+        resolve({ status: true, message: "เพิ่มกลุ่มเรียนเรียบร้อยแล้ว" });
       });
     });
   }
