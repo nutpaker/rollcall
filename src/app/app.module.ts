@@ -8,9 +8,9 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Toast } from '@ionic-native/toast';
 import { Camera } from '@ionic-native/camera';
-import { FilePath } from '@ionic-native/file-path';
-import { File } from '@ionic-native/file';
-import { Base64 } from '@ionic-native/base64';
+// import { FilePath } from '@ionic-native/file-path';
+// import { File } from '@ionic-native/file';
+// import { Base64 } from '@ionic-native/base64';
 import { ImageResizer } from '@ionic-native/image-resizer';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
@@ -106,9 +106,9 @@ import { SubjectProvider } from '../providers/subject/subject';
     TimestampProvider,
     SubjectProvider,
     Camera,
-    File,
-    FilePath,
-    Base64,
+    // File,
+    // FilePath,
+    // Base64,
     ImageResizer,
     PhotoViewer
   ]
