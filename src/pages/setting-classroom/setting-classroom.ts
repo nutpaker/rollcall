@@ -112,17 +112,17 @@ export class SettingClassroomPage {
   
   changeGroupname(){
     const confirm = this.alertCtrl.create({
-      title: 'Use this lightsaber?',
-      message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
+      title: 'คุณต้องการแก้ไขชื่อห้องเรียนใช่หรือไม่?',
+      // message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
       buttons: [
         {
-          text: 'Disagree',
+          text: 'Cancel',
           handler: () => {
             console.log('Disagree clicked');
           }
         },
         {
-          text: 'Agree',
+          text: 'Confirm',
           handler: () => {
             this.classroomService.updategroupname(this.group_code,this.group_name_change)
     .then(res=>{
