@@ -105,16 +105,16 @@ export class AddclassroomPage {
 
   removeDayTime(item: any) {
     let alert = this.alertCtrl.create({
-      title: 'Use this lightsaber?',
-      message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
+      title: 'คุณต้องการลบตารางเวลานี้หรือไม่ ?',
+      // message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
       buttons: [
         {
-          text: 'Disagree',
+          text: 'Cancel',
           handler: () => {
           }
         },
         {
-          text: 'Agree',
+          text: 'Confirm',
           handler: () => {
             this.classroomService.removeSubject(item['subject_code']);
             this.getSubject(this.group_code);

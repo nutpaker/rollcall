@@ -75,7 +75,7 @@ export class AddclassroomDateModalPage {
             if (j['day'] == this.studyForm.value['studyDay'] && (nstart < oend && nend > ostart)) {
               let alert = this.alertCtrl.create({
                 title: 'Warring',
-                subTitle: 'เวลาทับ',
+                subTitle: 'ตารางเวลาเรียนช่องกัน กรุณาเลือกลงเวลาอื่น',
                 buttons: ['Dismiss']
               });
               alert.present();
