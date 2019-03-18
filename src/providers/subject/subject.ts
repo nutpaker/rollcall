@@ -20,7 +20,7 @@ export class SubjectProvider {
     
   getStamptime(uid,group_code){
     return new Promise(resolve=>{
-      this.afd.database.ref('timestamp').orderByChild('stamp').once("value")
+      this.afd.database.ref('timestamp').orderByKey().once("value")
       .then(snapshot=>{
         this.subject = [];
           snapshot.forEach(childsnapshot=>{

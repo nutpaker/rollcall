@@ -49,12 +49,12 @@ export class TimestampProvider {
         .then((res) => {
           let unixDay = "" + Date.parse(formattedDate);
           let mes: any;
-          res.forEach((childsnapshot) => {
-            let childunixDay = "" + Date.parse(childsnapshot.val().day);
-            if (subjectdata['subject_code'] == childsnapshot.val().subject_code && uid == childsnapshot.val().uid && unixDay == childunixDay) {
-              resolve({ status: true});
-            }
-          });
+            res.forEach((childsnapshot) => {
+              let childunixDay = "" + Date.parse(childsnapshot.val().day);
+              if (subjectdata['subject_code'] == childsnapshot.val().subject_code && uid == childsnapshot.val().uid && unixDay == childunixDay) {
+                resolve({ status: true});
+              }
+            });
           resolve({ status: false});
         });
     });
@@ -155,6 +155,7 @@ export class TimestampProvider {
                           });
                         }
                       }
+                      // alert("+++++");
                       // เคยเช็คชื่อไปแล้วววว
                     } else {
                       resolve({ status: false, message: "ได้ทำการเช็คชื่อไปแล้ว" });
@@ -190,6 +191,8 @@ export class TimestampProvider {
 
   public stampTime(uid: any, subject: any, date: any, time: any, status: any) {
     return new Promise((resolve) => {
+      // let dates = Date.parse(date + " " + time);
+      // console.log(time);
       let data = {
         group_code: subject['group_code'],
         subject_code: subject['subject_code'],
@@ -198,8 +201,9 @@ export class TimestampProvider {
         status: status,
         time: time,
         day: date,
-        stamp: Date.parse(date + " " + time)
+        // stamp: dates
       }
+      // let key = this.afd.database.ref().key;
       const timestamp = this.afd.database.ref(`/timestamp/`);
       timestamp.push(data).then((res) => {
         if (status == 0) {
