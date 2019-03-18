@@ -156,7 +156,7 @@ export class HomePage {
               .then((res) => {
                 if (res['status']) {
                   let alert = this.alertCtrl.create({
-                    title: 'Use this lightsaber?',
+                    title: 'Join Classroom',
                     message: res['message'],
                     buttons: [
                       {
@@ -170,7 +170,7 @@ export class HomePage {
                   alert.present();
                 } else {
                   let alert = this.alertCtrl.create({
-                    title: 'Use this lightsaber?',
+                    title: 'Join Classroom',
                     message: res['message'],
                     buttons: [
                       {
@@ -193,7 +193,7 @@ export class HomePage {
     if (index > -1) {
       this.socialSharing.share("สามารถเข้าร่วม Classroom ด้วยรหัส " + this.classroom[index]['invite_code'], null, null, AppSettings.API_SHARE + '?gcode=' + this.classroom[index]['group_code'])
         .then((res) => {
-          console.log("Share Success");
+          this.toast.show("แชร์สำเร็จ", '5000', 'bottom').subscribe();
         }, (err) => {
           console.log(err);
         })
@@ -202,7 +202,7 @@ export class HomePage {
 
   scanQR() {
     this.options = {
-      prompt: "Testtttttttttt",
+      prompt: "Plase Scan QR Code",
     };
     this.barcodeScanner.scan(this.options)
       .then(barcodeData => {
@@ -212,8 +212,8 @@ export class HomePage {
           ///////////////// ไม่มีกลุ่มอยู่
           if (res['status']) {
             const prompt = this.alertCtrl.create({
-              title: 'Login',
-              message: res['message'] + " " +res['group_code'],
+              title: 'Join Classroom',
+              message: res['message'],
               buttons: [
                 {
                   text: 'Cancel',

@@ -118,7 +118,7 @@ export class SettingClassroomPage {
         {
           text: 'Cancel',
           handler: () => {
-            console.log('Disagree clicked');
+            // console.log('Disagree clicked');
           }
         },
         {
