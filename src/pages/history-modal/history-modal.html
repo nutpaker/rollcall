@@ -32,7 +32,7 @@
               <ion-item *ngFor="let item of timestamp" (click)="updateStatus(item)">
                 <h2>วันที่ {{item.day}} เวลา {{item.time}}</h2>
                 <!-- // 0 มา, 1 สาย, 2 ขาด , 3 ลา -->
-                <p *ngIf="item.status == 0">สถานะ : เข้าเรียนปกติ</p>
+                <p *ngIf="item.status == 0">สถานะ : เข้าเรียนตรงเวลา</p>
                 <p *ngIf="item.status == 1">สถานะ : เข้าเรียนสาย</p>
                 <p *ngIf="item.status == 2">สถานะ : ไม่เข้าเรียน</p>
                 <p *ngIf="item.status == 3">สถานะ : ลา</p>
@@ -45,7 +45,7 @@
               </ion-item>
           </ion-list>
 
-          
+
           <ion-item no-lines>
               <img style="margin-top: 40%;" *ngIf="timestamp == 0" src="../../assets//imgs/notification.png">
           </ion-item>

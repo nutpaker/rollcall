@@ -40,8 +40,11 @@
       </ion-refresher>
     <ion-list *ngIf="leave != 0">
         <ion-list-header>
-          ประวัติการแจ้งขอลาหยุด
+          <div text-center>
+            <h2 style="color:black;"><b>ประวัติการแจ้งขอลาหยุด</b></h2>
+          </div>
         </ion-list-header>
+
 
 
           <ion-item *ngFor="let item of leave" (click)="gotoLaveSetting(item)" >
