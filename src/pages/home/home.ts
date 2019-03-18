@@ -95,16 +95,16 @@ export class HomePage {
 
   removeClassroom(item?) {
     let alert = this.alertCtrl.create({
-      title: 'Use this lightsaber?',
-      message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
+      title: 'คุณต้องการลบห้องเรียนนี้หรือไม่?',
+      // message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
       buttons: [
         {
-          text: 'Disagree',
+          text: 'Cancel',
           handler: () => {
           }
         },
         {
-          text: 'Agree',
+          text: 'Confirm',
           handler: () => {
             let index = this.classroom.indexOf(item);
             if (index > -1) {
@@ -244,7 +244,7 @@ export class HomePage {
               ///////////////// มีกลุ่มอยู่แล้ว 
             } else {
             const alert = this.alertCtrl.create({
-              title: 'New Friend!',
+              title: 'ผลการเช็คชื่อ',
               subTitle: res['message'],
               buttons: ['OK']
             });
