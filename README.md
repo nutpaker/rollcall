@@ -20,7 +20,7 @@
 
 - Tutorial [Click](https://www.youtube.com/playlist?list=PLQo_seKW1Y59gv2_TiDXVwXzC513HISkS)
 
-[![Little red ridning hood](http://i.imgur.com/7YTMFQp.png)](https://www.youtube.com/watch?v=Xgqs7Z93GEs "Little red riding hood - Click to Watch!")
+[![RollCall Preview](https://img.live/images/2019/03/21/Capture.png)](https://www.youtube.com/watch?v=Xgqs7Z93GEs "RollCall Preview - Click to Watch!")
 
 
 -----------------------------------Ionic Info-----------------------------------
