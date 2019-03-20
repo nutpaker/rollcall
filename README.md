@@ -21,6 +21,8 @@
 - Tutorial
 https://www.youtube.com/playlist?list=PLQo_seKW1Y59gv2_TiDXVwXzC513HISkS
 
+[linkname](https://www.youtube.com/playlist?list=PLQo_seKW1Y59gv2_TiDXVwXzC513HISkS)
+
 
 -----------------------------------Ionic Info-----------------------------------
 
