@@ -20,7 +20,7 @@
 
 - Tutorial [Click](https://www.youtube.com/playlist?list=PLQo_seKW1Y59gv2_TiDXVwXzC513HISkS)
 
-[![Little red ridning hood]](https://www.youtube.com/watch?v=Xgqs7Z93GEs "https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjGotPfvpHhAhVr6nMBHQ_DDkcQjRx6BAgBEAU&url=https%3A%2F%2Fhackernoon.com%2Fgetting-started-with-ionic-framework-an-overview-6725b687779b&psig=AOvVaw0PZrTqayoWfZ1KY30jX3__&ust=1553197773686412")
+[![Little red ridning hood](http://i.imgur.com/7YTMFQp.png)](https://www.youtube.com/watch?v=Xgqs7Z93GEs "Little red riding hood - Click to Watch!")
 
 
 -----------------------------------Ionic Info-----------------------------------
