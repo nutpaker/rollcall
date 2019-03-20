@@ -18,10 +18,7 @@
 5.Function (Your can dowmload my Function : https://goo.gl/ecfQLF)
 6.FCM (Commisoon)
 
-- Tutorial
-https://www.youtube.com/playlist?list=PLQo_seKW1Y59gv2_TiDXVwXzC513HISkS
-
-[linkname](https://www.youtube.com/playlist?list=PLQo_seKW1Y59gv2_TiDXVwXzC513HISkS)
+- Tutorial [Click](https://www.youtube.com/playlist?list=PLQo_seKW1Y59gv2_TiDXVwXzC513HISkS)
 
 
 -----------------------------------Ionic Info-----------------------------------
